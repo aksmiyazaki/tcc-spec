@@ -1,0 +1,14 @@
+%
+% UFRGS TeX Users Group
+% Institute of Informatics --- UFRGS
+% Porto Alegre, Brazil
+% http://www.inf.ufrgs.br/utug
+% Discussion list: utug-l@inf.ufrgs.br
+%
+% Copyright (C) 2001,2003 UFRGS TeX Users Group
+% This is free software, distributed under the GNU GPL; please take
+% a look in `iiufrgs.cls' to see complete information on using, copying
+% and redistributing these files
+%
+\ProvidesFile{prop-esp.def}[2018/20/04 Proposta de Monografia de Especialização]
+\newcommand{\titlepagespecificinfo}{Proposta de Trabalho de Conclus{\~a}o de Curso}
