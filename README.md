@@ -1,8 +1,9 @@
 ## Glossário de termos da área
 | Termo  | Descrição  |
 |:--|:--|
-| BSP applications | Bulk-synchronous parallel applications, abordagem comum quando trabalhando com ambientes homogêneos  |
-|   |   |
+| BSP applications | Bulk-synchronous parallel applications, abordagem comum quando trabalhando com ambientes homogêneos.  |
+| DAG applications | Aplicações Task-based modeladas em um Directed Acyclic Graph. |
+| Exascale computing | Computação no nível de exaFLOPS. |
 ### Notas sobre Analyzing Dynamic Task-Based applications on Hybrid Platforms: An Agile Scripting Approach
 - Análise de aplicações _task-based_ em arquiteturas híbridas
 - StarPU runtime system -> task parallelism runtime que objetiva explorar arqui
@@ -64,3 +65,108 @@ várias visualizações e propor visualizações alternativas de forma ágil.
     regados em R.
     4. Para visualizações estáticas, utiliza-se ggplot2, para dinâmicas, utiliza
     -se plotly
+
+### Notas sobre A Visual Performance Analysis Framework for Task-based Parallel Applications running on Hybrid Clusters
+- Fala sobre a Heterogeneidade de arquiteturas atuais de HPC
+- Ferramentas para desenvolver e analizar aplicações nessas plataformas torna
+ram-se obsoletas, por suas limitações
+- Principal responsável por melhorias de performance agora não é quem desenvolve
+a aplicação, mas quem desenvolve o runtime (task-based apps)
+- Modelo possui duas fases:
+    - 1ª realizada em um data server (essa é a que deve ser otimizada)
+    - 2ª no PC do analista (leve, apenas para visualização)
+- Aplicações HPC antes eram desenvolvidas seguindo paradigma BSP. Tal paradigma
+partia do pressuposto um ambiente homogêneo.
+- BSP tornou-se impraticável com HW heterogêneo (talvez só ineficiente).
+- StarPU é uma plataforma para desenvolvimento de aplicações DAG, focada em ar
+quiteturas híbridas (single node).
+    - Baseia-se em múltiplas implementações da mesma tarefa, uma para cada recur
+    so
+- StarPU-MPI - extensão que permite múltiplos nós
+- Com a escasses de ferramentas para a análise de performance focadas em task-ba
+sed applications, desenvolvedores acabam utilizando aquelas focadas em BSP.
+    - Tais ferramentas assumem homogeneidade de recursos
+    - Não são adequadas para análise de desenpenho pois heterogeneidade e execu
+    ção não estruturada é o comportamento comum em task-based apps.
+- Visualização BSP
+    - Plots de espaço/tempo, geralmente baseados em Ganntt
+    - Vertical -> Recursos | Horizontal -> Tarefas
+    - Problema de escala (milhares de cores)
+    - Opções
+        - Vite
+        - Paraver
+        - Vampir (Closed-source)
+        - Scalasca?
+- Aplicações paralelas baseadas em DAG
+    - Tem diferentes necessidades durante análise de performance (escalonamento
+        estocástico)
+    - Poucas ferramentas focadas nesse tipo de aplicação
+    - Essas poucas ferramentas se inspiram em ferramentas de visualização de tra
+    ces baseadas em BSP
+    - Alternativa a visualização no estilo Gantt é o DAGViz
+        - Representação visual do DAG e onde as tarefas foram executadas
+        - Interativo, permite colapsar, expandir o DAG
+        - Não há como obter duração de tarefas, o que torna análise de performan
+        ce difícil
+    - Temanejo fornece recursos diferentes
+- Análise de performance em aplicações Task-Based, tratando-se de ferramentas, é
+ imatura.
+- Desenvolvedores de aplicações e runtime precisam de soluções efetivas para iden
+tificar questões relacionadas a performance.
+- Há duas principais dificuldades
+    - Integrar várias fontes de dados heterogêneos em um único modelo
+    - Adaptar representações gráficas para um objeto tão complexo
+- Análises de performance aprofundadas requerem o merge de traces de aplicação,
+runtime e hardware.
+- No trabalho, considerou-se
+    - Uniformidade - Duração de tarefas depende somente de seu tipo e do recurso
+    no qual ela será executada.
+    - Problemas de dependência - Número de dependências é esperado ser muito
+    grande. Por isso, se uma visualização de dependências detalhada mostrar-se
+    necessária, a seleção dessas tarefas deve ser realizada via script.
+    - Progresso - Execução pode ser em largura, similar a uma Breadth-first search, ou em profundidade, favorecendo o caminho crítico.
+    - Melhorias em potencial - É possível basear-se em limites de escalonamento
+    clássicos para detectar se melhorias são possíveis (ABE).
+    - Agregação e filtragem - Mostrar informações de centenas de milhares de ta
+    refas pode não ser eficiente. a ideia é filtrar e agregar informações para
+    exibir uma visualização mais eficiente.
+    - Distribuição de dados em múltiplos nós - Em um cenário ideal, a carga de
+    trabalho é dividida igualmente entre os MPI nodes. Se esse não for o caso,
+    perdas de performance podem ser explicadas pelo limite de comunicação no fi
+    nal da execução.
+- Desta lista de considerações, o trabalho de visualização foi proposto
+- Ao realizar o trace do comportamento de aplicação, traces podem se tornar ex
+tremamente grandes.
+- Algum tipo de redução de dados deve ser aplicada
+    - Algumas técnicas reduzem a complexidade apenas em tempo
+    - Outras reduzem em tempo e espaço
+- No StarVZ, foram utilizados dois métodos de agregação temporal
+    - No primeiro, para gráficos de espaço/tempo, o objetivo é seletivamente agregar apenas tipos de tarefas
+    que são numerosos
+    - No segundo, para gráficos em linha, onde o objetivo foi reduzir o excesso
+    de detalhes
+- Gráficos de espaço/tempo - integração temporal
+    - Tarefas que são raras (ex: tarefas dpotrf na aplicação de estudo) não são
+    agregadas
+    - Tarefas que são Outliers (demoram mais que o tempo esperado) também não
+    são agrupadas
+    - Tarefas que não seguem os pontos anteriores (numerosas e executaram no tem
+    po esperado) são agrupadas
+    - Altura do agrupamento descreve o quanto tempo aquele tipo de tarefa que foi agrupada efetivamente esteve em ação.
+- Gráficos em linha - smoothing e reduzindo a complexidade de variáveis
+    - Dois problemas que geram a necessidade de realizar-se esses ajustes:
+        - Número de pixels não é o suficiente para representar os _data points_
+        - Muitas métricas obtidas pelo StarPU, especialmente aquelas
+        relacionadas a GPU e MPI, são de fato estimativas.
+    - Integração temporal, discretizando o tempo e reduzindo o número de _data
+     points_
+     - Fazendo integração temporal pode-se esconder certos comportamentos, além
+     de criar fases artificiais.
+- Workflow
+![](img/phase1-times.png)
+    - Este primeiro workflow será o otimizado a princípio.
+    - Não vou entrar no mérito do segundo em anotações.
+    - Enviado e-mail para professor, pois conforme Figura, apenas t3 (D - Clea
+    ning, filtering, derivation) são realizadas em R. Simplesmente utilizar
+    sparklyr nisso é suficiente para TC? Acho que não (embora esse possa ser o
+    link do trabalho com a espec.) 
