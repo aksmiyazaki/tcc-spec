@@ -119,14 +119,25 @@
 %
 \chapter{Introdução} \label{intro}
 
+A quantidade de dados gerados em todo o mundo diariamente é surpreendente. De acordo com \cite{}, há uma estimativa
+que em 2020 cada pessoa deve gerar em média 1,7MB de dados. Estes frequentemente precisam ser processados para ter algum valor e,
+com essa frequente necessidade de poder de computação, plataformas de HPC (\emph{High-Performance Computing}) evoluíram para utilizar algumas
+tecnologias, como processadores multicore e GPUs (\emph{Graphics processing units}, comumente referenciadas como \empf{accelerators}).
+
+Com a evolução do Hardware, a abordagem de desenvolvimento de aplicações de HPC tradicional, chamada de Bulk-synchronous parallel (BSP) tornou-se 
+obsoleta, pois espera que os recursos de computação sejam homogêneos (nós idênticos, conectados por links estáveis e de alta vazão) e portanto, é incapaz de utilizar a heterogeneidade do ambiente ao seu favor. Uma abordagem que está sendo utilizada é desenvolver a aplicação em alto nível, descrevendo as computações como um Directed Acyclic Graph (DAG) de tarefas. Essa abordagem é implementada por múltiplos modelos de programação: OpenMP \cite{}, StarPU, OmpSs \cite{}, ParSEC \cite{}, etc. 
+
+Nesses modelos de programação, a responsabilidade de escalonar e executar a aplicação de forma performática é atribuída para outra camada de software, denominada \emph{runtime}. Ferramentas que antes auxiliavam o desenvolvedor da aplicação a fazer otimizações, como Paraver \cite{} e Vampir \cite{}
+não são mais suficientes.
+
+Com essa motivação, foi desenvolvido um \emph{framework}, denominado StarVZ, cujo objetivo era fornecer uma visualização de dados mais elaborada, provendo entendimento e identificação facilitada de problemas de performance que não seriam identificados tão facilmente com abordagens de visualização clássicas. Esse \emph{framework} foi desenvolvido combinando \emph{pj\_dump},  a linguagem R \cite{} e algumas bibliotecas expressivas dessa linguagem (\emph{ggplot2} \cite{}, \emph{lpSolve} \cite{} e \emph{tidyverse}), Org-mode \cite{} e \emph{plotly} para análise de traces gerados pelo modelo de programação StarPU.
+
+Foram realizados alguns estudos de caso com o StarVZ \cite{}, onde obtiveram-se compreendimentos de problemas de performance sutis do StarPU. Durante
+esses estudos de caso, uma das fases de processamento levou cerca de 32 minutos para processar 18 GB de dados. Essa fase deve ser melhorada pois pode inviabilizar a análise de volumes maiores.
 
 
 
-Deve contextualizar o trabalho do aluno, indicando o tema e a problemática (motivo, dúvida, questão ou problema a ser resolvido e sua importância dentro do contexto descrito). 
 
-Deve abordar ou aludir a trabalhos anteriores e referências sobre o assunto, demonstrando o conhecimento do aluno na área e auxiliando o leitor a identificar o quanto o proponente conhece sobre o contexto e o problema a ser investigado e quais são as fundamentações teóricas (em termos mais gerais) que ele irá utilizar. 
-
-Deve ainda informar as principais contribuições (esperadas) do trabalho, mostrando o quão relevante ele é. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,95 +209,6 @@ Etapa & \multicolumn{7}{|p{2.0in}|}{Meses} \\ \hline
 \chapter{BIBLIOGRAFIA}
 
 \bibliographystyle{abntex2-alf}
-
-Listagem (em ordem alfabética) de todos os materiais que foram utilizados como base para elaborar a proposta, além dos documentos que serão utilizados no desenvolvimento da monografia.
-
-Seguem alguns exemplos (retirados do modelo de monografias da biblioteca do Instituto de Informática da UFRGS):
-
-\noindent {\bf \underbar{Monografia no todo}}\\
-
-\noindent {\bf Livros e Anais de Congresso (Autor. Título. Edição. Local de Publicação: editora, ano de publicação).}\\
-
-\noindent FURASTÉ, Pedro Augusto. {\bf Normas Técnicas para o Trabalho Científico}: explicitação das normas da ABNT. Porto Alegre: [s.n.], 2002. p. 49-56.
-
-\noindent BRADLEY, N. {\bf The XML Companion}. 3${}^{rd}$ ed. Boston: Addison-Wesley, 2002.
-
-\noindent FIELDS, D. K.; KDLB, M. A. {\bf Desenvolvendo na Web com JavaServer Pages}. Rio de Janeiro: Ciência Moderna, 2000.
-
-\noindent OLIVEIRA, R. S. de; CARISSIMI, A. da S.; TOSCANI, S. S. {\bf Sistemas Operacionais}. 2.ed. Porto Alegre: Instituto de Informática da UFRGS: Sagra Luzzatto, 2001. 247 p. (Série Livros Didáticos, n.11).
-
-\noindent SIMPÓSIO BRASILEIRO DE SISTEMAS MULTIMÍDIA E HIPERMÍDIA, SBMÍDIA, 7., 2001, Florianópolis. ... Florianópolis: UFSC: SBC, 2001.
-
-\noindent NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE, AAII, 17., 2000. {\bf Proceedings}... Menlo Park, CA: AAAI Press: The MIT Press, 2000.
-
-\noindent ~
-
-\noindent {\bf \underbar{Parte de Monografia}}\\
-
-\noindent {\bf Capítulo (Autor do capítulo. Título do capítulo. In: Autor/Editor/Organizador do livro. Título do livro. Edição. Local de publicação: editora, ano de publicação).}
-
-\noindent LUBASZEWSKI, M.; COTA, E. F.; KRUG, M. R. Teste e Projeto Visando o Teste de Circuitos e Sistemas Integrados. In: REIS, R. A. da L. (Ed.) {\bf Concepção de Circuitos Integrados}. 2.ed. Porto Alegre: Instituto de Informática da UFRGS: Sagra Luzzatto, 2002. p. 167-189.
-
-\noindent ROESLER, V.; BRUNO, G. G.; LIMA, J. V. de. ALM: Adaptative Layering Multicast. In: SIMPÓSIO BRASILEIRO DE SISTEMAS MULTIMÍDIA, SBMÍDIA, 7., 2001, Florianópolis. {\bf Anais...} Florianópolis: UFSC: SBC, 2001. p. 107-121.
-
-\noindent PFEFFER, A.; KOLLER, D. Semantics and Inference for Recursive Probability Models. In: NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE, AAII, 17., 2000. {\bf Proceedings... }Menlo Park, CA: AAAI Press: The MIT Press, 2000.
-
-\noindent ~
-
-\noindent {\bf \underbar{Dissertações, teses, trabalhos individuais, etc.}}\\
-
-\noindent MENEGHETTI, E. A. {\bf Uma Proposta de Uso da Arquitetura Trace como um Sistema de Detecção de Intrusão}. 2002. 105 f. Dissertação ( Mestrado em Ciência da Computação ) -- Instituto de Informática, UFRGS, Porto Alegre.
-
-\noindent SABADIN, R. da S. {\bf QoS em Serviços de Suporte por Frame Relay}. 2000. 35 f. Trabalho Individual ( Mestrado em Ciência da Computação ) -- Instituto de Informática, UFRGS, Porto Alegre.
-
-\noindent OTERO, I. M. {\bf Desenvolvimento de Sistema Cliente-Servidor em Camadas Utilizando Software Livre}. 2003. 55 f. Projeto de Diplomação ( Bacharelado em Ciência da Computação ) -- Instituto de Informática, UFRGS, Porto Alegre.
-
-\noindent ~
-
-\noindent {\bf \underbar{Artigo de periódico}}\\
-
-\noindent GONÇALVES, L. M. G.; CESAR JUNIOR, R. M. Robótica, Sistemas Sensorial e Motos: principais tendências e direções. {\bf Revista de Informática Teórica e Aplicada}, Porto Alegre, v.9, n.2, p. 7-36, out. 2002.
-
-\noindent JANOWIAK, R. M. Computers and Communications: a symbiotic relationship. {\bf Computer}, New York, v.36, n.1, p. 76-79, Jan. 2003.
-
-\noindent ~
-
-\noindent {\bf \underbar{Em meio eletrônico}}\\
-
-\noindent LISBOA FILHO, J.; IOCHPE, C.; BORGES, K. Reutilização de Esquemas de Bancos de Dados em Aplicações de Gestão Urbana. {\bf IP -- Informática Pública}, Belo Horizonte, v.4, n.1, p.105-119, June 2002. Disponível em: $<$http://www.ip.pbh.gov.br/ip0401.html $>$. Acesso em: set. 2002.
-
-\noindent ~
-
-\noindent {\bf \underbar{RFC}}\\
-
-\noindent CALLAGHAN, B.; PAWLOWSKI, B.; STAUBACH, P. {\bf NFS Version 3 Protocol Specification}: RFC 1831. [S.l.]: Internet Engineering Task Force, Network Working Group, 1995.
-
-\noindent ~
-
-\noindent {\bf \underbar{Norma}}\\
-
-\noindent INSTITUTE OF ELECTRICAL AND ELECTRONIC ENGINEERING. {\bf IEEE 1003.1c-1995}: information technology -- portable operating system interface (POSIX), threads extension [C language]. New York, 1995.
-
-\noindent ~
-
-\noindent {\bf \underbar{Observações}}\\
-
-Quando existirem mais de três autores, indica-se apenas o primeiro, acrescentando-se a expressão et al. Ex.: URANI, A. et al. Em casos em que a menção dos nomes for indispensável para certificar a autoria é facultado indicar todos os nomes.
-
-Em caso de autoria desconhecida, a entrada é feita pelo título. Ex.: DIAGNÓSTICO do Setor Editorial Brasileiro. São Paulo: Câmara Brasileira do Livro, 1993.
-
-Quando houver uma indicação de edição, esta deve ser transcrita, utilizando-se abreviaturas dos numerais ordinais e da palavra edição, ambas na forma adotada na língua do documento.
-
-Ex.: SCHAM, D. {\bf Schawm's Outline of Theory and Problems}. 5${}^{th}$ ed. New York: Schawm Publishing, 1956.
-
-PEDROSA, I. {\bf Da Cor a Cor Inexistente}. 6. ed. Rio de Janeiro: L. Cristiano, 1995.
-
-Não sendo possível determinar o local (cidade) de publicação, utiliza-se à expressão sine loco, abreviada, entre colchetes [S.l.].
-
-Quando a editora não puder ser indicada, deve-se indicar a expressão sine nomine, abreviada, entre colchetes [s.n].
-
-Quando o local e a editora não puderem ser identificados, utilizam-se [S.l.:s.n].
-
-
+\bibliography{biblio}
 
 \end{document}
