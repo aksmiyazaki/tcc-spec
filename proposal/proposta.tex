@@ -131,7 +131,8 @@ Nesses modelos de programação, a responsabilidade de escalonar e executar a ap
 
 Com essa motivação, foi desenvolvido um \emph{framework}, denominado StarVZ, cujo objetivo era fornecer uma visualização de traces mais elaborada, provendo entendimento e identificação facilitada de problemas de performance que não seriam identificados tão facilmente com abordagens clássicas. Esse \emph{framework} foi desenvolvido combinando \emph{pj\_dump},  a linguagem R \cite{ref:rlanguage} e algumas bibliotecas expressivas dessa linguagem (\emph{ggplot2} \cite{ref:ggplot2}, \emph{lpSolve} \cite{ref:lpsolve} e \emph{tidyverse} \cite{ref:tidyverse}), Org-mode \cite{ref:org-mode} e \emph{plotly} para análise de traces gerados pelo modelo de programação StarPU.
 
-Foram realizados alguns estudos de caso com o StarVZ \cite{ref:starvz}, onde obtiveram-se compreendimentos de problemas de performance sutis do StarPU. Durante esses estudos de caso, uma das fases de processamento levou cerca de 32 minutos para processar 18 GB de dados. Essa fase deve ser melhorada pois pode inviabilizar a análise de volumes maiores.
+Foram realizados alguns estudos de caso com o StarVZ \cite{ref:starvz}, onde identificaram-se problemas de performance sutis do StarPU. 
+Durante esses estudos de caso, uma das fases (pré-processamento de dados) levou cerca de 32 minutos para processar 18 GB de dados. Essa fase deve ser melhorada pois a tendência é que aplicações gerem \emph{traces} cada vez mais volumosos, uma vez que elas aumentam ou em recursos ou em dimensão (processamentos maiores).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -248,7 +249,7 @@ O segundo é realizado diretamente na máquina do analisa e são apenas manipula
 
 \noindent \textbf{Objetivo Principal} 
 
-O principal objetivo deste trabalho é otimizar o tempo de processamento da .
+Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro (pré-processamento dos dados para visualização). A Figura \ref{fig:} mostra exatamente em qual parte do primeiro passo o trabalho será realizado. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -267,26 +268,28 @@ Informar tipo de pesquisa, procedimentos, atividades a serem desenvolvidas.
 %
 \chapter{Cronograma}
 
-\noindent Definir claramente as etapas de desenvolvimento do trabalho e seus prazos.
+O cronograma deste trabalho divide-se em 4 etapas:
 
-\noindent 
+\begin{itemize}
+    \item Implementação - corresponde a fase onde será implementado o proposto;
+    \item Experimentação - serão avaliados os resultados do que foi implementado;
+    \item Pesquisa e Escrita - corresponde a pesquisa de trabalhos relacionados e escrita da monografia;
+    \item Apresentação - geração da apresentação de slides para a defesa.
+\end{itemize}
 
-\noindent Sugest\~{a}o: utilizar um quadro como o seguinte:
-
-\noindent 
-
-\begin{tabular}{|p{1.8in}|p{0.3in}|p{0.3in}|p{0.3in}|p{0.3in}|p{0.3in}|p{0.3in}|p{0.3in}|} \hline 
-Etapa & \multicolumn{7}{|p{2.0in}|}{Meses} \\ \hline 
- & \multicolumn{5}{|p{1.4in}|}{2019} \\ 
- & Mai & Jun & Jul & Ago & Set \\ \hline 
-Texto & X & X &  & X & X \\ \hline 
- &  &  &  &  &  \\ \hline 
- &  &  &  &  &  \\ \hline 
- &  &  &  &  &  \\ \hline 
- &  &  &  &  & \\ \hline 
- &  &  &  &  & \\ \hline 
- &  &  &  &  & \\ \hline 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{1.8in}|p{0.5in}|p{0.5in}|p{0.5in}|p{0.5in}|} \hline 
+Etapa & \multicolumn{4}{|p{2.0in}|}{Meses} \\ \hline 
+ & Mai & Jun & Jul & Ago  \\ \hline 
+Implementação &  & X &  &   \\ \hline 
+Experimentação &  & X & X &   \\ \hline 
+Pesquisa e Escrita & X & X & X & X  \\ \hline 
+Apresentação &  &  & X & X  \\ \hline 
 \end{tabular}
+    \caption{Cronograma de execução do trabalho.}
+    \label{tab:cronog}
+\end{table}
 
 
 
