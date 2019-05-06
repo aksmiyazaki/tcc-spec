@@ -257,11 +257,14 @@ Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é
 %
 \chapter{Metodologia}
 
-Descrever como o trabalho vai ser realizado. Consiste em descrever e detalhar as atividades e os métodos, técnicas e ferramentas computacionais a serem utilizadas em cada uma delas. 
+Inicialmente, serão realizadas experimentações para identificar com precisão a quantidade de tempo
+envolvida em cada uma das etapas do passo de pré-processamento do \emph{framework}. Isso se faz necessário
+pois os tempos citados no trabalho de \citet{ref:starvz} são todos aproximações. Além disso, o ambiente de experimentação muito provavelmente será diferente e, portanto, é melhor executar todos os experimentos em um mesmo lugar para evitar que tenhamos a alteração de mais uma variável.
 
-Informar tipo de pesquisa, procedimentos, atividades a serem desenvolvidas.
+Os dados serão carregados no HDFS \cite{ref:hdfs} para leitura distribuída. Isso em si já deve dar um ganho interessante no sistema, visto que haverá múltiplos discos realizando a leitura dos dados. Em seguida, será instanciado o Spark \cite{ref:spark} para que seja realizado um pré-processamento análogo ao
+realizado atualmente no sistema.
 
-É importante descrever como dados serão coletados, analisados e interpretados, quando o trabalho envolver tal tipo de atividade.
+Com os dados processados, em um primeiro momento, será feita uma validação se a execução no modelo distribuído resulta na mesma saída que o original. Após isso, serão realizados experimentos comparando ambas implementações para determinar o ganho (ou não) de desempenho utilizando a abordagem distribuída.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CRONOGRAMA
