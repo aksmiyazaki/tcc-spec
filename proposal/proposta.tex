@@ -210,11 +210,35 @@ Temanejo \cite{ref:temanejo} é um debugger para o modelo de programação basea
 
 \subsubsection*{Delay Spotter}
 
+Delay Spotter \cite{ref:delayspotter} é uma ferramenta, construída sobre o DAGViz, que possibilita a identificação de atrasos em \emph{runtimes}.
+Ela divide os estados dos \emph{workers} em três categorias, permitindo a identificação de delays decorrentes de problemas de escalonamento.
+Como em ambientes heterogêneos com tarefas variadas, a presença de \emph{delays} faz parte da execução das aplicações, essa ferramenta é pouco efetiva.
+
 \subsubsection*{TaskInsight}
+
+TaskInsight \cite{ref:taskinsight} é uma ferramenta que objetiva identificar o comportamento de memória e seu impacto na execução de tarefas. 
+Apesar de prover algumas estatísticas e possibilitar algumas identificações de anomalias, apenas essa análise não é o suficiente para
+identificar a maioria dos pontos de otimização de aplicações \emph{task-based}.
 
 \subsubsection*{StarVZ}
 
+Framework que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui a visualização de dados mais avançada dentre as ferramentas citadas.
+Construído com uma abordagem de \emph{script}, ela possui um grande poder de customização e, por isso, é difícil enumerar o que a ferramenta fornece.
+No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados de apenas uma execução de aplicação:
 
+\begin{itemize}
+    \item gráfico com comportamento de tarefas;
+    \item gráfico com a quantidade de tarefas submetidas;
+    \item o comportamento do \emph{runtime}, com os estados dos workers do modelo StarPU;
+    \item a quantidade de tarefas prontas;
+    \item taxa de GFlops do ambiente;
+    \item tráfego de dados entre a memória das GPUs;
+    \item transferências de rede MPI;
+    \item número de operações MPI concorrentes.
+\end{itemize}
+
+Ele é composto por dois passos sendo o primeiro, executado em um servidor de processamento e cujo objetivo é fazer um pré-processamento dos dados.
+O segundo é realizado diretamente na máquina do analisa e são apenas manipulações dos dados para visualização. É importante salientar a primeira fase, para uma entrada de 18GB, foram necessários 32 minutos para completar seu processamento.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -253,15 +277,15 @@ Informar tipo de pesquisa, procedimentos, atividades a serem desenvolvidas.
 
 \begin{tabular}{|p{1.8in}|p{0.3in}|p{0.3in}|p{0.3in}|p{0.3in}|p{0.3in}|p{0.3in}|p{0.3in}|} \hline 
 Etapa & \multicolumn{7}{|p{2.0in}|}{Meses} \\ \hline 
- & \multicolumn{2}{|p{0.6in}|}{2018} & \multicolumn{5}{|p{1.4in}|}{2019} \\ \hline 
- & Nov & Dez & Jan & Fev & Mar & Abr & Mai \\ \hline 
- &  &  &  &  &  &  &  \\ \hline 
- &  &  &  &  &  &  &  \\ \hline 
- &  &  &  &  &  &  &  \\ \hline 
- &  &  &  &  &  &  &  \\ \hline 
- &  &  &  &  &  &  &  \\ \hline 
- &  &  &  &  &  &  &  \\ \hline 
- &  &  &  &  &  &  &  \\ \hline 
+ & \multicolumn{5}{|p{1.4in}|}{2019} \\ 
+ & Mai & Jun & Jul & Ago & Set \\ \hline 
+Texto & X & X &  & X & X \\ \hline 
+ &  &  &  &  &  \\ \hline 
+ &  &  &  &  &  \\ \hline 
+ &  &  &  &  &  \\ \hline 
+ &  &  &  &  & \\ \hline 
+ &  &  &  &  & \\ \hline 
+ &  &  &  &  & \\ \hline 
 \end{tabular}
 
 
