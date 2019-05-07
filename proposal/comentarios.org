@@ -1,0 +1,20 @@
+* Comentários em 07/05 às 14:30
+** Geral
+- Substituir \legend por \caption, que é o comando correto para
+  legendas de figuras, tabelas, etc.
+** Introdução
+- No final, dizer que o documento é uma proposta e está estruturado
+  assim: ...
+- Remover "tênues"
+** Fundamentos teóricos (Trabs. Relacionados)
+- Colocar figura pequena no final em StarVZ com as duas fases.
+** Objetivos
+- Na figura em objetivos, a saída do R não são arquivos FXT mas
+  arquivos FEATHER. Talvez tenhamos que rever o uso de FEATHER e
+  passar a usar outro formato colunar, como o PARQUET do arrow. Mas de
+  fato, o uso de arquivos CSV pode auxiliar a carga no HDFS. O FEATHER
+  (ou ARROW) poderiam ser usados depois da fase 1, mas teríamos que
+  alterar o início da fase 2 para ler do HDFS.
+** Metodologia
+- Experimentações -> experimentos
+** Cronograma okay
