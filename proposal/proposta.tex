@@ -249,13 +249,12 @@ O segundo é realizado diretamente na máquina do analisa e são apenas manipula
 
 \noindent \textbf{Objetivo Principal} 
 
-Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro (pré-processamento dos dados para visualização). A Figura \ref{fig:} mostra exatamente em qual parte do primeiro passo o trabalho será realizado.
+Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro (pré-processamento dos dados para visualização). A Figura \ref{fig:starvz-steps} mostra exatamente em qual parte do primeiro passo o trabalho será realizado (fundo escuro, nas duas últimas etapas).
 
 \begin{figure}[H]
- \caption{Etapas do passo de pré-processamento do StarVZ}
- \centerline{\includegraphics[width=0.5\textwidth]{images/}}
- \legend{Obtained from: https://potatoparcel.com/products/potato-parcel}
- \label{fig:potato}
+ \centerline{\includegraphics[width=1\textwidth]{proposal/images/step1-simpler.pdf}}
+ \legend{Etapas do passo de pré-processamento do StarVZ}
+ \label{fig:starvz-steps}
 \end{figure}
 
 
@@ -268,10 +267,9 @@ Inicialmente, serão realizadas experimentações para identificar com precisão
 envolvida em cada uma das etapas do passo de pré-processamento do \emph{framework}. Isso se faz necessário
 pois os tempos citados no trabalho de \citet{ref:starvz} são todos aproximações. Além disso, o ambiente de experimentação muito provavelmente será diferente e, portanto, é melhor executar todos os experimentos em um mesmo lugar para evitar que tenhamos a alteração de mais uma variável.
 
-Os dados serão carregados no HDFS \cite{ref:hdfs} para leitura distribuída. Isso em si já deve dar um ganho interessante no sistema, visto que haverá múltiplos discos realizando a leitura dos dados. Em seguida, será instanciado o Spark \cite{ref:spark} para que seja realizado um pré-processamento análogo ao
-realizado atualmente no sistema.
+Os CSVs de saída da etapa de conversão serão carregados no HDFS \cite{ref:hdfs} para leitura distribuída. A expectativa é que isso já traga algum ganho de desempenho, visto que haverá múltiplos discos realizando a leitura dos dados. Em seguida, será instanciado o Spark \cite{ref:spark} para realizar as operações do passo de \emph{Limpeza, Filtragem e Derivação} de forma distribuída.
 
-Com os dados processados, em um primeiro momento, será feita uma validação se a execução no modelo distribuído resulta na mesma saída que o original. Após isso, serão realizados experimentos comparando ambas implementações para determinar o ganho (ou não) de desempenho utilizando a abordagem distribuída.
+Os arquivos resultantes do pré-processamento serão validados com uma execução do \emph{framework} original, para garantir que ambos resultam na mesma saída. Após isso, serão realizados experimentos comparando ambas implementações para determinar o ganho (ou não) de desempenho utilizando a abordagem distribuída.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CRONOGRAMA
