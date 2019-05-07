@@ -1,2 +1,10 @@
 
-*.pdf
+*.~vsdx
+
+final-text/biblio/pdf_templates/
+
+final-text/biblio/template_reproductions/fig_exemplo\.pdf
+
+final-text/exemplos/fig\.pdf
+
+final-text/fig\.pdf
