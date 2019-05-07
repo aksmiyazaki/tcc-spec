@@ -103,7 +103,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Início do documento e elementos pré-textuais
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hyphenation{Syn-chro-nous}
 
 % Declara início do documento
 \begin{document}
@@ -119,20 +118,21 @@
 %
 \chapter{Introdução} \label{intro}
 
-A quantidade de dados gerados em todo o mundo diariamente é surpreendente. De acordo com \cite{ref:data_minute2}, há uma estimativa
-que em 2020 cada pessoa deve gerar em média 1,7MB de dados. Estes frequentemente precisam ser processados para ter algum valor e,
-com essa frequente necessidade de poder de computação, plataformas de HPC (\emph{High-Performance Computing}) evoluíram para utilizar algumas
-tecnologias, como processadores multicore e GPUs (\emph{Graphics processing units}, comumente referenciadas como \emph{accelerators}).
+A quantidade de dados gerados em todo o mundo diariamente é surpreendente. De acordo com \citet{ref:data_minute2}, há uma estimativa
+que em 2020 cada pessoa deve gerar em média 1,7MB de dados por dia. Estes frequentemente precisam ser processados para ter algum valor,
+o que implica em uma constante necessidade por sistemas computacionais mais poderosos.
 
-Com a evolução do Hardware, a abordagem de desenvolvimento de aplicações de HPC tradicional, chamada de Bulk-synchronous parallel (BSP) tornou-se 
-obsoleta, pois espera que os recursos de computação sejam homogêneos (nós idênticos, conectados por links estáveis e de alta vazão) e portanto, é incapaz de utilizar a heterogeneidade do ambiente ao seu favor. Uma abordagem que está sendo utilizada é desenvolver a aplicação em alto nível, descrevendo as computações como um Directed Acyclic Graph (DAG) de tarefas. Essa abordagem é implementada por múltiplos modelos de programação: OpenMP 4 \cite{ref:openmp4}, StarPU \cite{ref:starpu}, OmpSs \cite{ref:ompss}, ParSEC \cite{ref:parsec}, etc. 
+Plataformas de HPC (\emph{High-Performance Computing}) evoluíram para utilizar algumas tecnologias, como processadores multicore e GPUs (\emph{Graphics processing units}, comumente referenciadas como \emph{accelerators}), inserindo uma variabilidade de recursos nessas plataformas. Com a evolução do Hardware, a abordagem de desenvolvimento de aplicações de HPC tradicional, chamada de \emph{Bulk-synchronous parallel} (BSP) tornou-se obsoleta. Esta espera que os recursos de computação sejam homogêneos (nós idênticos, conectados por links estáveis e de alta vazão) e portanto, é incapaz de utilizar a heterogeneidade do ambiente ao seu favor. 
 
-Nesses modelos de programação, a responsabilidade de escalonar e executar a aplicação de forma performática é atribuída para outra camada de software, denominada \emph{runtime}. Ferramentas de análise de \emph{traces}, que antes auxiliavam o desenvolvedor da aplicação a fazer otimizações, como Paraver \cite{ref:paraver} e Vampir \cite{ref:vampir} não são mais suficientes.
+Uma abordagem que está sendo utilizada é desenvolver a aplicação em alto nível, descrevendo as computações como um \emph{Directed Acyclic Graph} (DAG) de tarefas. Tal abordagem é implementada por múltiplos modelos de programação: OpenMP 4 \cite{ref:openmp4}, StarPU \cite{ref:starpu}, OmpSs \cite{ref:ompss}, ParSEC \cite{ref:parsec}, etc. 
 
-Com essa motivação, foi desenvolvido um \emph{framework}, denominado StarVZ, cujo objetivo era fornecer uma visualização de traces mais elaborada, provendo entendimento e identificação facilitada de problemas de performance que não seriam identificados tão facilmente com abordagens clássicas. Esse \emph{framework} foi desenvolvido combinando \emph{pj\_dump},  a linguagem R \cite{ref:rlanguage} e algumas bibliotecas expressivas dessa linguagem (\emph{ggplot2} \cite{ref:ggplot2}, \emph{lpSolve} \cite{ref:lpsolve} e \emph{tidyverse} \cite{ref:tidyverse}), Org-mode \cite{ref:org-mode} e \emph{plotly} para análise de traces gerados pelo modelo de programação StarPU.
+Nesses modelos de programação \emph{task-based}, a responsabilidade de escalonar e executar a aplicação de forma performática é atribuída para outra camada de software, denominada \emph{runtime}. Ferramentas de análise de \emph{traces}, que antes auxiliavam o desenvolvedor da aplicação a fazer otimizações, como Paraver \cite{ref:paraver} e Vampir \cite{ref:vampir} não são eficazes ao analisar aplicações baseadas em tarefas.
 
-Foram realizados alguns estudos de caso com o StarVZ \cite{ref:starvz}, onde identificaram-se problemas de performance sutis do StarPU. 
-Durante esses estudos de caso, uma das fases (pré-processamento de dados) levou cerca de 32 minutos para processar 18 GB de dados. Essa fase deve ser melhorada pois a tendência é que aplicações gerem \emph{traces} cada vez mais volumosos, uma vez que elas aumentam ou em recursos ou em dimensão (processamentos maiores).
+Com essa motivação, foi desenvolvido um \emph{framework} denominado StarVZ \cite{ref:starvz}, cujo objetivo era fornecer uma visualização de traces mais elaborada, provendo facilidade no entendimento e identificação de problemas de performance sutis, que dificilmente seriam identificados com abordagens clássicas. Esse \emph{framework} foi desenvolvido combinando \emph{pj\_dump},  a linguagem R \cite{ref:rlanguage} e algumas bibliotecas expressivas dessa linguagem (\emph{ggplot2} \cite{ref:ggplot2}, \emph{lpSolve} \cite{ref:lpsolve} e \emph{tidyverse} \cite{ref:tidyverse}), Org-mode \cite{ref:org-mode} e \emph{plotly} para análise de traces gerados pelo modelo de programação StarPU.
+
+Em alguns estudos de caso onde o StarVZ foi utilizado, de fato identificaram-se tênues problemas de performance do StarPU.
+A primeira fase do \emph{framework} (pré-processamento de dados) em um dos experimentos levou cerca de 32 minutos para processar 18 GB de dados. Essa fase deve ser melhorada pois a tendência é que aplicações gerem \emph{traces} cada vez mais volumosos, tendo em vista que
+vez sua tendência é aumentar ou em recursos ou em dimensão (mais dados e/ou processamentos maiores).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -249,7 +249,7 @@ O segundo é realizado diretamente na máquina do analisa e são apenas manipula
 
 \noindent \textbf{Objetivo Principal} 
 
-Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro (pré-processamento dos dados para visualização). A Figura \ref{fig:starvz-steps} mostra exatamente em qual parte do primeiro passo o trabalho será realizado (fundo escuro, nas duas últimas etapas).
+Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro, cuja principal fução é realizar o pré-processamento dos dados para visualização. A Figura \ref{fig:starvz-steps} mostra exatamente em qual etapa este trabalho se propõe a modificar (fundo escuro).
 
 \begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{proposal/images/step1-simpler.pdf}}
@@ -263,26 +263,27 @@ Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é
 %
 \chapter{Metodologia}
 
-Inicialmente, serão realizadas experimentações para identificar com precisão a quantidade de tempo
-envolvida em cada uma das etapas do passo de pré-processamento do \emph{framework}. Isso se faz necessário
-pois os tempos citados no trabalho de \citet{ref:starvz} são todos aproximações. Além disso, o ambiente de experimentação muito provavelmente será diferente e, portanto, é melhor executar todos os experimentos em um mesmo lugar para evitar que tenhamos a alteração de mais uma variável.
+Primeiramente, serão realizadas experimentações para identificar com precisão a quantidade de tempo
+envolvida em cada uma das etapas do pré-processamento do \emph{framework} em sua implementação original. Isso se faz necessário
+pois os tempos citados no trabalho de \citet{ref:starvz} são todos aproximações. Além disso, serão realizados experimentos com 
+outras entradas, portanto, é coerente que tudo seja executado com os mesmos recursos.
 
-Os CSVs de saída da etapa de conversão serão carregados no HDFS \cite{ref:hdfs} para leitura distribuída. A expectativa é que isso já traga algum ganho de desempenho, visto que haverá múltiplos discos realizando a leitura dos dados. Em seguida, será instanciado o Spark \cite{ref:spark} para realizar as operações do passo de \emph{Limpeza, Filtragem e Derivação} de forma distribuída.
+Os CSVs de saída da etapa de conversão serão carregados no HDFS \cite{ref:hdfs} para leitura distribuída. A expectativa é que isso já traga algum ganho de desempenho, visto que a vazão de leitura de múltiplos discos é maior do que de apenas um. Em seguida, serão executadas as operações do passo de \emph{Limpeza, Filtragem e Derivação} de forma distribuída, utilizando o Spark \cite{ref:spark}.
 
-Os arquivos resultantes do pré-processamento serão validados com uma execução do \emph{framework} original, para garantir que ambos resultam na mesma saída. Após isso, serão realizados experimentos comparando ambas implementações para determinar o ganho (ou não) de desempenho utilizando a abordagem distribuída.
+Os arquivos \emph{Feather} resultantes do pré-processamento serão validados com uma execução do \emph{framework} original, para garantir que ambos geram a mesma saída. Após isso, serão realizados experimentos comparando ambas implementações para determinar se houve ganho de desempenho utilizando essa abordagem distribuída.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CRONOGRAMA
 %
 \chapter{Cronograma}
 
-O cronograma deste trabalho divide-se em 4 etapas:
+O cronograma deste trabalho se divide em 4 etapas:
 
 \begin{itemize}
-    \item Implementação - corresponde a fase onde será implementado o proposto;
-    \item Experimentação - serão avaliados os resultados do que foi implementado;
-    \item Pesquisa e Escrita - corresponde a pesquisa de trabalhos relacionados e escrita da monografia;
-    \item Apresentação - geração da apresentação de slides para a defesa.
+    \item Implementação - realizar modificações no código do \emph{framework};
+    \item Experimentação - avaliar os resultados do que foi implementado;
+    \item Pesquisa e Escrita - pesquisar trabalhos relacionados e escrever monografia;
+    \item Apresentação - produzir apresentação de slides para a defesa.
 \end{itemize}
 
 \begin{table}[H]
@@ -290,12 +291,12 @@ O cronograma deste trabalho divide-se em 4 etapas:
     \begin{tabular}{|p{1.8in}|p{0.5in}|p{0.5in}|p{0.5in}|p{0.5in}|} \hline 
 Etapa & \multicolumn{4}{|p{2.0in}|}{Meses} \\ \hline 
  & Mai & Jun & Jul & Ago  \\ \hline 
-Implementação &  & X &  &   \\ \hline 
+Implementação & X & X &  &   \\ \hline 
 Experimentação &  & X & X &   \\ \hline 
 Pesquisa e Escrita & X & X & X & X  \\ \hline 
 Apresentação &  &  & X & X  \\ \hline 
 \end{tabular}
-    \caption{Cronograma de execução do trabalho.}
+    \legend{Cronograma de execução do trabalho.}
     \label{tab:cronog}
 \end{table}
 
