@@ -3,6 +3,8 @@
 - Substituir \legend por \caption, que é o comando correto para
   legendas de figuras, tabelas, etc.
 ** Introdução
+- Algumas passagens precisariam de ajustes, mas okay para uma versão
+  de proposta (depois reveremos para o documento final).
 - No final, dizer que o documento é uma proposta e está estruturado
   assim: ...
 - Remover "tênues"
