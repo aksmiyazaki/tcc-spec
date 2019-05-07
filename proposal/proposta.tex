@@ -143,7 +143,7 @@ vez sua tendência é aumentar ou em recursos ou em dimensão (mais dados e/ou p
 Nesta seção, serão apresentados os trabalhos relacionados. Eles foram agrupados em dois grupos, buscando melhor organização do trabalho:
 
 \begin{itemize}
-\item Ferramentas de visualização Clássicas - oferecem visualização de traces de aplicações desenvolvidas no modelo BSP;
+\item Ferramentas de visualização Clássicas - oferecem visualização de \emph{traces} de aplicações desenvolvidas no modelo BSP;
 \item Ferramentas de visualização orientadas a tarefas - oferecem visualização de traces de aplicações desenvolvidas no modelo orientado a tarefas.
 \end{itemize}
 
@@ -152,13 +152,11 @@ Nas próximas subseções, serão detalhados os trabalhos de cada um desses grup
 \subsection*{Ferramentas de visualização Clássicas}
 
 Essas ferramentas possuem o objetivo de prover visualizações de traces para aplicações de HPC tradicionais. Estas eram desenvolvidas
-seguindo o modelo \emph{Bulk-Synchronous Parallel}, que consiste em uma série de \emph{supersteps} (computações, comunicações, sincronizações), 
-executadas com a premissa de ter-se um ambiente homogêneo. Esse modelo dominou o cenário HPC durante muito tempo, portanto, suas necessidades
-balizaram o desenvolvimento da maior parte das ferramentas de análise de desempenho nesses ambientes.
+seguindo o modelo que consiste em uma série de \emph{supersteps} (computações, comunicações, sincronizações), executadas com a premissa de ter-se um ambiente homogêneo, denominado \emph{Bulk-Synchronous Parallel}. Como esta abordagem  dominou o cenário HPC durante muito tempo, suas necessidades
+balizaram o desenvolvimento da maior parte das ferramentas de análise de desempenho.
 
 \subsubsection*{ViTE}
-ViTE \cite{ref:vite} é uma ferramenta de visualização de \emph{traces} open-source. Suas entradas são arquivos na linguagem Paje \cite{} e para o processamento
-de grandes entradas ele conta com aceleração de Hardware e OpenGL.
+ViTE \cite{ref:vite} é uma ferramenta de visualização de \emph{traces} open-source. Para o processamento de grandes entradas ele conta com aceleração de Hardware e OpenGL. Suas entradas são arquivos na linguagem Paje \cite{ref:paje}.
 
 Essa ferramenta exibe os recursos de forma hierárquica, onde oferece a visualização das tarefas (eixo vertical) em função de tempo (eixo horizontal), similar a um Gantt. Na análise de aplicações distribuídas, também é possível incluir indicadores de transferências de dados.
 
@@ -172,7 +170,7 @@ Vampir \cite{ref:vampir} é uma ferramenta proprietária de código fechado para
 Suas entradas são arquivos OTF2 (Open Trace Format, version 2) \cite{ref:otf2}. Ele fornece múltiplas visualizações como gráficos de espaço-tempo e estatísticas de execução.
 
 \subsubsection*{Ravel}
-O objetivo da ferramenta Ravel \cite{ref:ravel} também é a visualização de \emph{traces}. Suas entradas são \emph{traces} em \emph{Open Trace Format} e sua diferença em relação aos demais é que ele mostra as linhas de tempo lógicas, fornecendo uma estruturação para melhor entendimento das operações de comunicação.
+O objetivo da ferramenta Ravel \cite{ref:ravel} também é a visualização de \emph{traces}. Suas entradas são em formato OTF \emph{Open Trace Format} e sua diferença em relação aos demais é que ele mostra as linhas de tempo lógicas, fornecendo uma estruturação para melhor entendimento de operações.
 
 \subsubsection*{FrameSoc e Ocelotl}
 
@@ -183,7 +181,7 @@ Para visualizar grandes volumes de dados, a ferramenta baseia-se no Ocelotl \cit
 
 \subsection*{Ferramentas de visualização orientadas a tarefas}
 
-Como os recursos e o custo de execução de tarefas são diferentes no modelo \emph{task-based}, é necessário representações diferentes para
+Como os recursos e o custo de execução de tarefas não são constantes no modelo \emph{task-based}, é necessário representações diferentes para
 possibilitar uma análise de performance nesses ambientes. O desenvolvimento do \emph{framework} StarVZ \cite{ref:starvz} foi motivado pela carência
 de ferramentas maduras para a visualização de \emph{traces} com o objetivo de identificação de melhorias de performance. Antes de seu desenvolvimento existiam algumas ferramentas, todavia, elas não forneciam dados suficientes para identificar otimizações de forma eficiente.
 
@@ -200,13 +198,13 @@ Essa ferramenta traz uma visualização diferente do modelo BSP, exibindo as tar
 
 \subsubsection*{Traces de execução com dependências de tarefas}
 
-A ferramenta desenvolvida por \citet{ref:visuexecdep} traz um gráfico no estilo espaço-tempo, no estilo de um Gantt. Há algumas outras funcionalidades como a identificação de dependências de tarefas (apenas o primeiro nível) a medida que o usuário passa o mouse sobre as caixas que representam as tarefas.
+A ferramenta desenvolvida por \citet{ref:visuexecdep} traz um gráfico no estilo espaço-tempo (Gantt). Há algumas outras funcionalidades como a identificação de dependências de tarefas (apenas o primeiro nível) a medida que o usuário passa o mouse sobre as caixas que representam as tarefas.
 
-Como entradas, são utilizados a representação do DAG e os\emph{traces} de execução. Essa ferramenta é desenvolvida para o especificamente para o \emph{runtime} PaRSEC.
+Como entradas, são utilizados a representação do DAG e os \emph{traces} de execução. Essa ferramenta é desenvolvida para o especificamente para o \emph{runtime} PaRSEC.
 
 \subsubsection*{Temanejo}
 
-Temanejo \cite{ref:temanejo} é um debugger para o modelo de programação baseado em tarefas, onde o analista visualiza um DAG. Ele suporta grande parte dos 
+Temanejo \cite{ref:temanejo} é um \emph{debugger} para o modelo de programação baseado em tarefas, onde o analista visualiza um DAG. Ele suporta grande parte dos 
 \emph{runtimes} de execução de aplicações baseadas em tarefas, como OmpSs, StarPU e PaRSEC. As funcionalidades dessa ferramenta são focadas em depuração, permitindo que o usuário possa identificar e consertar parâmetros e dependências de tarefas.
 
 \subsubsection*{Delay Spotter}
@@ -230,7 +228,7 @@ No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados
 \begin{itemize}
     \item gráfico com comportamento de tarefas;
     \item gráfico com a quantidade de tarefas submetidas;
-    \item o comportamento do \emph{runtime}, com os estados dos workers do modelo StarPU;
+    \item o comportamento do \emph{runtime}, com os estados dos workers StarPU;
     \item a quantidade de tarefas prontas;
     \item taxa de GFlops do ambiente;
     \item tráfego de dados entre a memória das GPUs;
@@ -238,8 +236,8 @@ No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados
     \item número de operações MPI concorrentes.
 \end{itemize}
 
-Ele é composto por dois passos sendo o primeiro, executado em um servidor de processamento e cujo objetivo é fazer um pré-processamento dos dados.
-O segundo é realizado diretamente na máquina do analisa e são apenas manipulações dos dados para visualização. É importante salientar a primeira fase, para uma entrada de 18GB, foram necessários 32 minutos para completar seu processamento.
+Ele é composto por dois passos sendo o primeiro, executado em um servidor e cujo objetivo é fazer um pré-processamento dos dados.
+O segundo é realizado diretamente na máquina do analisa e são apenas manipulações para visualização.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
