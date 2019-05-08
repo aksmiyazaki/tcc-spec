@@ -243,8 +243,15 @@ No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados
     \item número de operações MPI concorrentes.
 \end{itemize}
 
-Ele é composto por dois passos sendo o primeiro, executado em um servidor e cujo objetivo é fazer um pré-processamento dos dados.
+Ele é composto por dois passos (Figura \ref{fig:starvz-steps}) sendo o primeiro, executado em um servidor e cujo objetivo é fazer um pré-processamento dos dados.
 O segundo é realizado diretamente na máquina do analisa e são apenas manipulações para visualização.
+
+\begin{figure}[H]
+ \centerline{\includegraphics[width=1\textwidth]{./images/all-proc.pdf}}
+ \caption{Passos de processamento do StarVZ}
+ \label{fig:starvz-steps}
+\end{figure}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -254,12 +261,12 @@ O segundo é realizado diretamente na máquina do analisa e são apenas manipula
 
 \noindent \textbf{Objetivo Principal} 
 
-Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro, cuja principal função é realizar o pré-processamento dos dados para visualização. A Figura \ref{fig:starvz-steps} mostra exatamente em qual etapa este trabalho se propõe a modificar (fundo escuro).
+Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro, cuja principal função é realizar o pré-processamento dos dados para visualização. A Figura \ref{fig:starvz-preproc} mostra exatamente em qual etapa este trabalho se propõe a modificar (fundo escuro).
 
 \begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{./images/step1-simpler.pdf}}
- \legend{Etapas do passo de pré-processamento do StarVZ}
- \label{fig:starvz-steps}
+ \caption{Etapas do passo de pré-processamento do StarVZ}
+ \label{fig:starvz-preproc}
 \end{figure}
 
 
@@ -301,7 +308,7 @@ Experimentação &  & X & X &   \\ \hline
 Pesquisa e Escrita & X & X & X & X  \\ \hline 
 Apresentação &  &  & X & X  \\ \hline 
 \end{tabular}
-    \legend{Cronograma de execução do trabalho.}
+    \caption{Cronograma de execução do trabalho.}
     \label{tab:cronog}
 \end{table}
 
