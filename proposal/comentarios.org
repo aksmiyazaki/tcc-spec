@@ -2,9 +2,14 @@
 ** Geral
 - Substituir \legend por \caption, que é o comando correto para
   legendas de figuras, tabelas, etc.
+- R:Não havia colocado \caption pois ele vem com um número de seção
+  (e.g. Figura 5.1) como nada tem numeração, achei mais coerente
+  seguir o padrão, mas troquei para caption (caso ache que
+  fique melhor da outra forma, avisa que eu troco de novo).
 ** Introdução
 - Algumas passagens precisariam de ajustes, mas okay para uma versão
   de proposta (depois reveremos para o documento final).
+- R:Ok
 - No final, dizer que o documento é uma proposta e está estruturado
   assim: ...
 - Remover "tênues"
@@ -13,10 +18,17 @@
 ** Objetivos
 - Na figura em objetivos, a saída do R não são arquivos FXT mas
   arquivos FEATHER. Talvez tenhamos que rever o uso de FEATHER e
-  passar a usar outro formato colunar, como o PARQUET do arrow. Mas de
-  fato, o uso de arquivos CSV pode auxiliar a carga no HDFS. O FEATHER
-  (ou ARROW) poderiam ser usados depois da fase 1, mas teríamos que
-  alterar o início da fase 2 para ler do HDFS.
+  passar a usar outro formato colunar, como o PARQUET do arrow.
+  Mas de fato, o uso de arquivos CSV pode auxiliar a carga no HDFS.
+  O FEATHER (ou ARROW) poderiam ser usados depois da fase 1,
+  mas teríamos que alterar o início da fase 2 para ler do HDFS.
+  - FXT estava por erro de copy-paste, corrigido.
+  - Acho interessante o fato de podermos mudar o formato da saída.
+  Talvez fazer isso parametrizável, se o usuário tiver infra ele
+  pode processar tudo em spark/hdfs, caso contrário, segue o fluxo
+  normal. Minha sugestão é fazer isso como um extra caso tenha
+  tempo durante o trabalho, caso contrário elencar para
+  trabalhos futuros, o que acha?
 ** Metodologia
 - Experimentações -> experimentos
 ** Cronograma okay
