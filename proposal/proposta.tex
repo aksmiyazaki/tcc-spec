@@ -25,7 +25,8 @@
 \usepackage{breakcites}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage{titletoc}               
+\usepackage{titletoc}   
+\usepackage{booktabs}
 %\usepackage{fixltx2e}              % para subscript
 %\usepackage{amsmath}               % para \epsilon e matemática
 %\usepackage{amsfonts}
@@ -130,16 +131,9 @@ Nesses modelos de programação \emph{task-based}, a responsabilidade de escalon
 
 Com essa motivação, foi desenvolvido um \emph{framework} denominado StarVZ \cite{ref:starvz}, cujo objetivo é fornecer uma visualização de traces mais elaborada, provendo facilidade no entendimento e identificação de problemas de performance sutis, que dificilmente seriam identificados com abordagens clássicas. Esse \emph{framework} foi desenvolvido combinando \emph{pj\_dump},  a linguagem R \cite{ref:rlanguage} e algumas bibliotecas expressivas dessa linguagem (\emph{ggplot2} \cite{ref:ggplot2}, \emph{lpSolve} \cite{ref:lpsolve} e \emph{tidyverse} \cite{ref:tidyverse}), Org-mode \cite{ref:org-mode} e \emph{plotly} para análise de traces gerados pelo modelo de programação StarPU.
 
-Em alguns estudos de caso onde o StarVZ foi utilizado, de fato identificaram-se problemas de performance do StarPU.
-A primeira fase do \emph{framework} (pré-processamento de dados) em um dos experimentos levou cerca de 32 minutos para processar 18 GB de dados. Essa fase deve ser melhorada pois a tendência é que aplicações gerem \emph{traces} cada vez mais volumosos, tendo em vista que vez sua tendência é aumentar ou em recursos ou em dimensão (mais dados e/ou processamentos maiores).
+Em alguns estudos de caso onde o StarVZ foi utilizado, de fato identificaram-se problemas de performance do StarPU. A primeira fase do \emph{framework} (pré-processamento de dados) em um dos experimentos levou cerca de 32 minutos para processar 18 GB de dados. A melhora de performance dessa fase é o motivador deste trabalho, pois aplicações devem gerar \emph{traces} cada vez mais volumosos, tendo em vista que sua tendência é aumentar ou em recursos ou em dimensão (mais dados e/ou processamentos maiores). Serão utilizadas ferramentas de Big Data para essa otimização.
 
-Este documento consiste em uma proposta de trabalho de conclusão de curso da Especialização em Big Data \& Data Science. As próximas Seções estão organizadas da seguinte forma:
-\begin{itemize}
-    \item a Seção \ref{lbl:fundamentacao} descreve a fundamentação teórica;
-    \item a Seção \ref{lbl:objetivos} mostra os objetivos a serem alcançados;
-    \item a Seção \ref{lbl:metodologia} expõe em alto nível como os objetivos pretendem ser alcançados; e
-    \item a Seção \ref{lbl:cronog} apresenta o cronograma previsto para a execução do trabalho.
-\end{itemize}
+Este documento consiste em uma proposta de trabalho de conclusão de curso da Especialização em Big Data \& Data Science. As próximas Seções estão organizadas da seguinte forma: a Seção \ref{lbl:fundamentacao} descreve a fundamentação teórica; a Seção \ref{lbl:objetivos} mostra os objetivos a serem alcançados; a Seção \ref{lbl:metodologia} expõe em alto nível como os objetivos pretendem ser alcançados; e a Seção \ref{lbl:cronog} apresenta o cronograma previsto para a execução do trabalho.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -147,14 +141,8 @@ Este documento consiste em uma proposta de trabalho de conclusão de curso da Es
 %
 \chapter{Fundamentação Teórica} \label{lbl:fundamentacao}
 
-Nesta seção, serão apresentados os trabalhos relacionados. Eles foram agrupados em duas categorias, buscando melhor organização do trabalho:
-
-\begin{itemize}
-\item Ferramentas de visualização Clássicas - oferecem visualização de \emph{traces} de aplicações desenvolvidas no modelo BSP;
-\item Ferramentas de visualização orientadas a tarefas - oferecem visualização de traces de aplicações desenvolvidas no modelo orientado a tarefas.
-\end{itemize}
-
-Nas próximas subseções, serão detalhados os trabalhos de cada um desses grupos.
+Nesta seção, serão apresentados os trabalhos relacionados. Eles foram agrupados em duas categorias, buscando melhor organização do trabalho. A primeira delas, \emph{
+Ferramentas de visualização Clássicas}, oferecem visualização de \emph{traces} de aplicações desenvolvidas no modelo BSP. A segunda, denominada \emph{Ferramentas de visualização orientadas a tarefas} oferecem visualização de traces de aplicações desenvolvidas no modelo orientado a tarefas. Nas próximas subseções, serão detalhados os trabalhos de cada um desses grupos.
 
 \subsection*{Ferramentas de visualização Clássicas}
 
@@ -243,8 +231,7 @@ No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados
     \item número de operações MPI concorrentes.
 \end{itemize}
 
-Ele é composto por dois passos (Figura \ref{fig:starvz-steps}) sendo o primeiro, executado em um servidor e cujo objetivo é fazer um pré-processamento dos dados.
-O segundo é realizado diretamente na máquina do analisa e são apenas manipulações para visualização.
+Ele é composto por dois passos, como podemos observar na Figura \ref{fig:starvz-steps}. O primeiro, executado em um servidor e cujo objetivo é fazer um pré-processamento dos dados. O segundo é realizado diretamente na máquina do analista, trata-se apenas de manipulações para visualização.
 
 \begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{./images/all-proc.pdf}}
@@ -258,8 +245,6 @@ O segundo é realizado diretamente na máquina do analisa e são apenas manipula
 % OBJETIVOS
 %
 \chapter{Objetivos} \label{lbl:objetivos}
-
-\noindent \textbf{Objetivo Principal} 
 
 Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro, cuja principal função é realizar o pré-processamento dos dados para visualização. A Figura \ref{fig:starvz-preproc} mostra exatamente qual etapa este trabalho se propõe a modificar (fundo escuro).
 
@@ -300,19 +285,31 @@ O cronograma deste trabalho se divide em 4 etapas:
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{1.8in}|p{0.5in}|p{0.5in}|p{0.5in}|p{0.5in}|} \hline 
-Etapa & \multicolumn{4}{|p{2.0in}|}{Meses} \\ \hline 
- & Mai & Jun & Jul & Ago  \\ \hline 
-Implementação & X & X &  &   \\ \hline 
-Experimentação &  & X & X &   \\ \hline 
-Pesquisa e Escrita & X & X & X & X  \\ \hline 
-Apresentação &  &  & X & X  \\ \hline 
+    \begin{tabular}{|p{1.8in}|p{0.5in}|p{0.5in}|p{0.5in}|p{0.5in}|} \toprule 
+Etapa & \multicolumn{4}{|p{2.0in}|}{Meses} \\ \bottomrule 
+ & Mai & Jun & Jul & Ago  \\ \bottomrule 
+Implementação & X & X &  &   \\ \bottomrule 
+Experimentação &  & X & X &   \\ \bottomrule 
+Pesquisa e Escrita & X & X & X & X  \\ \bottomrule 
+Apresentação &  &  & X & X  \\ \bottomrule 
 \end{tabular}
-    \caption{Cronograma de execução do trabalho.}
     \label{tab:cronog}
+    \caption{Cronograma de execução do trabalho.}
 \end{table}
 
-
+\begin{table}[H]
+\centering
+\begin{tabular}{p{1.8in}p{0.5in}p{0.5in}p{0.5in}p{0.5in}} \toprule
+\textbf{Etapa}  &  \multicolumn{4}{p{2.0in}}{\textbf{Meses}}  \\ \midrule
+       & Mai & Jun & Jul & Ago \\ \bottomrule
+Implementação & X & X &  &  \\
+Experimentação &  & X & X &  \\
+Pesquisa e Escrita & X & X & X & X \\
+Apresentação &  &  & X & X \\ \bottomrule
+\end{tabular}
+    \label{tab:cronog}
+    \caption{Cronograma de execução do trabalho.}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIOGRAFIA 
