@@ -20,6 +20,8 @@ No final, ao referenciar a Fig 2.1, remover os parênteses e colocar
 "conforme podemos observar na Figura 2.1". Explicar os elementos da
 figura, dizendo por exemplo de que são feitas as ferramentas, o que
 especificamente cada uma faz.
+** Objetivos
+- [ ] Remover "Objetivo Principal"
 ** Cronograma
 
 Em função da sugestão dos coordenadores do curso, adicionar na tabela
