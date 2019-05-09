@@ -36,6 +36,15 @@
   normal. Minha sugestão é fazer isso como um extra caso tenha
   tempo durante o trabalho, caso contrário elencar para
   trabalhos futuros, o que acha?
+
+  #+BEGIN_COMMENT
+  Acho uma ideia interessante para explorar como um extra. Penso que o
+  que está descrito já consiste em um trabalho experimental e de
+  implementação consistente. Sendo assim, penso que esse trabalho
+  extra de testar outros formatos possa não ser explicitado na
+  proposta (pois vira promessa) e seja feito caso dê tempo.
+  #+END_COMMENT
+
 ** Metodologia
 - Experimentações -> experimentos
 - R: Ok
