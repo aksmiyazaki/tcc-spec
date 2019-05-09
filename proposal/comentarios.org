@@ -1,3 +1,39 @@
+#+startup: overview indent
+
+* Comentários em 09/05 às 12:30
+** Introdução
+No final do penúltimo parágrafo, mencionar que é este problema
+específico que é trazido como motivador para realizar este trabalho,
+ou seja, pretende-se estudar se ferramentas de bigdata permitem a
+aceleração do framework starvz. Nota que ainda que o objetivo seja
+antecipado (pois há uma seção específica para isso), já prepara o
+leitor do que esta por vir, o objetivo geral.
+
+No final, na estrutura do documento, remover o itemize e colocar a
+descrição de cada Seção em uma frase. Acredito que seja um estilo
+melhor para a leitura.
+** Fundamentação teórica
+Remover o itemize do parágrafo de abertura. Colocar o texto na forma
+corrida com uma frase por item. Preocupar-se em encadear as ideais.
+
+No final, ao referenciar a Fig 2.1, remover os parênteses e colocar
+"conforme podemos observar na Figura 2.1". Explicar os elementos da
+figura, dizendo por exemplo de que são feitas as ferramentas, o que
+especificamente cada uma faz.
+** Cronograma
+
+Em função da sugestão dos coordenadores do curso, adicionar na tabela
+e a descrição respectiva no texto os seguintes itens:
+ - Revisão bibliográfica sobre o assunto x
+ - Coleta e preparação dos dados
+ - Definição da melhor alternativa/ferramenta para y
+ - Realização de experimentos e análise de resultados
+
+Citar a Tabela (que foi marcada com um \label antes do \caption) com
+\ref no texto. Transformar o itemize do cronograma em texto corrido,
+colocando uma frase por cada item do cronograma detalhando o que foi
+feito.
+
 * Comentários em 07/05 às 14:30
 ** Geral
 - Substituir \legend por \caption, que é o comando correto para
