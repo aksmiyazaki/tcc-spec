@@ -45,21 +45,21 @@ e a descrição respectiva no texto os seguintes itens:
  - Definição da melhor alternativa/ferramenta para y
  - Realização de experimentos e análise de resultados
 
-R: 
+R: Feito.
 
 Citar a Tabela (que foi marcada com um \label antes do \caption) com
 \ref no texto. Transformar o itemize do cronograma em texto corrido,
 colocando uma frase por cada item do cronograma detalhando o que foi
 feito.
 
-R:
+R: Não coloquei especificamente uma frase por item (visto que tem 8 itens e alguns são redundantes).
 
 Usar o pacote booktabs para melhorar a tabela
 - Remover linhas verticais
 - Cabeçalho em negrito
 - Usar comandos \toprule, \midrule e \bottomrule ao invés de \hline
 
-R: Feito
+R: Feito.
 
 * Comentários em 07/05 às 14:30
 ** Geral
