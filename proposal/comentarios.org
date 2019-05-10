@@ -17,8 +17,8 @@ melhor para a leitura.
 
 R: Feito.
 
-
 ** Fundamentação teórica
+
 Remover o itemize do parágrafo de abertura. Colocar o texto na forma
 corrida com uma frase por item. Preocupar-se em encadear as ideais.
 
