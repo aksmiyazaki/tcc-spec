@@ -169,4 +169,13 @@ tremamente grandes.
     - Enviado e-mail para professor, pois conforme Figura, apenas t3 (D - Clea
     ning, filtering, derivation) são realizadas em R. Simplesmente utilizar
     sparklyr nisso é suficiente para TC? Acho que não (embora esse possa ser o
-    link do trabalho com a espec.) 
+    link do trabalho com a espec.)
+
+# Setup de Máquina
+- Debian Stretch tem um pacote do R v3.3.3 pra download via apt-get.
+- Seguindo esse tutorial (Debian stretch (stable)), instalei o R v3.6.0
+- Finalizado a instalação do R, instalou-se os seguintes pacotes R:
+    - tidyverse
+    - devtools
+    - starVZ package
+- Primeira execução do exemplo retornou o erro ERROR: pj_dump is not installed, please install PajeNG or configure PATH
