@@ -14,7 +14,7 @@ siga os três passos lá descritos:
 2. Install poti
 3. Install StarPU from the SVN
 
-** "Automaticamente"
+** "Automaticamente" (preferível)
 *** Instalar Spack em $HOME
 
 #+begin_src shell :results output
