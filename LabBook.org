@@ -1,0 +1,64 @@
+#+STARTUP: overview indent
+
+* Instalação do StarPU
+
+** Manualmente
+
+Veja este site:
+https://github.com/schnorr/starvz/blob/master/INSTALL.org
+
+Procure diretamente a seção com o título "StarPU, fxt, and poti" e
+siga os três passos lá descritos:
+
+1. Install the latest version of FXT
+2. Install poti
+3. Install StarPU from the SVN
+
+** "Automaticamente" (preferível)
+*** Instalar Spack em $HOME
+
+#+begin_src shell :results output
+cd $HOME
+git clone https://github.com/spack/spack.git
+source ./spack/share/spack/setup-env.sh 
+spack --help
+#+end_src
+
+Para registrar o comando ~spack~ no ~PATH~, basta:
+
+#+begin_src shell :results output
+export PATH=$PATH:$HOME/spack/bin/
+spack --help
+#+end_src
+
+*** Instalar starpu 1.2.4 com fxt e poti
+
+O símbolo `+` indica que a opção é selecionada.
+
+O símbolo `~` indica que a opção _não_ é selecionada.
+
+#+begin_src shell :results output
+spack install starpu@1.2.4+fxt+poti~cuda~simgrid
+#+end_src
+
+*** Como usar ~starpu_fxt_tool~
+
+Assumindo que o comando ~spack~ já está no teu ~PATH~.
+
+Basta fixar no teu ~PATH~ o resultado do seguinte comando:
+
+#+begin_src shell :results output
+echo $(spack location -i starpu)/bin
+#+end_src
+
+Com algo como:
+
+#+begin_src shell :results output
+export PATH=$PATH:$(spack location -i starpu)/bin
+#+end_src
+
+Teste:
+
+#+begin_src shell :results output
+starpu_fxt_tool --help
+#+end_src
