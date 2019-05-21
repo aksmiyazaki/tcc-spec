@@ -44,7 +44,7 @@ git clone https://gitlab.inria.fr/solverstack/spack-repo.git $INSTALL_DIR
 spack repo add $INSTALL_DIR
 #+end_src
 
-Seguir os demais comandos normalmente
+Seguir os demais comandos normalmente.
 
 *** Instalar starpu 1.2.4 com fxt e poti
 
