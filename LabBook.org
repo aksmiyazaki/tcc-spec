@@ -31,6 +31,21 @@ export PATH=$PATH:$HOME/spack/bin/
 spack --help
 #+end_src
 
+*** Instalar um repositório "extra" com suplementos (starpu & friends)
+
+Mais informações:
+https://gitlab.inria.fr/solverstack/spack-repo
+
+Receita:
+
+#+begin_src shell :results output
+INSTALL_DIR=$HOME/solverstack-spack/
+git clone https://gitlab.inria.fr/solverstack/spack-repo.git $INSTALL_DIR
+spack repo add $INSTALL_DIR
+#+end_src
+
+Seguir os demais comandos normalmente
+
 *** Instalar starpu 1.2.4 com fxt e poti
 
 O símbolo `+` indica que a opção é selecionada.
