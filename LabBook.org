@@ -53,7 +53,7 @@ O símbolo `+` indica que a opção é selecionada.
 O símbolo `~` indica que a opção _não_ é selecionada.
 
 #+begin_src shell :results output
-spack install starpu@1.2.4+fxt+poti~cuda~simgrid
+spack install starpu@1.2.4+fxt+poti~cuda~simgrid~mpi
 #+end_src
 
 *** Como usar ~starpu_fxt_tool~
