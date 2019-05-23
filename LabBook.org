@@ -46,14 +46,14 @@ spack repo add $INSTALL_DIR
 
 Seguir os demais comandos normalmente.
 
-*** Instalar starpu 1.2.4 com fxt e poti
+*** Instalar starpu 1.3.1 com fxt e poti, sem mpi
 
 O símbolo `+` indica que a opção é selecionada.
 
 O símbolo `~` indica que a opção _não_ é selecionada.
 
 #+begin_src shell :results output
-spack install starpu@1.2.4+fxt+poti~cuda~simgrid~mpi
+spack install starpu@1.3.1+fxt+poti~cuda~simgrid~mpi
 #+end_src
 
 *** Como usar ~starpu_fxt_tool~
@@ -63,13 +63,13 @@ Assumindo que o comando ~spack~ já está no teu ~PATH~.
 Basta fixar no teu ~PATH~ o resultado do seguinte comando:
 
 #+begin_src shell :results output
-echo $(spack location -i starpu)/bin
+echo $(spack location -i starpu@1.3.1)/bin
 #+end_src
 
 Com algo como:
 
 #+begin_src shell :results output
-export PATH=$PATH:$(spack location -i starpu)/bin
+export PATH=$PATH:$(spack location -i starpu@1.3.1)/bin
 #+end_src
 
 Teste:
