@@ -47,9 +47,13 @@
 ## Setando Spark LOCALMENTE
     - Baixar o spark https://archive.apache.org/dist/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz
     - Setar arquivos conforme env-setup/hpark na pasta conf do spark.
+    - export SPARK_HOME=//home/aksmiyazaki/spark/spark-2.4.3-bin-hadoop2.7 no ~/.bashrc
     - Testar um exemplo (./bin/run-example SparkPi 10)
     - Referências
         - https://spark.apache.org/docs/latest/
         - https://spark.apache.org/docs/latest/sparkr.html
         - https://spark.rstudio.com/guides/connections/
     - TODO: detalhes para slaves em setup distribuído.
+
+
+5-v8-4_chifflet_8_6_2_dmdas_dpotrf_4_96000_960_false_ETHERNET10GB_true_r21909_10.dir/5-v8-4_chifflet_8_6_2_dmdas_dpotrf_4_96000_960_false_ETHERNET10GB_true_r21909_10_fxt
