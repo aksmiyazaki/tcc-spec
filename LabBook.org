@@ -67,19 +67,20 @@ Conteúdo de 3.1 portanto:
   Hadoop/MapReduce
 
 Sugestões:
-- [ ] Mudar o título de 3 para algo como "Contribuição: Implementando StarVZ sobre Hadoop/MapReduce"
-- [ ] Adicionar uma seção 3.2 com a visão geral da arquitetura:
+- [X] Mudar o título de 3 para algo como "Contribuição: Implementando StarVZ sobre Hadoop/MapReduce"
+- R - Não adotei o nome inteiro pois ficaria muito extenso (mais de 1 linha no sumário).
+- [X] Adicionar uma seção 3.2 com a visão geral da arquitetura:
   - tu vais detalhar o funcionamento geral (arquitetura) da tua
     contribuição e quais foram as mudanças feitas no StarVZ (as
     menores possíveis).
-- [ ] Adicionar uma seção 3.3 com o detalhamento da implementação
+- [X] Adicionar uma seção 3.3 com o detalhamento da implementação
   - Detalhes técnicos
-- [ ] O que tu imaginas como "Avaliação" tu colocas em um capítulo próprio, "4 RESULTADOS E AVALIAÇÃO"
+- [X] O que tu imaginas como "Avaliação" tu colocas em um capítulo próprio, "4 RESULTADOS E AVALIAÇÃO"
   - Neste capítulo, os experimentos são detalhados embora o conteúdo
     dependa ainda do que será alcançado. Penso que a parte da
     configuração experimental já possa ser estruturada com os estudos
     de caso, etc.
-- [ ] O atual Cap. 4 se torna Cap. 5 (Conclusão e Trabs. Fut.)
+- [X] O atual Cap. 4 se torna Cap. 5 (Conclusão e Trabs. Fut.)
 
 * Instalação do StarPU
 
