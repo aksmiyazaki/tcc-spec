@@ -1,0 +1,179 @@
+#+STARTUP: overview indent
+
+* Estrutura do texto final
+** Recomendação #1
+Sobre a estrutura, entendo o enfoques que queres dar com a parte de
+visualização (clássica ou task-based) mas acredito que esse enfoque é
+secundário no teu trabalho. A fundamentação teórica, que eu preferiria
+chamar de "conceitos básicos" e "trabalhos relacionados",
+potencialmente em capítulos diferentes, consistiria em detalhar (nos
+conceitos básicos) a forma com o workflow do starvz funciona de
+maneira sequencial e em formas de paralelização/distribuição de
+workflows (de maneira abstrata, mas eventualmente citando algumas
+ferramentas). Em trabalhos relacionados, apresentar tentativas
+anteriores de paralelização para o StarVZ tais como o trabalho do
+Guilherme Alles [1], que usou Drake, explicando por que não funcionou,
+e depois outras alternativas de paralelização (sem o uso de
+Hadoop/MapReduce). Essas outras alternativas de
+paralelização/distribuição podem ser consultadas no [2], detalhando
+pelo menos umas três alternativas de "Explicit parallelism " e
+"Implicit parallelism ". No final desta parte "conceitos básicos" e
+"trabalhos relacionados", tu apresentas então uma "Discussão e
+Motivação", na forma da última subseção antes da tua contribuição onde
+tu detalhas os porquês das tuas escolhas com Hadoop/MapReduce,
+trazendo eventualmente para a discussão o fato que starvz está
+implementado em dplyr+tidyverse e que o sparklyr que encapsula boa
+parte das ações já funciona como uma interface para o
+Hadoop/MapReduce. Em seguida, então, vem o capítulo da "Contribuição:
+Implementando StarVZ sobre Hadoop/MapReduce". Ali tu vais detalhar o
+funcionamento geral (arquitetura) da tua contribuição e quais foram as
+mudanças feitas no StarVZ (as menores possíveis). Tu notas que o que
+tu chamas de "metodologia" entra, de uma forma ou de outra, neste
+capítulo descrevendo a forma como o objetivo (lá da intro) foi
+atingido. Enfim, os experimentos e conclusão são detalhados embora o
+conteúdo dependa ainda do que será alcançado. Penso que a parte da
+configuração experimental já possa ser estrutura com os estudos de
+caso, etc.
+** 2019-06-08 Versão
+    SUMÁRIO
+    1 INTRODUÇÃO...........................................................................................................11
+    2 FUNDAMENTAÇÃO..................................................................................................13
+    2.1 Conceitos Básicos ....................................................................................................13
+    2.2 Trabalhos Relacionados..........................................................................................13
+    3 CONTRIBUIÇÃO.......................................................................................................14
+    3.1 Discussão e Motivação ............................................................................................14
+    3.2 Implementação e Avaliação....................................................................................14
+    4 CONCLUSÃO E TRABALHOS FUTUROS ...........................................................15
+    REFERÊNCIAS.............................................................................................................16
+** Recomendação #2
+
+Conteúdo de 2.1 portanto:
+- a forma com o workflow do starvz funciona de maneira sequencial e em
+  formas de paralelização/distribuição de workflows (de maneira
+  abstrata, mas eventualmente citando algumas ferramentas).
+Conteúdo de 2.2 portanto:
+- apresentar tentativas anteriores de paralelização para o StarVZ tais
+  como o trabalho do Guilherme Alles [1], que usou Drake, explicando
+  por que não funcionou, e depois outras alternativas de paralelização
+  (sem o uso de Hadoop/MapReduce). Essas outras alternativas de
+  paralelização/distribuição podem ser consultadas no [2], detalhando
+  pelo menos umas três alternativas de "Explicit parallelism " e
+  "Implicit parallelism "
+Conteúdo de 3.1 portanto:
+- tu detalhas os porquês das tuas escolhas com Hadoop/MapReduce,
+  trazendo eventualmente para a discussão o fato que starvz está
+  implementado em dplyr+tidyverse e que o sparklyr que encapsula boa
+  parte das ações já funciona como uma interface para o
+  Hadoop/MapReduce
+
+Sugestões:
+- [X] Mudar o título de 3 para algo como "Contribuição: Implementando StarVZ sobre Hadoop/MapReduce"
+- R - Não adotei o nome inteiro pois ficaria muito extenso (mais de 1 linha no sumário).
+- [X] Adicionar uma seção 3.2 com a visão geral da arquitetura:
+  - tu vais detalhar o funcionamento geral (arquitetura) da tua
+    contribuição e quais foram as mudanças feitas no StarVZ (as
+    menores possíveis).
+- [X] Adicionar uma seção 3.3 com o detalhamento da implementação
+  - Detalhes técnicos
+- [X] O que tu imaginas como "Avaliação" tu colocas em um capítulo próprio, "4 RESULTADOS E AVALIAÇÃO"
+  - Neste capítulo, os experimentos são detalhados embora o conteúdo
+    dependa ainda do que será alcançado. Penso que a parte da
+    configuração experimental já possa ser estruturada com os estudos
+    de caso, etc.
+- [X] O atual Cap. 4 se torna Cap. 5 (Conclusão e Trabs. Fut.)
+
+* Instalação do StarPU
+
+** Manualmente
+
+Veja este site:
+https://github.com/schnorr/starvz/blob/master/INSTALL.org
+
+Procure diretamente a seção com o título "StarPU, fxt, and poti" e
+siga os três passos lá descritos:
+
+1. Install the latest version of FXT
+2. Install poti
+3. Install StarPU from the SVN
+
+** "Automaticamente" (preferível)
+*** Instalar Spack em $HOME
+
+#+begin_src shell :results output
+cd $HOME
+git clone https://github.com/spack/spack.git
+source ./spack/share/spack/setup-env.sh 
+spack --help
+#+end_src
+
+Para registrar o comando ~spack~ no ~PATH~, basta:
+
+#+begin_src shell :results output
+export PATH=$PATH:$HOME/spack/bin/
+spack --help
+#+end_src
+
+*** Instalar um repositório "extra" com suplementos (starpu & friends)
+
+Mais informações:
+https://gitlab.inria.fr/solverstack/spack-repo
+
+Receita:
+
+#+begin_src shell :results output
+INSTALL_DIR=$HOME/solverstack-spack/
+git clone https://gitlab.inria.fr/solverstack/spack-repo.git $INSTALL_DIR
+spack repo add $INSTALL_DIR
+#+end_src
+
+Seguir os demais comandos normalmente.
+
+*** Instalar starpu 1.3.1 com fxt e poti, sem mpi
+
+O símbolo `+` indica que a opção é selecionada.
+
+O símbolo `~` indica que a opção _não_ é selecionada.
+
+#+begin_src shell :results output
+spack install starpu@1.3.1+fxt+poti~cuda~simgrid~mpi
+#+end_src
+
+*** Como usar ~starpu_fxt_tool~
+
+Assumindo que o comando ~spack~ já está no teu ~PATH~.
+
+Basta fixar no teu ~PATH~ o resultado do seguinte comando:
+
+#+begin_src shell :results output
+echo $(spack location -i starpu@1.3.1)/bin
+#+end_src
+
+Com algo como:
+
+#+begin_src shell :results output
+export PATH=$PATH:$(spack location -i starpu@1.3.1)/bin
+#+end_src
+
+Teste:
+
+#+begin_src shell :results output
+starpu_fxt_tool --help
+#+end_src
+* FXT \to CSV
+Obter apenas arquivos CSV (sem executar a parte em R da primeira fase).
+
+Exemplo com ~qrmumps~.
+
+#+begin_src shell :results output
+source ~/spack/share/spack/setup-env.sh 
+export PATH=$(spack location -i starpu@develop~cuda~examples+fast~fortran+fxt+mlr~mpi~nmad~opencl+openmp+poti+shared~simgrid~simgridmc~verbose)/bin/:$PATH
+export PATH=$PATH:~/dev/starvz/src/
+export PATH=$PATH:~/dev/pajeng/b/
+
+# Ir para o diretório que contém o arquivo prof_file e atree.dot
+cd /tmp/qrmumps 
+# O script foi editado manualmente para não chamar o programa em R da fase 1
+phase1-workflow.sh . qrmumps
+#+end_src
+
+

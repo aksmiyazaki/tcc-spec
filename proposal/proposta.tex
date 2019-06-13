@@ -25,7 +25,8 @@
 \usepackage{breakcites}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage{titletoc}               
+\usepackage{titletoc}   
+\usepackage{booktabs}
 %\usepackage{fixltx2e}              % para subscript
 %\usepackage{amsmath}               % para \epsilon e matemática
 %\usepackage{amsfonts}
@@ -130,24 +131,18 @@ Nesses modelos de programação \emph{task-based}, a responsabilidade de escalon
 
 Com essa motivação, foi desenvolvido um \emph{framework} denominado StarVZ \cite{ref:starvz}, cujo objetivo é fornecer uma visualização de traces mais elaborada, provendo facilidade no entendimento e identificação de problemas de performance sutis, que dificilmente seriam identificados com abordagens clássicas. Esse \emph{framework} foi desenvolvido combinando \emph{pj\_dump},  a linguagem R \cite{ref:rlanguage} e algumas bibliotecas expressivas dessa linguagem (\emph{ggplot2} \cite{ref:ggplot2}, \emph{lpSolve} \cite{ref:lpsolve} e \emph{tidyverse} \cite{ref:tidyverse}), Org-mode \cite{ref:org-mode} e \emph{plotly} para análise de traces gerados pelo modelo de programação StarPU.
 
-Em alguns estudos de caso onde o StarVZ foi utilizado, de fato identificaram-se tênues problemas de performance do StarPU.
-A primeira fase do \emph{framework} (pré-processamento de dados) em um dos experimentos levou cerca de 32 minutos para processar 18 GB de dados. Essa fase deve ser melhorada pois a tendência é que aplicações gerem \emph{traces} cada vez mais volumosos, tendo em vista que
-vez sua tendência é aumentar ou em recursos ou em dimensão (mais dados e/ou processamentos maiores).
+Em alguns estudos de caso onde o StarVZ foi utilizado, de fato identificaram-se problemas de performance do StarPU. A primeira fase do \emph{framework} (pré-processamento de dados) em um dos experimentos levou cerca de 32 minutos para processar 18 GB de dados. A melhora de performance dessa fase é o motivador deste trabalho, pois aplicações devem gerar \emph{traces} cada vez mais volumosos, tendo em vista que sua tendência é aumentar ou em recursos ou em dimensão (mais dados e/ou processamentos maiores). Serão utilizadas ferramentas de Big Data para essa otimização.
+
+Este documento consiste em uma proposta de trabalho de conclusão de curso da Especialização em Big Data \& Data Science. As próximas Seções estão organizadas da seguinte forma: a Seção \ref{lbl:fundamentacao} descreve a fundamentação teórica; a Seção \ref{lbl:objetivos} mostra os objetivos a serem alcançados; a Seção \ref{lbl:metodologia} expõe em alto nível como os objetivos pretendem ser alcançados; e a Seção \ref{lbl:cronog} apresenta o cronograma previsto para a execução do trabalho.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FUNDAMENTAÇÃO TEÓRICA
 %
-\chapter{Fundamentação Teórica}
+\chapter{Fundamentação Teórica} \label{lbl:fundamentacao}
 
-Nesta seção, serão apresentados os trabalhos relacionados. Eles foram agrupados em dois grupos, buscando melhor organização do trabalho:
-
-\begin{itemize}
-\item Ferramentas de visualização Clássicas - oferecem visualização de \emph{traces} de aplicações desenvolvidas no modelo BSP;
-\item Ferramentas de visualização orientadas a tarefas - oferecem visualização de traces de aplicações desenvolvidas no modelo orientado a tarefas.
-\end{itemize}
-
-Nas próximas subseções, serão detalhados os trabalhos de cada um desses grupos.
+Nesta seção, serão apresentados os trabalhos relacionados. Eles foram agrupados em duas categorias, buscando melhor organização do trabalho. A primeira delas, \emph{
+Ferramentas de visualização Clássicas}, oferecem visualização de \emph{traces} de aplicações desenvolvidas no modelo BSP. A segunda, denominada \emph{Ferramentas de visualização orientadas a tarefas} oferecem visualização de traces de aplicações desenvolvidas no modelo orientado a tarefas. Nas próximas subseções, serão detalhados os trabalhos de cada um desses grupos.
 
 \subsection*{Ferramentas de visualização Clássicas}
 
@@ -156,13 +151,13 @@ seguindo o modelo que consiste em uma série de \emph{supersteps} (computações
 balizaram o desenvolvimento da maior parte das ferramentas de análise de desempenho.
 
 \subsubsection*{ViTE}
-ViTE \cite{ref:vite} é uma ferramenta de visualização de \emph{traces} open-source. Para o processamento de grandes entradas ele conta com aceleração de Hardware e OpenGL. Suas entradas são arquivos na linguagem Paje \cite{ref:paje}.
+ViTE \cite{ref:vite} é uma ferramenta de visualização de \emph{traces} open-source. Para o processamento de grandes entradas ele conta com aceleração de Hardware e OpenGL. Suas entradas são arquivos na linguagem Pajé \cite{ref:paje}.
 
 Essa ferramenta exibe os recursos de forma hierárquica, onde oferece a visualização das tarefas (eixo vertical) em função de tempo (eixo horizontal), similar a um Gantt. Na análise de aplicações distribuídas, também é possível incluir indicadores de transferências de dados.
 
 \subsubsection*{Paraver}
 Paraver \cite{ref:paraver} também objetiva a visualização e análise de \emph{traces} de execução. Ela conta com uma agregação de dados, definida pelo
-usuário via arquivo de configuração, para conseguir exibir entradas volumosas. Suas entradas são greradas por vários modelos de programação, sendo gerados pela ferramenta Extrae.
+usuário via arquivo de configuração, para conseguir exibir entradas volumosas. Suas entradas são geradas por vários modelos de programação, pela ferramenta Extrae.
 
 \subsubsection*{Vampir}
 Vampir \cite{ref:vampir} é uma ferramenta proprietária de código fechado para fins de análise de \emph{traces}. Ela traz uma abordagem de cliente-servidor, onde o servidor pode ser executado no hardware de experimentação e o cliente é o computador do usuário.
@@ -177,7 +172,7 @@ O objetivo da ferramenta Ravel \cite{ref:ravel} também é a visualização de \
 FrameSoc \cite{ref:framesoc} é uma ferramenta de análise de performance, capaz de lidar com grandes volumes de dados. Como entrada, ela suporta diversos
 formatos como Pajé, CTF, Paraver e OTF2. Além dos dados de \emph{trace}, é possível armazenar informações como metadados e anotações. A ferramenta converte tudo para um modelo de dados genérico e armazena em uma base de dados relacional.
 
-Para visualizar grandes volumes de dados, a ferramenta baseia-se no Ocelotl \cite{ref:ocelotl}. Esse módulo possui um arquivo de configuração parametrizável pelo usuário, que gerencia uma agregação de espaçotemporal dados.
+Para visualizar grandes volumes de dados, a ferramenta baseia-se no Ocelotl \cite{ref:ocelotl}. Esse módulo possui um arquivo de configuração parametrizável pelo usuário, que gerencia uma agregação espaçotemporal dados.
 
 \subsection*{Ferramentas de visualização orientadas a tarefas}
 
@@ -205,7 +200,7 @@ Como entradas, são utilizados a representação do DAG e os \emph{traces} de ex
 \subsubsection*{Temanejo}
 
 Temanejo \cite{ref:temanejo} é um \emph{debugger} para o modelo de programação baseado em tarefas, onde o analista visualiza um DAG. Ele suporta grande parte dos 
-\emph{runtimes} de execução de aplicações baseadas em tarefas, como OmpSs, StarPU e PaRSEC. As funcionalidades dessa ferramenta são focadas em depuração, permitindo que o usuário possa identificar e consertar parâmetros e dependências de tarefas.
+\emph{runtimes} de execução de aplicações baseadas em tarefas, como OmpSs, StarPU e PaRSEC. Suas funcionalidades são focadas em depuração, permitindo que o usuário possa identificar e consertar parâmetros e dependências de tarefas.
 
 \subsubsection*{Delay Spotter}
 
@@ -221,14 +216,14 @@ identificar a maioria dos pontos de otimização de aplicações \emph{task-base
 
 \subsubsection*{StarVZ}
 
-Framework que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui a visualização de dados mais avançada dentre as ferramentas citadas.
+\emph{Framework} que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui a visualização de dados mais avançada dentre as ferramentas citadas.
 Construído com uma abordagem de \emph{script}, ela possui um grande poder de customização e, por isso, é difícil enumerar o que a ferramenta fornece.
-No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados de apenas uma execução de aplicação:
+No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados de uma execução de aplicação:
 
 \begin{itemize}
     \item gráfico com comportamento de tarefas;
     \item gráfico com a quantidade de tarefas submetidas;
-    \item o comportamento do \emph{runtime}, com os estados dos workers StarPU;
+    \item o comportamento do \emph{runtime}, com os estados dos \emph{workers} StarPU;
     \item a quantidade de tarefas prontas;
     \item taxa de GFlops do ambiente;
     \item tráfego de dados entre a memória das GPUs;
@@ -236,32 +231,36 @@ No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados
     \item número de operações MPI concorrentes.
 \end{itemize}
 
-Ele é composto por dois passos sendo o primeiro, executado em um servidor e cujo objetivo é fazer um pré-processamento dos dados.
-O segundo é realizado diretamente na máquina do analisa e são apenas manipulações para visualização.
+Ele é composto por dois passos, como podemos observar na Figura \ref{fig:starvz-steps}. O primeiro, executado em um servidor e cujo objetivo é fazer um pré-processamento dos dados. O segundo é realizado diretamente na máquina do analista, trata-se apenas de manipulações para visualização.
+
+\begin{figure}[H]
+ \centerline{\includegraphics[width=1\textwidth]{./images/all-proc.pdf}}
+ \caption{Passos de processamento do StarVZ}
+ \label{fig:starvz-steps}
+\end{figure}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % OBJETIVOS
 %
-\chapter{Objetivos}
+\chapter{Objetivos} \label{lbl:objetivos}
 
-\noindent \textbf{Objetivo Principal} 
-
-Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro, cuja principal função é realizar o pré-processamento dos dados para visualização. A Figura \ref{fig:starvz-steps} mostra exatamente em qual etapa este trabalho se propõe a modificar (fundo escuro).
+Conforme mencionado anteriormente, o processamento de \emph{traces} no StarVZ é composto de dois passos. O objetivo desse trabalho é otimizar o primeiro, cuja principal função é realizar o pré-processamento dos dados para visualização. A Figura \ref{fig:starvz-preproc} mostra exatamente qual etapa este trabalho se propõe a modificar (fundo escuro).
 
 \begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{./images/step1-simpler.pdf}}
- \legend{Etapas do passo de pré-processamento do StarVZ}
- \label{fig:starvz-steps}
+ \caption{Etapas do passo de pré-processamento do StarVZ}
+ \label{fig:starvz-preproc}
 \end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % METODOLOGIA
 %
-\chapter{Metodologia}
+\chapter{Metodologia} \label{lbl:metodologia}
 
-Primeiramente, serão realizadas experimentações para identificar com precisão a quantidade de tempo
+Primeiramente, serão realizados experimentos para identificar com precisão a quantidade de tempo
 envolvida em cada uma das etapas do pré-processamento do \emph{framework} em sua implementação original. Isso se faz necessário
 pois os tempos citados no trabalho de \citet{ref:starvz} são todos aproximações. Além disso, serão realizados experimentos com 
 outras entradas, portanto, é coerente que tudo seja executado com os mesmos recursos.
@@ -273,38 +272,34 @@ Os arquivos \emph{Feather} resultantes do pré-processamento serão validados co
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CRONOGRAMA
 %
-\chapter{Cronograma}
+\chapter{Cronograma} \label{lbl:cronog}
 
-O cronograma deste trabalho se divide em 4 etapas:
+O cronograma deste trabalho se divide em múltiplas etapas, como pode ser visualizado na Tabela \ref{tab:cronog}. A \emph{Escrita}, último item do cronograma, deve ocorrer durante todo o trabalho. As etapas de revisão bibliográfica, apresentadas nos três primeiros itens, são um aprofundamento nos conhecimentos do objeto do trabalho e do que será utilizado. Na fase de \emph{Obtenção de dados}, é importante garantir que já existe ou gerar grandes arquivos FXT. A \emph{Implementação} compreende na realização efetiva das otimizações. Na etapa de \emph{Experimentos e análise de resultados}, as otimizações serão avaliadas. A última atividade a ser realizada é a produção da \emph{Apresentação para defesa}.
 
-\begin{itemize}
-    \item Implementação - realizar modificações no código do \emph{framework};
-    \item Experimentação - avaliar os resultados do que foi implementado;
-    \item Pesquisa e Escrita - pesquisar trabalhos relacionados e escrever monografia;
-    \item Apresentação - produzir apresentação de slides para a defesa.
-\end{itemize}
 
 \begin{table}[H]
-    \centering
-    \begin{tabular}{|p{1.8in}|p{0.5in}|p{0.5in}|p{0.5in}|p{0.5in}|} \hline 
-Etapa & \multicolumn{4}{|p{2.0in}|}{Meses} \\ \hline 
- & Mai & Jun & Jul & Ago  \\ \hline 
-Implementação & X & X &  &   \\ \hline 
-Experimentação &  & X & X &   \\ \hline 
-Pesquisa e Escrita & X & X & X & X  \\ \hline 
-Apresentação &  &  & X & X  \\ \hline 
+\centering
+\begin{tabular}{p{3.0in}p{0.5in}p{0.5in}p{0.5in}p{0.5in}} \toprule
+\textbf{Etapa}  &  \multicolumn{4}{p{2.0in}}{\textbf{Meses}}  \\ \midrule
+       & Mai & Jun & Jul & Ago \\ \bottomrule
+Revisão de Trabalhos Relacionados & X & X &  &  \\
+Revisão Bibliográfica sobre Spark & X & X &  &  \\
+Revisão Bibliográfica sobre Hadoop & X & X & & \\
+Obtenção de dados  & X & X &  &  \\
+Implementação & X & X &  &  \\
+Experimentos e análise de resultados &  & X & X &  \\
+Apresentação &  &  & X & X \\ 
+Escrita & X & X & X & X \\ \bottomrule
 \end{tabular}
-    \legend{Cronograma de execução do trabalho.}
     \label{tab:cronog}
+    \caption{Cronograma de execução do trabalho.}
 \end{table}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIOGRAFIA 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \bibliographystyle{abntex2-alf}
-\bibliography{biblio}
+\bibliography{biblio} 
 
 \end{document}
