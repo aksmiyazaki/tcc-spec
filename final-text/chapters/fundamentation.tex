@@ -70,10 +70,10 @@ Nele utilizou-se Drake, uma biblioteca para a linguagem de programação R, cujo
 partes necessárias de um \emph{workflow} de análise de dados, evitando os passos desnecessários que não mudarão
 suas saídas. Isso é realizado modelando as computações como um \emph{directed acyclic graph} (DAG) de tarefas e 
 armazenando em cache os resultados daquelas já executadas. Além disso, Drake também possui suporte a paralelismo
-para a execução de tarefas independentes.
+(\emph{Implicit parallelism}) para a execução de tarefas independentes.
 
 Para modelar o StarVZ dessa forma, foram necessárias mudanças cujo objetivo era explicitar 
-dependências e postergar junções de \emph{data frames}. Depois da identificação dos fluxos independentes 
+dependências e postergar junções de \emph{data frames}. Depois da identificação dos fluxos independentes    
 no \emph{workflow}, foi utilizado Drake para criar um plano de execução, que consiste em uma declaração
 das tarefas, onde cada uma é representada por uma função R. Na criação do plano, a biblioteca analisa cada
 uma das tarefas, suas entradas e saídas, para determinar dependências e gerar o DAG.
@@ -86,9 +86,21 @@ Por isso, Drake oferece essa funcionalidade instânciando múltiplas sessões R,
 entre esses processos é realizada pelo mesmo sistema de cache citado anteriormente, consequentemente, resultando nos mesmos
 problemas.
 
-Há outras alternativas para melhoria de performance dessa etapa do \emph{workflow}. Existem pacotes, como o Rmpi \cite{ref:rmpi}
-e o pbdR \cite{ref:pbdr}, que permitem a utilização de MPI com R. Com essas bibliotecas, é possível realizar adaptações no 
-StarVZ para utilização de \emph{Explicit parallelism}. É importante salientar que, embora essas bibliotecas facilitem a 
-utilização de recursos paralelos e distribuídos, para utilizar essa abordagem é necessário dominar conceitos de programação
-paralela e distribuída para conseguir gerar código eficiente. A vantagem é que, como o desenvolvedor tem controle absoluto sobre
-a execução paralela, o resultado pode ter uma performance superior a abordagens de que adotam \emph{Implicit parallelism}, como o Drake.
+Outra alternativa que poderia ser adotada para melhorar o desempenho do StarVZ seria paralelizar (ou distribuir) 
+os fluxos independentes do \emph{workflow}. Ao simplesmente paralelizar, é possível que haja problemas com o tamanho dos
+data frames, como observado na adaptação com Drake, exigindo máquinas com muita memória. Portanto, serão analisadas alternativas
+distribuídas para isso, pois elas podem trazer um ganho de desempenho com um custo inferior.
+
+A primeira opção seria distribuir os fluxos independentes utilizando o pacote Snow, que significa 
+\emph{Simple Network of Workstations} \cite{ref:snow}. Este é desenvolvido para linguagem R e permite a utilização
+de \emph{Explicit parallelism}, oferecendo integração com três interfaces de baixo nível: PVM, através do pacote 
+rpvm; MPI, através do pacote Rmpi \cite{ref:rmpi}; e uma integração com sockets, no caso de não ter nenhuma das outras 
+opções disponíveis no ambiente. A utilização de Snow pode ser feita através da biblioteca Snowfall \cite{ref:snowfall},
+que é um \emph{usability wrapper}, facilitando ainda mais a utilização.
+
+A segunda alternativa seria a utilização da biblioteca future \cite{ref:future}. Esta provê uma forma simples e uniforme 
+de avaliar expressões de forma assíncrona, utilizando recursos diversos. Ela funciona utilizando o conceito de abstração 
+\emph{future}, que básicamente define um valor que poderá estar disponível no futuro. Tal valor pode ter seu estado como 
+resolvido ou não resolvido, estado em que se ele for utilizado bloqueará o processo até sua resolução. Os \emph{futures} 
+podem ser resolvidos de diversas formas: sequential, onde são resolvidos sequencialmente no processo R corrente; multiprocess,
+que resolve utilizando multicore; cluster, que resolve com sessões R na máquina local e/ou em máquinas remotas; e etc.
