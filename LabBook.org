@@ -83,21 +83,31 @@ Sugestões:
 - [X] O atual Cap. 4 se torna Cap. 5 (Conclusão e Trabs. Fut.)
 
 ** 2019-07-08 Revisão do TCC
+*** Traduções
+Os termos em inglês devem ser traduzidos.
+Exemplos:
+- "task-based" para baseado em tarefas
+- "traces" para *rastros*
+- "framework" para arcabouço
+- "runtime" para ambiente de execução, mas manter a palavra /runtime/
+  em itálico depois do termo em português.
+- "performance" para desempenho (todos os lugares)
+- "workflow" -> para fluxo de processamento
+- "Execution Traces" -> rastros de execução
+- "Trace" -> rastro
+- "states" -> estados, eventos -> eventos, ... (cap.2)
+- Traduzir Comma-Separated Value (CSV)
+- "data frame" -> tabela
+- "usability wrapper"
+- Evitar palavras em inglês em geral, procurando uma boa tradução e
+  colocando a palavra em inglês em itálico dentro de parenteses na
+  primeira ocorrência.
 *** Capítulo 1 (Introdução)
-
 - Parágrafo #2: além da heterogeneidade _interna_ dos nós computacionais
   que motiva o uso de DAG como aplicações, temos também a natural
   "variabilidade" do desempenho de sistemas computacionais que em
   escala podem prejudicar ambientes de execução que precisam que as
   aplicações tenho um particionamento estático e regular.
-- Traduzir
-  - "task-based" para baseado em tarefas
-  - "traces" para *rastros*
-  - "framework" para arcabouço
-  - "runtime" para ambiente de execução, mas manter a palavra /runtime/
-    em itálico depois do termo em português.
-  - "performance" para desempenho
-  - Cuidar com todas as palavras em inglês
 - "não são eficazes ao analisar aplicações baseadas em tarefas." por
   não ter elementos visuais e métricas que consideram o grafo de
   tarefas da aplicação.
@@ -110,7 +120,61 @@ Sugestões:
 - Reservar um parágrafo antes da estrutura para listar um sumário dos
   resultados obtidos quando estes estiverem atingidos.
 - Quebrar o parágrafo da estrutura do texto em múltiplas frases.
+*** Capítulo 2 (Fundamentação)
+- "discute-se sobre os trabalhos relacionados." -> são apresentados
+  - Quebrar em duas frases
+- Fig 2.1: aumentar as letras pois parecem pequenas demais quando
+  comparadas ao texto normal do documento
+- "com informação de data e hora" -> eventos datados
+- Colocar na lista de abreviaturas
+  - Comma-Separated Value (CSV)
+- "dados da execução inteira são unificados em uma estrutura" -> os
+  dados são unificados em uma lista
+- "customizada." -> configurável
+- "Nele utilizou-se" (juntar com o parágrafo anterior)
+- Os desenvolvedores do drake evoluiram o software para evitar
+  checkpoint em disco (conforme [1]) em algo chamado como "hasty
+  mode", mas isso ainda não foi avaliado no âmbito do StarVZ (com
+  suporte à drake).
+  [1]: https://github.com/schnorr/starvz/issues/6
+- "básicamente"
 
+Visão geral Cap 2: Tenho a percepção que a "fundamentação teórica"
+está demasiada curta. Poderias incorporar uma parte do texto que havia
+sido preparado na proposta. Poderias falar rapidamente sobre o
+ferramental BigData (Hadoop & friends). Sugestão de mudança interna.
+
+2. Fundamentação
+- Pequena introdução
+2.1 Análise de Desempenho de Aplicações Paralelas
+- Tudo o que constava na fundamentação da proposta
+2.1.1 Ferramentas de Viz. Clássica
+2.1.2 Ferramentas de Viz para aplic orientadas a tarefas
+- Com exceção de StarVZ (ver abaixo capítulo exclusivo), deixar
+  portanto apenas uma menção que maiores detalhamentos serão lá
+  colocados
+2.2 Universo de ferramentas MapReduce
+- Incluindo a filosofia de paralelização de IO
+  - Múltiplos discos, etc
+  - Explicar MR, e Spark (com o DAG)
+
+(NOVO Capítulo) A Ferramenta StarVZ
+X.1 Visão Geral
+- Tudo o que já tem na atual 2.1 Conceitos Básicos, mais:
+  - Texto sobre StarVZ na última seção não numerada da Seção
+    Fundamentação da proposta incluindo a Figura 2.1 da proposta e
+    texto adjacente
+X.2 Fases
+- A Figura 3.1 da proposta e texto adjacente
+  - Explicar mais detalhadamente a figura
+X.3 Trabalhos Relacionados
+- Tudo o que esta hoje na Seção 2.2 Trabs. Relacionados
+X.4 Motivação/Abordagem
+- Motivar o trabalho argumento que as soluções atuais não são
+  escaláveis e que há uma necessidade de se avaliar se ferramentas de
+  big data podem resolver o problema
+- Explicitar bem rapidamente a abordagem
+- Gancho para o próximo capítulo
 * Instalação do StarPU
 
 ** Manualmente
