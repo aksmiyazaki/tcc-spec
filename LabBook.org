@@ -82,6 +82,35 @@ Sugestões:
     de caso, etc.
 - [X] O atual Cap. 4 se torna Cap. 5 (Conclusão e Trabs. Fut.)
 
+** 2019-07-08 Revisão do TCC
+*** Capítulo 1 (Introdução)
+
+- Parágrafo #2: além da heterogeneidade _interna_ dos nós computacionais
+  que motiva o uso de DAG como aplicações, temos também a natural
+  "variabilidade" do desempenho de sistemas computacionais que em
+  escala podem prejudicar ambientes de execução que precisam que as
+  aplicações tenho um particionamento estático e regular.
+- Traduzir
+  - "task-based" para baseado em tarefas
+  - "traces" para *rastros*
+  - "framework" para arcabouço
+  - "runtime" para ambiente de execução, mas manter a palavra /runtime/
+    em itálico depois do termo em português.
+  - "performance" para desempenho
+  - Cuidar com todas as palavras em inglês
+- "não são eficazes ao analisar aplicações baseadas em tarefas." por
+  não ter elementos visuais e métricas que consideram o grafo de
+  tarefas da aplicação.
+- "foi desenvolvido combinando ~pj_dump~" \to talvez valha a pena dizer
+  que faz parte do PajeNG e citar o trabalho
+- "em alguns estudos de caso onde o StarVZ foi utilizado, contribuíram"
+  refrasear para evitar separação de sujeito e verbo
+- "Serão utilizadas ferramentas de Big Data para essa otimização."
+  - Quais ferramentas? Qual a abordagem?
+- Reservar um parágrafo antes da estrutura para listar um sumário dos
+  resultados obtidos quando estes estiverem atingidos.
+- Quebrar o parágrafo da estrutura do texto em múltiplas frases.
+
 * Instalação do StarPU
 
 ** Manualmente
