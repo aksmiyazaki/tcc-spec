@@ -1,0 +1,9 @@
+Spark
+
+data$Y %>% sdf_nrow
+[1] 72
+
+Sequential
+
+data$Y%>% nrow
+[1] 72

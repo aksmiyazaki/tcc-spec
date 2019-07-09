@@ -1,3 +1,8 @@
+## Texto - Padronização
+- Termos em inglês - emph
+- nomes de pacotes/bibliotecas/ferramentas - texttt
+
+
 ## Glossário de termos da área
 | Termo  | Descrição  |
 |:--|:--|
@@ -179,3 +184,8 @@ tremamente grandes.
     - devtools
     - starVZ package
 - Primeira execução do exemplo retornou o erro ERROR: pj_dump is not installed, please install PajeNG or configure PATH
+
+
+# Notas sobre validação
+- Nature contém o mesmo conteúdo para todas as linhas em Cholesky e poderia ser removido?
+-

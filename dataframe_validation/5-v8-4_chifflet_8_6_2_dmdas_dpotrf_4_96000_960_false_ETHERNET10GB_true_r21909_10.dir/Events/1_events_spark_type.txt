@@ -1,0 +1,20 @@
+data$Events %>% group_by(Type) %>% summarise(N=n()) %>% arrange(N) %>% sdf_collect %>% view
+
+Type
+N
+1	program event type	32
+2	data unregistration	71
+3	Free Start	19517
+4	Free End	19517
+5	data registration	28786
+6	Allocating End	36240
+7	Allocating Start	36240
+8	Allocating Async Start	63173
+9	Allocating Async End	63173
+10	DriverCopy End	103985
+11	DriverCopy Start	103985
+12	DriverCopyAsync End	103985
+13	DriverCopyAsync Start	103985
+14	task pop	171732
+15	task push	171732
+Showing 1 to 15 of 15 entries, 2 total columns

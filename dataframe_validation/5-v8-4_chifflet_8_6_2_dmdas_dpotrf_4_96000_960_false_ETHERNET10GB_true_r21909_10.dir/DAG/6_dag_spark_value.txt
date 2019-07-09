@@ -1,0 +1,10 @@
+data$DAG %>% group_by(Value) %>% summarise(N=n()) %>% arrange(N) %>% sdf_collect %>% view
+
+Value
+N
+1	dpotrf	197
+2	dsyrk	15917
+3	dtrsm	17163
+4	NA	557234
+5	dgemm	698716
+Showing 1 to 5 of 5 entries, 2 total columns

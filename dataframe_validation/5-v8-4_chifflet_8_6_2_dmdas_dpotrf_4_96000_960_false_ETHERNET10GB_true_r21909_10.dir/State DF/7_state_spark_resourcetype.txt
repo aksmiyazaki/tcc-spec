@@ -1,0 +1,11 @@
+ data$State %>% group_by(ResourceType) %>% summarise(N=n()) %>%  arrange(N) %>% sdf_collect %>% view
+
+ResourceType
+N
+1	mpict	199180
+2	CUDA	259716
+3	MEMMANAGER	326886
+4	CPU	692290
+5	t	1623915
+6	T	2105590
+Showing 1 to 6 of 6 entries, 2 total columns

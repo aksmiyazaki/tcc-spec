@@ -1,0 +1,16 @@
+data$State %>% group_by(Depth) %>% summarise(N=n()) %>% arrange(N) %>% view
+
+Depth
+N
+1	10	5
+2	9	18
+3	8	32
+4	7	139
+5	6	320
+6	5	1247
+7	4	4470
+8	3	17297
+9	2	88791
+10	1	708006
+11	0	4387252
+Showing 1 to 11 of 11 entries, 2 total columns

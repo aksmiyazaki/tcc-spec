@@ -1,0 +1,14 @@
+data$Gaps %>% group_by(Node_x) %>% summarise(N=n()) %>% arrange(N) %>% sdf_collect %>% view
+
+Node_x
+N
+1	NA	23186
+2	6	122108
+3	2	122492
+4	0	124232
+5	4	124386
+6	5	126118
+7	1	126161
+8	7	128038
+9	3	128133
+Showing 1 to 9 of 9 entries, 2 total columns

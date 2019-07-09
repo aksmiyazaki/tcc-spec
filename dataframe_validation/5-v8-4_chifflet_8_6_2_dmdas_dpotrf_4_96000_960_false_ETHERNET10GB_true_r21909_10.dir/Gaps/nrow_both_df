@@ -1,0 +1,9 @@
+Spark
+
+data$Gaps %>% sdf_nrow
+[1] 1024854
+
+Sequential
+
+data$Gaps %>% nrow
+[1] 1024854

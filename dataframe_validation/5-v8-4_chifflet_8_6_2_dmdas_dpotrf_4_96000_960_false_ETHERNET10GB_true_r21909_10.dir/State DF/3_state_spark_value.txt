@@ -1,0 +1,35 @@
+data$State %>% group_by(Value) %>% summarise(N=n()) %>% arrange(N) %>% sdf_collect %>% view
+
+Value
+N
+1	UserWaiting	18
+2	Waiting all tasks	32
+3	dpotrf	100
+4	dsyrk	4950
+5	dtrsm	4950
+6	Sleeping	10292
+7	SendCompleted	19503
+8	SendSubmitted	19504
+9	ReceiveSubmitted	19504
+10	UserTesting	19504
+11	Freeing	19517
+12	Allocating	36233
+13	FetchingInput	45945
+14	AllocatingReuse	63166
+15	Callback	72979
+16	Processing	78032
+17	DriverCopyAsync	103985
+18	DriverCopy	103985
+19	Executing	137412
+20	dgemm	161700
+21	Building task	171699
+22	PushingOutput	171700
+23	Idle	171700
+24	Submitting task	337661
+25	Decoding task for MPI	383117
+26	Preparing task for MPI	383117
+27	Post-processing task for MPI	383124
+28	Progressing	428680
+29	Scheduling	645637
+30	Overhead	1209831
+Showing 1 to 24 of 30 entries, 2 total columns

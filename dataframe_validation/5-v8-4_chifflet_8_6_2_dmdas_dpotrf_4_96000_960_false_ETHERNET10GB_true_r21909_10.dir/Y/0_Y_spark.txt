@@ -1,0 +1,80 @@
+data$Y %>% arrange(Position) %>% sdf_collect %>% view
+
+Parent
+Type
+Nature
+Height
+Position
+1	7_CUDA1_0	Worker State	State	2	0
+2	7_CUDA0_0	Worker State	State	2	2
+3	7_CPU5	Worker State	State	1	4
+4	7_CPU4	Worker State	State	1	5
+5	7_CPU3	Worker State	State	1	6
+6	7_CPU2	Worker State	State	1	7
+7	7_CPU1	Worker State	State	1	8
+8	7_CPU0	Worker State	State	1	9
+9	7_mpict	Communication Thread State	State	1	10
+10	6_CUDA1_0	Worker State	State	2	11
+11	6_CUDA0_0	Worker State	State	2	13
+12	6_CPU5	Worker State	State	1	15
+13	6_CPU4	Worker State	State	1	16
+14	6_CPU3	Worker State	State	1	17
+15	6_CPU2	Worker State	State	1	18
+16	6_CPU1	Worker State	State	1	19
+17	6_CPU0	Worker State	State	1	20
+18	6_mpict	Communication Thread State	State	1	21
+19	5_CUDA1_0	Worker State	State	2	22
+20	5_CUDA0_0	Worker State	State	2	24
+21	5_CPU5	Worker State	State	1	26
+22	5_CPU4	Worker State	State	1	27
+23	5_CPU3	Worker State	State	1	28
+24	5_CPU2	Worker State	State	1	29
+25	5_CPU1	Worker State	State	1	30
+26	5_CPU0	Worker State	State	1	31
+27	5_mpict	Communication Thread State	State	1	32
+28	4_CUDA1_0	Worker State	State	2	33
+29	4_CUDA0_0	Worker State	State	2	35
+30	4_CPU5	Worker State	State	1	37
+31	4_CPU4	Worker State	State	1	38
+32	4_CPU3	Worker State	State	1	39
+33	4_CPU2	Worker State	State	1	40
+34	4_CPU1	Worker State	State	1	41
+35	4_CPU0	Worker State	State	1	42
+36	4_mpict	Communication Thread State	State	1	43
+37	3_CUDA1_0	Worker State	State	2	44
+38	3_CUDA0_0	Worker State	State	2	46
+39	3_CPU5	Worker State	State	1	48
+40	3_CPU4	Worker State	State	1	49
+41	3_CPU3	Worker State	State	1	50
+42	3_CPU2	Worker State	State	1	51
+43	3_CPU1	Worker State	State	1	52
+44	3_CPU0	Worker State	State	1	53
+45	3_mpict	Communication Thread State	State	1	54
+46	2_CUDA1_0	Worker State	State	2	55
+47	2_CUDA0_0	Worker State	State	2	57
+48	2_CPU5	Worker State	State	1	59
+49	2_CPU4	Worker State	State	1	60
+50	2_CPU3	Worker State	State	1	61
+51	2_CPU2	Worker State	State	1	62
+52	2_CPU1	Worker State	State	1	63
+53	2_CPU0	Worker State	State	1	64
+54	2_mpict	Communication Thread State	State	1	65
+55	1_CUDA1_0	Worker State	State	2	66
+56	1_CUDA0_0	Worker State	State	2	68
+57	1_CPU5	Worker State	State	1	70
+58	1_CPU4	Worker State	State	1	71
+59	1_CPU3	Worker State	State	1	72
+60	1_CPU2	Worker State	State	1	73
+61	1_CPU1	Worker State	State	1	74
+62	1_CPU0	Worker State	State	1	75
+63	1_mpict	Communication Thread State	State	1	76
+64	0_CUDA1_0	Worker State	State	2	77
+65	0_CUDA0_0	Worker State	State	2	79
+66	0_CPU5	Worker State	State	1	81
+67	0_CPU4	Worker State	State	1	82
+68	0_CPU3	Worker State	State	1	83
+69	0_CPU2	Worker State	State	1	84
+70	0_CPU1	Worker State	State	1	85
+71	0_CPU0	Worker State	State	1	86
+72	0_mpict	Communication Thread State	State	1	87
+Showing 1 to 24 of 72 entries, 5 total columns

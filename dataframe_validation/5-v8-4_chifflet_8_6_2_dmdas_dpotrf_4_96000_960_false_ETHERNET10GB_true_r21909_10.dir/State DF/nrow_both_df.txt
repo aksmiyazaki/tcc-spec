@@ -1,0 +1,4 @@
+nrow_spark          - >     data$State %>% sdf_nrow
+[1] 5207577
+nrow_sequential     -> data$State %>% nrow
+[1] 5207577

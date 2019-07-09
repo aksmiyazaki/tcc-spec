@@ -1,0 +1,8 @@
+data$Link %>% group_by(Type) %>% summarise(N=n()) %>% arrange(N) %>% view
+
+Type
+N
+1	Intra-node data Fetch	7011
+2	MPI communication	19504
+3	Intra-node data PreFetch	96974
+Showing 1 to 3 of 3 entries, 2 total columns

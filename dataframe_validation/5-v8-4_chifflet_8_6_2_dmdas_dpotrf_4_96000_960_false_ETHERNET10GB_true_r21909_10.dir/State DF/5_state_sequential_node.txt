@@ -1,0 +1,13 @@
+data$State %>% group_by(Node) %>% summarise(N=n()) %>% arrange(N) %>% view
+
+Node
+N
+1	0	639212
+2	4	639386
+3	6	641998
+4	2	648932
+5	7	652787
+6	3	657746
+7	5	662755
+8	1	664761
+Showing 1 to 8 of 8 entries, 2 total columns

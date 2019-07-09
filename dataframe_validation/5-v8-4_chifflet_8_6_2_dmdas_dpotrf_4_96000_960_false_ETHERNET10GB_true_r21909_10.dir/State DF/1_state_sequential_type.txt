@@ -1,0 +1,8 @@
+data$State %>% group_by(Type) %>% summarise(N=n()) %>% arrange(N) %>% view
+
+ID	Type	N
+1	Communication Thread State	199180
+2	Memory Node State	326886
+3	Worker State	952006
+4	User Thread State	1623915
+5	Thread State	2105590

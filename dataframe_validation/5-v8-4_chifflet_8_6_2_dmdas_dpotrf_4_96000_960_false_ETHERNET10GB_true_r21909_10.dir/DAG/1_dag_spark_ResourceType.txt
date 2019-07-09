@@ -1,0 +1,10 @@
+data$DAG %>% group_by(ResourceType) %>% summarise(N=n()) %>% arrange(N) %>% sdf_collect() %>% view
+
+ResourceType
+N
+1	mpict	19504
+2	MEMMANAGER	103985
+3	CPU	178321
+4	NA	433745
+5	CUDA	553672
+Showing 1 to 5 of 5 entries, 2 total columns

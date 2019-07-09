@@ -1,0 +1,7 @@
+data$DAG %>% group_by(Tag) %>% summarise(N=n()) %>% arrange(N) %>% collect %>% view
+
+Tag
+N
+1	NA	557234
+2	0000000000000000	731993
+Showing 1 to 2 of 2 entries, 2 total columns

@@ -1,0 +1,14 @@
+data$DAG %>% group_by(Node) %>% summarise(N=n()) %>% arrange(N) %>% sdf_collect %>% view
+
+Node
+N
+1	6	103791
+2	2	104527
+3	0	105428
+4	5	107066
+5	4	107106
+6	1	107397
+7	7	109814
+8	3	110353
+9	NA	433745
+Showing 1 to 9 of 9 entries, 2 total columns

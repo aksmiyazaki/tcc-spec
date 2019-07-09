@@ -1,0 +1,10 @@
+data$Variable %>% group_by(ResourceType) %>% summarise(N=n()) %>% arrange(N) %>% sdf_collect() %>% view
+
+ResourceType
+N
+1	CPU	43858
+2	mpict	77865
+3	CUDA	138885
+4	MEMMANAGER	471690
+5	scheduler	869539
+Showing 1 to 5 of 5 entries, 2 total columns

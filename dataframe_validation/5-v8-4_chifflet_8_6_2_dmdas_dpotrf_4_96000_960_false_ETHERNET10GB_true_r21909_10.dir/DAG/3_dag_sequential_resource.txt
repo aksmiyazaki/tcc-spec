@@ -1,0 +1,18 @@
+data$DAG %>% group_by(Resource) %>% summarise(N=n()) %>% arrange(N) %>% collect %>% view
+
+Resource
+N
+1	mpict	19504
+2	MEMMANAGER0	23100
+3	CPU4	28942
+4	CPU5	29330
+5	CPU3	29664
+6	CPU1	29756
+7	CPU2	29789
+8	CPU0	30840
+9	MEMMANAGER1	35314
+10	MEMMANAGER2	45571
+11	CUDA0	255068
+12	CUDA1	298604
+13	NA	433745
+Showing 1 to 13 of 13 entries, 2 total columns

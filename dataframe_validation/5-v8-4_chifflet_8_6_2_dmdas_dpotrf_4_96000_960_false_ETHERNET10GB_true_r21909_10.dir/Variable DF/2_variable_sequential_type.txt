@@ -1,0 +1,12 @@
+data$Variable %>% group_by(Type) %>% summarise(N=n()) %>% arrange(N) %>% view
+
+Type
+N
+1	Used (MB)	55750
+2	GFlops	182743
+3	Total GFlops	182743
+4	B. In (MB/s)	227474
+5	B. Out (MB/s)	266331
+6	Ready	343398
+7	Submitted	343398
+Showing 1 to 7 of 7 entries, 2 total columns

@@ -1,0 +1,9 @@
+Spark
+
+data$Link %>% sdf_nrow
+[1] 123489
+
+Sequential
+
+data$Link %>% nrow
+[1] 123489

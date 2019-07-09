@@ -1,0 +1,9 @@
+Spark
+
+data$Variable %>% sdf_nrow
+[1] 1601837
+
+Sequential
+
+data$Variable %>% nrow
+[1] 1601837

@@ -1,0 +1,9 @@
+Spark
+
+data$DAG %>% sdf_nrow
+[1] 1289227
+
+Sequential
+
+data$DAG %>% nrow
+[1] 1289227

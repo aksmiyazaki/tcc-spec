@@ -1,0 +1,9 @@
+data$State %>% group_by(Size) %>% summarise(N=n()) %>%  arrange(N) %>% sdf_collect %>% view
+
+Size
+N
+1	7372800	100
+2	14745600	9900
+3	22118400	161700
+4	NA	5035877
+Showing 1 to 4 of 4 entries, 2 total columns

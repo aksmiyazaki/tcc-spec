@@ -1,0 +1,10 @@
+data$DAG %>% group_by(Type) %>% summarise(N=n()) %>% arrange(N) %>% collect %>% view
+
+Type
+N
+1	Intra-node data Fetch	7011
+2	MPI communication	19504
+3	Intra-node data PreFetch	96974
+4	NA	433745
+5	Worker State	731993
+Showing 1 to 5 of 5 entries, 2 total columns

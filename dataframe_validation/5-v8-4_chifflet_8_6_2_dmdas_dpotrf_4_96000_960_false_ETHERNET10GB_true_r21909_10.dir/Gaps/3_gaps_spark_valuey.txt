@@ -1,0 +1,10 @@
+data$Gaps %>% group_by(Value_y) %>% summarise(N=n()) %>% arrange(N) %>% sdf_collect %>% view
+
+Value_y
+N
+1	dpotrf	2549
+2	dsyrk	7439
+3	dtrsm	78205
+4	dgemm	187481
+5	NA	749180
+Showing 1 to 5 of 5 entries, 2 total columns

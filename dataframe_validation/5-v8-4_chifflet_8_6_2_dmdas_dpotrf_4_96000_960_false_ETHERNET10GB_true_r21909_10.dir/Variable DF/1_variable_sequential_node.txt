@@ -1,0 +1,13 @@
+data$Variable %>% group_by(Node) %>% summarise(N=n()) %>% arrange(Node) %>% view
+
+Node
+N
+1	0	184463
+2	1	210386
+3	2	205108
+4	3	197646
+5	4	193163
+6	5	209421
+7	6	203640
+8	7	198010
+Showing 1 to 8 of 8 entries, 2 total columns

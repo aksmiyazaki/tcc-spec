@@ -1,0 +1,9 @@
+Spark
+
+data$Events%>% sdf_nrow
+[1] 1026153
+
+Sequential
+
+data$Events%>% nrow
+[1] 1026153
