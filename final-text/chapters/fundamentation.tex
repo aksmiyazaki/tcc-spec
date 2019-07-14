@@ -2,9 +2,127 @@
 \chapter{Fundamentação} \label{ch:fundamentation}
 
 Este Capítulo apresenta a fundamentação necessária para o entendimento do trabalho. 
-Ele é separado em duas Seções, na primeira, são apresentados os conceitos básicos 
-sobre o StarVZ e seu \emph{workflow} e, na segunda, discute-se sobre os trabalhos 
-relacionados.
+Ele é separado em duas Seções, na primeira, são apresentadas as ferramentas de análise de
+desempenho de aplicações paralelas e, na segunda, são contextualizadas ferramentas que
+serão utilizadas no trabalho.
+
+\section{Análise de desempenho de aplicações paralelas}
+
+Nesta Seção, serão apresentados os trabalhos relacionados. Eles foram agrupados em duas
+categorias, a primeira delas, \emph{
+Ferramentas de visualização Clássicas}, consiste em ferramentas que oferecem visualização de \emph{traces} de aplicações desenvolvidas no modelo BSP. A segunda, denominada \emph{Ferramentas de visualização orientadas a tarefas} oferecem visualização de traces de aplicações desenvolvidas no modelo orientado a tarefas. Nas próximas subseções, serão detalhados os trabalhos de cada um desses grupos.
+
+\subsection*{Ferramentas de visualização Clássicas}
+
+Essas ferramentas possuem o objetivo de prover visualizações de traces para aplicações de HPC tradicionais. Estas eram desenvolvidas
+seguindo o modelo que consiste em uma série de \emph{supersteps} (computações, comunicações, sincronizações), executadas com a premissa de ter-se um ambiente homogêneo, denominado \emph{Bulk-Synchronous Parallel}. Como esta abordagem  dominou o cenário HPC durante muito tempo, suas necessidades
+balizaram o desenvolvimento da maior parte das ferramentas de análise de desempenho.
+
+\subsubsection*{ViTE}
+ViTE \cite{ref:vite} é uma ferramenta de visualização de \emph{traces} open-source. Para o processamento de grandes entradas ele conta com aceleração de Hardware e OpenGL. Suas entradas são arquivos na linguagem Pajé \cite{ref:paje}.
+
+Essa ferramenta exibe os recursos de forma hierárquica, onde oferece a visualização das tarefas (eixo vertical) em função de tempo (eixo horizontal), similar a um Gantt. Na análise de aplicações distribuídas, também é possível incluir indicadores de transferências de dados.
+
+\subsubsection*{Paraver}
+Paraver \cite{ref:paraver} também objetiva a visualização e análise de \emph{traces} de execução. Ela conta com uma agregação de dados, definida pelo
+usuário via arquivo de configuração, para conseguir exibir entradas volumosas. Suas entradas são geradas por vários modelos de programação, pela ferramenta Extrae.
+
+\subsubsection*{Vampir}
+Vampir \cite{ref:vampir} é uma ferramenta proprietária de código fechado para fins de análise de \emph{traces}. Ela traz uma abordagem de cliente-servidor, onde o servidor pode ser executado no hardware de experimentação e o cliente é o computador do usuário.
+
+Suas entradas são arquivos OTF2 (Open Trace Format, version 2) \cite{ref:otf2}. Ele fornece múltiplas visualizações como gráficos de espaço-tempo e estatísticas de execução.
+
+\subsubsection*{Ravel}
+O objetivo da ferramenta Ravel \cite{ref:ravel} também é a visualização de \emph{traces}. Suas entradas são em formato OTF \emph{Open Trace Format} e sua diferença em relação aos demais é que ele mostra as linhas de tempo lógicas, fornecendo uma estruturação para melhor entendimento de operações.
+
+\subsubsection*{FrameSoc e Ocelotl}
+
+FrameSoc \cite{ref:framesoc} é uma ferramenta de análise de performance, capaz de lidar com grandes volumes de dados. Como entrada, ela suporta diversos
+formatos como Pajé, CTF, Paraver e OTF2. Além dos dados de \emph{trace}, é possível armazenar informações como metadados e anotações. A ferramenta converte tudo para um modelo de dados genérico e armazena em uma base de dados relacional.
+
+Para visualizar grandes volumes de dados, a ferramenta baseia-se no Ocelotl \cite{ref:ocelotl}. Esse módulo possui um arquivo de configuração parametrizável pelo usuário, que gerencia uma agregação espaçotemporal dados.
+
+\subsection*{Ferramentas de visualização orientadas a tarefas}
+
+Como os recursos e o custo de execução de tarefas não são constantes no modelo \emph{task-based}, é necessário representações diferentes para
+possibilitar uma análise de performance nesses ambientes. O desenvolvimento do \emph{framework} StarVZ \cite{ref:starvz} foi motivado pela carência
+de ferramentas maduras para a visualização de \emph{traces} com o objetivo de identificação de melhorias de performance. Antes de seu desenvolvimento existiam algumas ferramentas, todavia, elas não forneciam dados suficientes para identificar otimizações de forma eficiente.
+
+\subsubsection*{DAGViz}
+
+DAGViz \cite{ref:dagviz} é composto por dois passos: 
+
+\begin{enumerate}
+    \item extração do DAG dos arquivos de uma execução paralela;
+    \item visualização hierárquica do DAG.
+\end{enumerate}
+
+Essa ferramenta traz uma visualização diferente do modelo BSP, exibindo as tarefas como um grafo hierárquico. Nele, o analista pode colapsar e expandir os grupos de tarefas. Dados de tempo de execução não são tratados pela ferramenta.
+
+\subsubsection*{Traces de execução com dependências de tarefas}
+
+A ferramenta desenvolvida por \citet{ref:visuexecdep} traz um gráfico no estilo espaço-tempo (Gantt). Há algumas outras funcionalidades como a identificação de dependências de tarefas (apenas o primeiro nível) a medida que o usuário passa o mouse sobre as caixas que representam as tarefas.
+
+Como entradas, são utilizados a representação do DAG e os \emph{traces} de execução. Essa ferramenta é desenvolvida para o especificamente para o \emph{runtime} PaRSEC.
+
+\subsubsection*{Temanejo}
+
+Temanejo \cite{ref:temanejo} é um \emph{debugger} para o modelo de programação baseado em tarefas, onde o analista visualiza um DAG. Ele suporta grande parte dos 
+\emph{runtimes} de execução de aplicações baseadas em tarefas, como OmpSs, StarPU e PaRSEC. Suas funcionalidades são focadas em depuração, permitindo que o usuário possa identificar e consertar parâmetros e dependências de tarefas.
+
+\subsubsection*{Delay Spotter}
+
+Delay Spotter \cite{ref:delayspotter} é uma ferramenta, construída sobre o DAGViz, que possibilita a identificação de atrasos em \emph{runtimes}.
+Ela divide os estados dos \emph{workers} em três categorias, permitindo a identificação de delays decorrentes de problemas de escalonamento.
+Como em ambientes heterogêneos com tarefas variadas, a presença de \emph{delays} faz parte da execução das aplicações, essa ferramenta é pouco efetiva.
+
+\subsubsection*{TaskInsight}
+
+TaskInsight \cite{ref:taskinsight} é uma ferramenta que objetiva identificar o comportamento de memória e seu impacto na execução de tarefas. 
+Apesar de prover algumas estatísticas e possibilitar algumas identificações de anomalias, apenas essa análise não é o suficiente para
+identificar a maioria dos pontos de otimização de aplicações \emph{task-based}.
+
+\subsubsection*{StarVZ}
+
+\emph{Framework} que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui a visualização de dados mais avançada dentre as ferramentas citadas.
+Construído com uma abordagem de \emph{script}, ela possui um grande poder de customização e, por isso, é difícil enumerar o que a ferramenta fornece.
+No trabalho de \citet{ref:starvz}, podemos visualizar diversos gráficos gerados de uma execução de aplicação:
+
+\begin{itemize}
+    \item gráfico com comportamento de tarefas;
+    \item gráfico com a quantidade de tarefas submetidas;
+    \item o comportamento do \emph{runtime}, com os estados dos \emph{workers} StarPU;
+    \item a quantidade de tarefas prontas;
+    \item taxa de GFlops do ambiente;
+    \item tráfego de dados entre a memória das GPUs;
+    \item transferências de rede MPI;
+    \item número de operações MPI concorrentes.
+\end{itemize}
+
+Ele é composto por dois passos, como podemos observar na Figura \ref{fig:starvz-steps}. O primeiro, executado em um servidor e cujo objetivo é fazer um pré-processamento dos dados. O segundo é realizado diretamente na máquina do analista, trata-se apenas de manipulações para visualização.
+
+\begin{figure}[H]
+ \centerline{\includegraphics[width=1\textwidth]{./images/all-proc.pdf}}
+ \caption{Passos de processamento do StarVZ}
+ \label{fig:starvz-steps}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Conceitos Básicos} \label{sect:basic-concepts}
 
