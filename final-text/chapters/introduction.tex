@@ -1,27 +1,2 @@
 % introducao
 \chapter{Introdução} \label{ch:intro}
-
-A quantidade de dados gerados em todo o mundo diariamente é surpreendente. De acordo com \citet{ref:data_minute2}, há uma estimativa
-que em 2020 cada pessoa deve gerar em média 1,7MB de dados por dia. Estes frequentemente precisam ser processados para ter algum valor,
-o que implica em uma constante necessidade por sistemas computacionais mais poderosos.
-
-Plataformas de HPC (\emph{High-Performance Computing}) evoluíram para
-utilizar algumas tecnologias, como processadores multicore e GPUs
-(\emph{Graphics processing units}, comumente referenciadas como
-\emph{accelerators}), tornando estas plataformas heterogêneas dentro
-de um nó computacional. Com a evolução do Hardware, a abordagem de
-desenvolvimento de aplicações de HPC tradicional, chamada de
-\emph{Bulk-synchronous parallel} (BSP) tornou-se obsoleta. Esta espera
-que os recursos de computação sejam homogêneos (nós idênticos,
-conectados por links estáveis e de alta vazão) e portanto, é incapaz
-de utilizar a heterogeneidade do ambiente ao seu favor.
-
-Uma abordagem que está sendo utilizada para lidar com tal heterogeneidade é desenvolver aplicações em alto nível, descrevendo as computações como um \emph{Directed Acyclic Graph} (DAG) de tarefas. Tal abordagem é implementada por múltiplos modelos de programação: OpenMP 4 \cite{ref:openmp4}, StarPU \cite{ref:starpu}, OmpSs \cite{ref:ompss}, ParSEC \cite{ref:parsec}, etc. 
-
-Nesses modelos de programação \emph{task-based}, a responsabilidade de escalonar e executar a aplicação de forma performática é atribuída para outra camada de software, denominada \emph{runtime}. Ferramentas de análise de \emph{traces}, que antes auxiliavam o desenvolvedor da aplicação a fazer otimizações, como Paraver \cite{ref:paraver} e Vampir \cite{ref:vampir} não são eficazes ao analisar aplicações baseadas em tarefas.
-
-Com essa motivação, foi desenvolvido um \emph{framework} denominado StarVZ \cite{ref:starvz}, cujo objetivo é fornecer uma visualização de traces mais elaborada, provendo facilidade no entendimento e identificação de problemas de performance sutis, que dificilmente seriam identificados com abordagens clássicas. Esse \emph{framework} foi desenvolvido combinando \emph{pj\_dump},  a linguagem R \cite{ref:rlanguage} e algumas bibliotecas expressivas dessa linguagem (\emph{ggplot2} \cite{ref:ggplot2}, \emph{lpSolve} \cite{ref:lpsolve} e \emph{tidyverse} \cite{ref:tidyverse}), Org-mode \cite{ref:org-mode} e \emph{plotly} para análise de traces gerados pelo modelo de programação StarPU. 
-
-Em alguns estudos de caso onde o StarVZ foi utilizado, contribuíram para a identificação de problemas de performance do StarPU. Todavia, durante sua utilização, foi identificado que a primeira fase do \emph{framework} (pré-processamento de dados) em um dos experimentos levou cerca de 32 minutos para processar 18 GB de dados. A melhora de performance dessa fase é o motivador deste trabalho, pois aplicações devem gerar \emph{traces} cada vez mais volumosos, tendo em vista que sua tendência é aumentar ou em recursos ou em dimensão (mais dados e/ou processamentos maiores). Serão utilizadas ferramentas de Big Data para essa otimização.
-
-Este documento consiste no trabalho de conclusão de curso da Especialização em Big Data \& Data Science. As próximas Seções estão organizadas da seguinte forma: a Seção \ref{ch:fundamentation} descreve os conceitos básicos e os trabalhos relacionados; a Seção \ref{ch:contribution} mostra as alterações realizadas no StarVZ e a avaliação dos resultados; e por fim, a Seção \ref{ch:conclusion} conclui o trabalho e discorre sobre trabalhos futuros.
