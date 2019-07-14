@@ -10,3 +10,21 @@ final-text/exemplos/fig\.pdf
 final-text/fig\.pdf
 
 ignore/
+
+*.log
+
+*.backup
+
+*.aux
+
+*.blg
+
+final-text/texto\.lof
+
+final-text/texto\.lot
+
+final-text/texto\.out
+
+final-text/texto\.pdf
+
+final-text/texto\.toc

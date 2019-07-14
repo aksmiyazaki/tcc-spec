@@ -1,0 +1,172 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.1 }
+
+\bibitem[Alles and Schnorr 2018]{ref:drakestarvz}
+\abntrefinfo{Alles and Schnorr}{ALLES; SCHNORR}{2018}
+{ALLES, G.~R.; SCHNORR, L.~M. Parallel workflow support for starvz using drake.
+\textbf{WSPPD Proceedings}, p. 23 -- 25, 2018.
+Available from Internet:
+  \url{http://inf.ufrgs.br/gppd/wsppd/2018/proceedings.php}.}
+
+\bibitem[Augonnet et al. 2011]{ref:starpu}
+\abntrefinfo{Augonnet et al.}{AUGONNET et al.}{2011}
+{AUGONNET, C. et al. Starpu: A unified platform for task scheduling on
+  heterogeneous multicore architectures.
+\textbf{Concurr. Comput. : Pract. Exper.}, John Wiley and Sons Ltd.,
+  Chichester, UK, v.~23, n.~2, p. 187--198, feb. 2011.
+ISSN 1532-0626.
+Available from Internet: \url{http://dx.doi.org/10.1002/cpe.1631}.}
+
+\bibitem[Bengtsson 2019]{ref:future}
+\abntrefinfo{Bengtsson}{BENGTSSON}{2019}
+{BENGTSSON, H. \textbf{future Github Repository}. 2019.
+[Acessed: 2019-06-25].
+Available from Internet: \url{https://github.com/HenrikBengtsson/future}.}
+
+\bibitem[Ceballos et al. 2018]{ref:taskinsight}
+\abntrefinfo{Ceballos et al.}{CEBALLOS et al.}{2018}
+{CEBALLOS, G. et al. Analyzing performance variation of task schedulers with
+  taskinsight.
+\textbf{Parallel Computing}, v.~75, p. 11 -- 27, 2018.
+ISSN 0167-8191.
+Available from Internet:
+  \url{http://www.sciencedirect.com/science/article/pii/S0167819118300346}.}
+
+\bibitem[Coulomb et al. 2009]{ref:vite}
+\abntrefinfo{Coulomb et al.}{COULOMB et al.}{2009}
+{COULOMB, K. et al. \textbf{Visual Trace Explorer}. 2009.
+[Acessed: 2019-05-05].
+Available from Internet: \url{http://vite.gforge.inria.fr/index.php}.}
+
+\bibitem[Dean and Ghemawat 2008]{ref:mapreduce}
+\abntrefinfo{Dean and Ghemawat}{DEAN; GHEMAWAT}{2008}
+{DEAN, J.; GHEMAWAT, S. Mapreduce: Simplified data processing on large
+  clusters.
+\textbf{Commun. ACM}, ACM, New York, NY, USA, v.~51, n.~1, p. 107--113, jan.
+  2008.
+ISSN 0001-0782.
+Available from Internet: \url{http://doi.acm.org/10.1145/1327452.1327492}.}
+
+\bibitem[{Dosimont} et al. 2014]{ref:ocelotl}
+\abntrefinfo{{Dosimont} et al.}{{Dosimont} et al.}{2014}
+{{Dosimont}, D. et al. A spatiotemporal data aggregation technique for
+  performance analysis of large-scale execution traces. In:  \textbf{2014 IEEE
+  International Conference on Cluster Computing (CLUSTER)}. [S.l.: s.n.], 2014.
+  p. 149--157.
+ISSN 1552-5244.}
+
+\bibitem[Eschweiler et al. 2012]{ref:otf2}
+\abntrefinfo{Eschweiler et al.}{ESCHWEILER et al.}{2012}
+{ESCHWEILER, D. et al. Open trace format 2: The next generation of scalable
+  trace formats and support libraries. In:  . [S.l.: s.n.], 2012. v.~22, p. 481
+  -- 490.
+ISBN 9781614990406.}
+
+\bibitem[Garcia Pinto et al. 2018]{ref:starvz}
+\abntrefinfo{Garcia Pinto et al.}{GARCIA PINTO et al.}{2018}
+{GARCIA PINTO, V. et al. A visual performance analysis framework for
+  task-based parallel applications running on hybrid clusters.
+\textbf{Concurrency and Computation: Practice and Experience}, v.~30, n.~18, p.
+  e4472, 2018.
+E4472 cpe.4472.
+Available from Internet:
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/cpe.4472}.}
+
+\bibitem[Haugen et al. 2015]{ref:visuexecdep}
+\abntrefinfo{Haugen et al.}{HAUGEN et al.}{2015}
+{HAUGEN, B. et al. Visualizing execution traces with task dependencies. In:
+  \textbf{Proceedings of the 2Nd Workshop on Visual Performance Analysis}. New
+  York, NY, USA: ACM, 2015.  (VPA '15), p. 2:1--2:8.
+ISBN 978-1-4503-4013-7. Available from Internet:
+  \url{http://doi.acm.org/10.1145/2835238.2835240}.}
+
+\bibitem[{Huynh} and {Taura} 2017]{ref:delayspotter}
+\abntrefinfo{{Huynh} and {Taura}}{{Huynh}; {Taura}}{2017}
+{{Huynh}, A.; {Taura}, K. Delay spotter: A tool for spotting scheduler-caused
+  delays in task parallel runtime systems. In:  \textbf{2017 IEEE International
+  Conference on Cluster Computing (CLUSTER)}. [S.l.: s.n.], 2017. p. 114--125.
+ISSN 2168-9253.}
+
+\bibitem[Huynh et al. 2015]{ref:dagviz}
+\abntrefinfo{Huynh et al.}{HUYNH et al.}{2015}
+{HUYNH, A. et al. Dagviz: A dag visualization tool for analyzing task-parallel
+  program traces. In:  \textbf{Proceedings of the 2Nd Workshop on Visual
+  Performance Analysis}. New York, NY, USA: ACM, 2015.  (VPA '15), p. 3:1--3:8.
+ISBN 978-1-4503-4013-7. Available from Internet:
+  \url{http://doi.acm.org/10.1145/2835238.2835241}.}
+
+\bibitem[Isaacs 2014]{ref:ravel}
+\abntrefinfo{Isaacs}{ISAACS}{2014}
+{ISAACS, K. \textbf{Ravel MPI trace visualization tool}. 2014.
+[Acessed: 2019-05-05].
+Available from Internet: \url{https://github.com/LLNL/ravel}.}
+
+\bibitem[Keller et al. 2012]{ref:temanejo}
+\abntrefinfo{Keller et al.}{KELLER et al.}{2012}
+{KELLER, R. et al. Temanejo: Debugging of thread-based task-parallel programs
+  in starss. In:  BRUNST, H. et al. (Ed.). \textbf{Tools for High Performance
+  Computing 2011}. Berlin, Heidelberg: Springer Berlin Heidelberg, 2012. p.
+  131--137.}
+
+\bibitem[Knaus 2015]{ref:snowfall}
+\abntrefinfo{Knaus}{KNAUS}{2015}
+{KNAUS, J. \textbf{Snowfall Cran Page}. 2015.
+[Acessed: 2019-06-25].
+Available from Internet: \url{https://CRAN.R-project.org/package=snowfall}.}
+
+\bibitem[Kn{\"u}pfer et al. 2008]{ref:vampir}
+\abntrefinfo{Kn{\"u}pfer et al.}{KN{\"U}PFER et al.}{2008}
+{KN{\"U}PFER, A. et al. The vampir performance analysis tool-set. In:  RESCH,
+  M. et al. (Ed.). \textbf{Tools for High Performance Computing}. Berlin,
+  Heidelberg: Springer Berlin Heidelberg, 2008. p. 139--155.
+ISBN 978-3-540-68564-7.}
+
+\bibitem[Landau et al. 2019]{ref:drake}
+\abntrefinfo{Landau et al.}{LANDAU et al.}{2019}
+{LANDAU, W.~M. et al. \textbf{Drake Github Repository}. 2019.
+[Acessed: 2019-06-27].
+Available from Internet: \url{https://github.com/ropensci/drake}.}
+
+\bibitem[{Pagano} et al. 2013]{ref:framesoc}
+\abntrefinfo{{Pagano} et al.}{{Pagano} et al.}{2013}
+{{Pagano}, G. et al. Trace management and analysis for embedded systems. In:
+  \textbf{2013 IEEE 7th International Symposium on Embedded Multicore Socs}.
+  [S.l.: s.n.], 2013. p. 119--122.}
+
+\bibitem[Pillet et al. 1995]{ref:paraver}
+\abntrefinfo{Pillet et al.}{PILLET et al.}{1995}
+{PILLET, V. et al. Paraver: A tool to visualize and analyze parallel code.
+\textbf{WoTUG-18}, v.~44, 03 1995.}
+
+\bibitem[Stein et al. 2015]{ref:paje}
+\abntrefinfo{Stein et al.}{STEIN et al.}{2015}
+{STEIN, B. d.~O. et al. \textbf{Pajé - trace file format}. 2015.
+[Acessed: 2019-05-07].
+Available from Internet:
+  \url{https://github.com/schnorr/pajeng/blob/master/doc/lang-paje/lang-paje.pdf}.}
+
+\bibitem[Tierney 2018]{ref:snow}
+\abntrefinfo{Tierney}{TIERNEY}{2018}
+{TIERNEY, L. \textbf{Snow Home Page}. 2018.
+[Acessed: 2019-06-25].
+Available from Internet:
+  \url{http://homepage.divms.uiowa.edu/~luke/R/cluster/cluster.html}.}
+
+\bibitem[Wickham 2019]{ref:feather}
+\abntrefinfo{Wickham}{WICKHAM}{2019}
+{WICKHAM, H. \textbf{feather: R Bindings to the Feather 'API'}. 2019.
+[Acessed: 2019-06-14].
+Available from Internet:
+  \url{https://cran.r-project.org/web/packages/feather/index.html}.}
+
+\bibitem[Yu 2013]{ref:rmpi}
+\abntrefinfo{Yu}{YU}{2013}
+{YU, H. \textbf{RMPI Home Page}. 2013.
+[Acessed: 2019-06-24].
+Available from Internet: \url{http://fisher.stats.uwo.ca/faculty/yu/Rmpi/}.}
+
+\end{thebibliography}
