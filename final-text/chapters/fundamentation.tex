@@ -146,11 +146,12 @@ no Capítulo \ref{ch:starvz}.
 
 Esta Seção contextualiza tudo o que será utilizado de tecnologia para 
 tratamento de grandes volumes de dados neste trabalho. Na Seção 
-\ref{ref:hadoopspark} contextualizamos a plataforma Hadoop e o framework Spark 
-e na Seção \ref{ref:libraries} falamos sobre as bibliotecas utilizadas para 
-fazer o uso do framework/plataforma. 
+\ref{ref:hadoop} contextualizamos a plataforma Hadoop, na Seção 
+\ref{ref:spark}, falamos sobre o framework Spark e na Seção \ref{ref:libraries} 
+falamos sobre as bibliotecas utilizadas para fazer o uso do 
+framework/plataforma. 
 
-\subsection{Hadoop e Spark} \label{ref:hadoopspark}
+\subsection{Hadoop} \label{ref:hadoop}
 
 O Hadoop é uma plataforma de código aberto que implementa o modelo de 
 programação paralela MapReduce, desenvolvido pelo Google com o objetivo de 
@@ -166,6 +167,12 @@ A Fase de \emph{Shuffle \& Merge} não será detalhada no trabalho, mas é
 importante salientar que existe um processamento entre as fases de mapeamento e 
 redução.
 
+\begin{figure}[ht]
+ \centerline{\includegraphics[width=1\textwidth]{./img/mapreduce-workflow.pdf}}
+ \caption{\emph{Workflow} do MapReduce.}
+ \label{fig:mrworkflow}
+\end{figure}
+
 Primeiramente temos os dados sendo inseridos no Sistema de Arquivos Distribuído 
 \footnote{Termo em português para \emph{Distributed File System} (DFS). No caso 
 do utilizado no Hadoop, tal sistema é referênciado como \emph{Hadoop Distributed 
@@ -174,10 +181,39 @@ tamanho fixo e armazenados sobre os nós da plataforma. Isso permite que os dado
 sejam tratados de forma rápida pois há paralelização em sua leitura.
 
 Com os dados armazenados, pode se iniciar a fase de mapeamento, que resulta em 
-conjuntos de pares intermediários. Estes sofrem um pré-processamento na fase de 
-\emph{Shuffle} e são disponibilizados para os nós que irão executar a fase de 
-redução. Finalmente, os executores da redução obtém os dados e executam suas 
+conjuntos de tuplas intermediárias. Estas sofrem um pré-processamento na fase 
+de \emph{Shuffle} e são disponibilizados para os nós que irão executar a fase 
+de redução. Finalmente, os executores da redução obtém os dados e executam suas 
 tarefas, gerando a saída da execução.
+
+\subsection{Spark} \label{ref:spark}
+
+Spark é uma engine unificada para processamento de dados distribuídos 
+\cite{ref:spark}. A motivação para sua criação foi a necessidade de aplicações 
+para Big Data necessitarem de muitos tipos de processamento e a tendência das 
+engines era serem cada vez mais específicas. 
+
+A genericidade do Spark implica no suporte de uma API unificada que facilita o 
+desenvolvimento de aplicações. Além disso, ele é mais eficiente para combinar 
+tarefas de processamento, pois pode executar diversas aplicações sobre os 
+mesmos dados, que com frequência estão em memória.
+
+Ele é atrelado a um modelo de programação similar ao MapReduce, todavia, possui 
+uma abstração para compartilhamento de dados, chamada \emph{Resilient 
+Distributed Datasets} (RDDs). Estas, consistem em coleções de objetos 
+tolerantes a falhas e que podem ser manipulados em paralelo, pois são 
+particionados sobre a infraestrutura que executa a engine. 
+
+Spark manipula RDDs através de uma API, disponibilizada para diversas 
+linguagens, que permite ao usuário passar funções locais para serem executadas 
+sobre a infraestrutura. A avaliação dos RDDs é realizada de forma Lazy, o que 
+significa que as manipulações são avaliadas apenas quando é executada uma ação 
+no data frame. Isso permite que ele encontre um plano de execução eficiente 
+pois pode agregar operações, otimizando o tempo de execução.
+
+Com isso, ele é capaz de processar uma grande variedade de cargas de 
+trabalho que antes necessitavam de múltiplas engines para processamento.
+
 
 
 

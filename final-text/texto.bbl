@@ -169,4 +169,12 @@ Available from Internet:
 [Acessed: 2019-06-24].
 Available from Internet: \url{http://fisher.stats.uwo.ca/faculty/yu/Rmpi/}.}
 
+\bibitem[Zaharia et al. 2016]{ref:spark}
+\abntrefinfo{Zaharia et al.}{ZAHARIA et al.}{2016}
+{ZAHARIA, M. et al. Apache spark: A unified engine for big data processing.
+\textbf{Commun. ACM}, ACM, New York, NY, USA, v.~59, n.~11, p. 56--65, oct.
+  2016.
+ISSN 0001-0782.
+Available from Internet: \url{http://doi.acm.org/10.1145/2934664}.}
+
 \end{thebibliography}
