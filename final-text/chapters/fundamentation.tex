@@ -144,14 +144,16 @@ no Capítulo \ref{ch:starvz}.
 
 \section{Ferramental para Big Data}
 
-Esta Seção contextualiza tudo o que será utilizado de tecnologia para 
-tratamento de grandes volumes de dados neste trabalho. Na Seção 
-\ref{ref:hadoop} contextualizamos a plataforma Hadoop, na Seção 
-\ref{ref:spark}, falamos sobre o framework Spark e na Seção \ref{ref:libraries} 
-falamos sobre as bibliotecas utilizadas para fazer o uso do 
-framework/plataforma. 
+Esta Seção contextualiza o que será utilizado de ferramentas para 
+tratamento de grandes volumes de dados que serão utilizadas neste trabalho. Na 
+Seção \ref{ref:hadoop} contextualizamos a plataforma Hadoop e na Seção 
+\ref{ref:spark} falamos sobre Spark.
 
 \subsection{Hadoop} \label{ref:hadoop}
+
+
+
+
 
 O Hadoop é uma plataforma de código aberto que implementa o modelo de 
 programação paralela MapReduce, desenvolvido pelo Google com o objetivo de 
@@ -188,31 +190,45 @@ tarefas, gerando a saída da execução.
 
 \subsection{Spark} \label{ref:spark}
 
-Spark é uma engine unificada para processamento de dados distribuídos 
-\cite{ref:spark}. A motivação para sua criação foi a necessidade de aplicações 
-para Big Data necessitarem de muitos tipos de processamento e a tendência das 
-engines era serem cada vez mais específicas. 
+Spark é um conjunto de uma engine unificada e um conjunto de bibliotecas para 
+processamento de dados distribuídos \cite{ref:sparkbook}. A motivação para sua 
+criação foi a necessidade de muitos tipos de processamento e a tendência das 
+engines serem cada vez mais específicas no cenário de Big Data.
 
-A genericidade do Spark implica no suporte de uma API unificada que facilita o 
-desenvolvimento de aplicações. Além disso, ele é mais eficiente para combinar 
-tarefas de processamento, pois pode executar diversas aplicações sobre os 
-mesmos dados, que com frequência estão em memória.
+\begin{figure}[H]
+ \centerline{\includegraphics[width=1\textwidth]{./img/temp-spark-arch.png}}
+ \caption{Arquitetura de uma aplicação Spark.}
+ \label{fig:spark-arch}
+\end{figure}
 
-Ele é atrelado a um modelo de programação similar ao MapReduce, todavia, possui 
-uma abstração para compartilhamento de dados, chamada \emph{Resilient 
-Distributed Datasets} (RDDs). Estas, consistem em coleções de objetos 
-tolerantes a falhas e que podem ser manipulados em paralelo, pois são 
-particionados sobre a infraestrutura que executa a engine. 
+A arquitetura do Spark pode ser visualizada na Figura \ref{fig:spark-arch}. A 
+engine usualmente é executada sobre um cluster de máquinas gerenciado por um 
+\texttt{Gerenciador de Cluster}, que mantém o controle dos recursos 
+disponíveis. Ele oferece suporte a três gerenciadores: um próprio da engine, 
+Hadoop YARN ou Mesos \cite{ref:mesos}.
 
-Spark manipula RDDs através de uma API, disponibilizada para diversas 
-linguagens, que permite ao usuário passar funções locais para serem executadas 
-sobre a infraestrutura. A avaliação dos RDDs é realizada de forma Lazy, o que 
-significa que as manipulações são avaliadas apenas quando é executada uma ação 
-no data frame. Isso permite que ele encontre um plano de execução eficiente 
-pois pode agregar operações, otimizando o tempo de execução.
 
-Com isso, ele é capaz de processar uma grande variedade de cargas de 
-trabalho que antes necessitavam de múltiplas engines para processamento.
+O \texttt{driver process} é responsável por manter o ciclo de vida da 
+aplicação. Dentre suas responsabilidades estão: responder às entradas do 
+programa do usuário; analizar, distribuir e agendar trabalho sobre os 
+\texttt{Executors}; e manter informação relevante sobre a execução. Os 
+\texttt{executors} realizam duas funções: executam tarefas que lhes são 
+atribuídas e reportam o estado das computações para o \texttt{driver process}.
+
+O Spark é atrelado a um modelo de programação similar ao MapReduce, todavia, 
+possui uma abstração para compartilhamento de dados, chamada \emph{Resilient 
+Distributed Datasets} (RDDs). Estas, consistem em coleções de objetos tolerantes 
+a falhas e que podem ser manipulados em paralelo e são particionados sobre a 
+infraestrutura que executa a engine. 
+
+Spark manipula RDDs através de uma API unificada disponibilizada para diversas 
+linguagens, que facilita o desenvolvimento de aplicações. Nela, o usuário é 
+capaz de passar funções locais para serem executadas de forma distribuída. A 
+avaliação dos RDDs é realizada de forma \emph{Lazy}, o que significa que as 
+manipulações são efetivadas apenas quando é executada uma ação no data frame. 
+Isso permite que ele encontre um plano de execução eficiente pois pode agregar 
+operações, otimizando o tempo de execução.
+
 
 
 

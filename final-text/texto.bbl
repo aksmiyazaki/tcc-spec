@@ -36,6 +36,13 @@ ISSN 0167-8191.
 Available from Internet:
   \url{http://www.sciencedirect.com/science/article/pii/S0167819118300346}.}
 
+\bibitem[Chambers and Zaharia 2018]{ref:sparkbook}
+\abntrefinfo{Chambers and Zaharia}{CHAMBERS; ZAHARIA}{2018}
+{CHAMBERS, B.; ZAHARIA, M. \textbf{Spark: The Definitive Guide : Big Data
+  Processing Made Simple}. O'Reilly Media, 2018.
+ISBN 9781491912218. Available from Internet:
+  \url{https://books.google.com.br/books?id=urjpAQAACAAJ}.}
+
 \bibitem[Coulomb et al. 2009]{ref:vite}
 \abntrefinfo{Coulomb et al.}{COULOMB et al.}{2009}
 {COULOMB, K. et al. \textbf{Visual Trace Explorer}. 2009.
@@ -83,6 +90,14 @@ Available from Internet:
   York, NY, USA: ACM, 2015.  (VPA '15), p. 2:1--2:8.
 ISBN 978-1-4503-4013-7. Available from Internet:
   \url{http://doi.acm.org/10.1145/2835238.2835240}.}
+
+\bibitem[Hindman et al. 2011]{ref:mesos}
+\abntrefinfo{Hindman et al.}{HINDMAN et al.}{2011}
+{HINDMAN, B. et al. Mesos: A platform for fine-grained resource sharing in the
+  data center. In:  \textbf{Proceedings of the 8th USENIX Conference on
+  Networked Systems Design and Implementation}. Berkeley, CA, USA: USENIX
+  Association, 2011.  (NSDI'11), p. 295--308. Available from Internet:
+  \url{http://dl.acm.org/citation.cfm?id=1972457.1972488}.}
 
 \bibitem[{Huynh} and {Taura} 2017]{ref:delayspotter}
 \abntrefinfo{{Huynh} and {Taura}}{{Huynh}; {Taura}}{2017}
@@ -168,13 +183,5 @@ Available from Internet:
 {YU, H. \textbf{RMPI Home Page}. 2013.
 [Acessed: 2019-06-24].
 Available from Internet: \url{http://fisher.stats.uwo.ca/faculty/yu/Rmpi/}.}
-
-\bibitem[Zaharia et al. 2016]{ref:spark}
-\abntrefinfo{Zaharia et al.}{ZAHARIA et al.}{2016}
-{ZAHARIA, M. et al. Apache spark: A unified engine for big data processing.
-\textbf{Commun. ACM}, ACM, New York, NY, USA, v.~59, n.~11, p. 56--65, oct.
-  2016.
-ISSN 0001-0782.
-Available from Internet: \url{http://doi.acm.org/10.1145/2934664}.}
 
 \end{thebibliography}
