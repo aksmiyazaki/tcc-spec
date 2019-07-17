@@ -44,7 +44,7 @@ Cada uma delas é formada por uma combinação de diversas ferramentas, resultan
 \section{Fases}\label{sect:starvz-phases}
 
 Na primeira fase, que pode ser visualizada na Figura \ref{fig:starvz-workflow1}, os 
-\emph{Execution Traces} do StarPU, que são arquivos em um formato binário, são 
+\emph{Execution Traces} do StarPU, que são arquivos no formato binário FXT, são 
 transformados e exportados através da ferramenta \texttt{starpu\_fxt\_tool} para dois 
 arquivos: DAG no formato DOT e Trace no formato PAJE. Essa etapa gera eventos com informação de data e hora, 
 que descrevem o comportamento da aplicação para todos os recursos envolvidos. 
@@ -59,39 +59,25 @@ número de tarefas prontas, arquitetura da plataforma, etc.
 
 Em seguida, é realizada uma verificação de integridade estrutural e temporal dos
 arquivos \emph{trace}. Ela é executada via \texttt{pj\_dump}, gerando cinco 
-arquivos: o arquivo states 
-possui informações sobre as tarefas executadas e seu comportamento no 
-\emph{runtime}; variables
-consiste em métricas de performance da plataforma e \emph{runtime}; events 
-possui informações sobre a 
-utilização de recursos; links contém dados sobre comunicação MPI; e as 
-informações de plataforma 
-são registradas no arquivo entities. O DAG também passa por uma conversão e por 
-fim, todos os 
-arquivos são gravados no formato \emph{Comma-Separated Value} (CSV).
+arquivos: o arquivo states possui informações sobre as tarefas executadas e seu comportamento no 
+\emph{runtime}; variables consiste em métricas de performance da plataforma e \emph{runtime}; events 
+possui informações sobre a utilização de recursos; links contém dados sobre comunicação MPI; e as 
+informações de plataforma são registradas no arquivo entities. O DAG também passa por uma conversão e por 
+fim, todos os arquivos são gravados no formato \emph{Comma-Separated Value} (CSV).
 
 Finalmente, os dados escritos em CSV são lidos, filtrados, agregados e 
-combinados em 
-uma ferramenta implementada na linguagem R, utilizando-se bibliotecas oriundas 
-do pacote 
-\texttt{tidyverse} para a manipulação de dados. As saídas são escritas no 
-formato \emph{FEATHER}
-\cite{ref:feather}.
+combinados em uma ferramenta implementada na linguagem R, utilizando-se bibliotecas oriundas 
+do pacote \texttt{tidyverse} para a manipulação de dados. As saídas são escritas no 
+formato \emph{FEATHER} \cite{ref:feather}.
 
 A segunda fase do \emph{workflow} inicia pela leitura das saídas da anterior. 
-Cada arquivo
-torna-se um \emph{data frame}, e os dados da execução inteira são unificados em 
-uma estrutura.
-É possível ter múltiplos \emph{traces} de aplicações sendo analisados em 
-paralelo
-para comparação, basta multiplicar a leitura com entradas diferentes e 
+Cada arquivo torna-se um \emph{data frame}, e os dados da execução inteira são unificados em 
+uma estrutura. É possível ter múltiplos \emph{traces} de aplicações sendo analisados em 
+paralelo para comparação, basta multiplicar a leitura com entradas diferentes e 
 elas podem posteriormente ser combinadas em uma única visualização. A criação 
-dos gráficos ainda 
-possui processamento de dados, o que traz certa flexibilidade para as 
-visualizações. Como última etapa dessa fase, o usuário 
-parametriza o sistema com um arquivo de configuração no formato YAML, para que 
-a 
-montagem da visualização seja customizada. Finalmente, o usuário pode analisar 
+dos gráficos ainda possui processamento de dados, o que traz certa flexibilidade para as 
+visualizações. Como última etapa dessa fase, o usuário parametriza o sistema com um arquivo de configuração no formato YAML, para que 
+a montagem da visualização seja customizada. Finalmente, o usuário pode analisar 
 os gráficos gerados pela ferramenta.
 
 Nos experimentos realizados em \citet{ref:starvz}, em uma máquina equipada com 
@@ -109,13 +95,9 @@ a visualização levou em torno de 2 minutos.
 \section{Trabalhos Relacionados}\label{sect:related-work}
 
 O trabalho de \citet{ref:drakestarvz} foi o primeiro a tentar otimizar o fluxo 
-do StarVZ. 
-Sua principal motivação foi a melhoria de performance da etapa de manipulação 
-de 
-dados, a mais
-custosa de acordo com os experimentos observados, com o objetivo de permitir o 
-processamento de 
-entradas maiores em um tempo aceitável.
+do StarVZ. Sua principal motivação foi a melhoria de performance da etapa de manipulação 
+de dados, a mais custosa de acordo com os experimentos observados, com o objetivo de permitir o 
+processamento de entradas maiores em um tempo aceitável.
 
 Nele utilizou-se \texttt{Drake} \cite{ref:drake}, uma biblioteca para a 
 linguagem de programação R, cujo foco é executar apenas as 
