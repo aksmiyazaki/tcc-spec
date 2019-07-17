@@ -8,78 +8,76 @@ propostas e testadas e a Seção \ref{sect:motivation} fala sobre a motivação 
 abordagem adotadas neste trabalho.
 
 \section{Visão Geral}\label{sect:starvz-overview}
+
 O StarVZ \cite{ref:starvz} é um \emph{workflow} de análise de performance cujo 
 objetivo é auxiliar na avaliação e na verificação de hipóteses sobre a execução 
 de aplicações \emph{task-based} em ambientes heterogêneos, executados sobre o
-\emph{runtime} StarPU \cite{ref:starpu}.
+\emph{runtime} StarPU \cite{ref:starpu}. Dentre as ferramentas de visualização
+de traços desse tipo de aplicação, o StarVZ é a mais avançada. 
 
+Construído com uma abordagem de \textit{script}, ele possui grande poder de customização.
+No trabalho de \citet{ref:starvz}, pode-se visualizar diversos gráficos de execução da aplicação:
 
+\begin{itemize}
+    \item gráfico com comportamento de tarefas;
+    \item gráfico com a quantidade de tarefas submetidas;
+    \item o comportamento do \emph{runtime}, com os estados dos \emph{workers} StarPU;
+    \item a quantidade de tarefas prontas;
+    \item taxa de GFlops do ambiente;
+    \item tráfego de dados entre a memória das GPUs;
+    \item transferências de rede MPI;
+    \item número de operações MPI concorrentes.
+\end{itemize}
 
-Ele é composto de duas fases, cada uma 
-delas composta de uma combinação de diversas ferramentas, resultando em um 
-\emph{framework}
-rápido, consistente, flexível e versátil.
+\begin{figure}[ht]
+ \centerline{\includegraphics[width=1\textwidth]{./img/all-proc.pdf}}
+ \caption{Fluxo de processamento do StarVZ.}
+ \label{fig:starvz-workflow-general}
+\end{figure}
+
+Ele é composto de duas fases, que podem ser visualizadas de forma simplificada na Figura \ref{fig:starvz-workflow-general}.
+Cada uma delas é formada por uma combinação de diversas ferramentas, resultando em um 
+\emph{framework} rápido, consistente, flexível e versátil.
 
 
 
 \section{Fases}\label{sect:starvz-phases}
 
-Na primeira fase, que pode ser visualizada na Figura 
-\ref{fig:starvz-workflow1}, 
-os 
-\emph{Execution Traces} do StarPU, que são arquivos em um formato binário, são 
-transformados
-e exportados através da ferramenta \texttt{starpu\_fxt\_tool} para dois 
-arquivos: DAG no formato DOT 
-e Trace no formato PAJE. Essa etapa gera eventos com informação de data e hora, 
-que 
-descrevem o comportamento da aplicação para todos os recursos envolvidos. 
-Também 
-são gerados 
-dados sobre o \emph{runtime} do StarPU, como número de tarefas submetidas,
+Na primeira fase, que pode ser visualizada na Figura \ref{fig:starvz-workflow1}, os 
+\emph{Execution Traces} do StarPU, que são arquivos no formato binário FXT, são 
+transformados e exportados através da ferramenta \texttt{starpu\_fxt\_tool} para dois 
+arquivos: DAG no formato DOT e Trace no formato PAJE. Essa etapa gera eventos com informação de data e hora, 
+que descrevem o comportamento da aplicação para todos os recursos envolvidos. 
+Também são gerados dados sobre o \emph{runtime} do StarPU, como número de tarefas submetidas,
 número de tarefas prontas, arquitetura da plataforma, etc.
 
 \begin{figure}[ht]
- \centerline{\includegraphics[width=1\textwidth]{./img/step1-final.pdf}}
+ \centerline{\includegraphics[width=1\textwidth]{./img/step1-simpler.pdf}}
  \caption{\emph{Workflow} de pré-processamento do StarVZ.}
  \label{fig:starvz-workflow1}
 \end{figure}
 
 Em seguida, é realizada uma verificação de integridade estrutural e temporal dos
 arquivos \emph{trace}. Ela é executada via \texttt{pj\_dump}, gerando cinco 
-arquivos: o arquivo states 
-possui informações sobre as tarefas executadas e seu comportamento no 
-\emph{runtime}; variables
-consiste em métricas de performance da plataforma e \emph{runtime}; events 
-possui informações sobre a 
-utilização de recursos; links contém dados sobre comunicação MPI; e as 
-informações de plataforma 
-são registradas no arquivo entities. O DAG também passa por uma conversão e por 
-fim, todos os 
-arquivos são gravados no formato \emph{Comma-Separated Value} (CSV).
+arquivos: o arquivo states possui informações sobre as tarefas executadas e seu comportamento no 
+\emph{runtime}; variables consiste em métricas de performance da plataforma e \emph{runtime}; events 
+possui informações sobre a utilização de recursos; links contém dados sobre comunicação MPI; e as 
+informações de plataforma são registradas no arquivo entities. O DAG também passa por uma conversão e por 
+fim, todos os arquivos são gravados no formato \emph{Comma-Separated Value} (CSV).
 
 Finalmente, os dados escritos em CSV são lidos, filtrados, agregados e 
-combinados em 
-uma ferramenta implementada na linguagem R, utilizando-se bibliotecas oriundas 
-do pacote 
-\texttt{tidyverse} para a manipulação de dados. As saídas são escritas no 
-formato \emph{FEATHER}
-\cite{ref:feather}.
+combinados em uma ferramenta implementada na linguagem R, utilizando-se bibliotecas oriundas 
+do pacote \texttt{tidyverse} para a manipulação de dados. As saídas são escritas no 
+formato \emph{FEATHER} \cite{ref:feather}.
 
 A segunda fase do \emph{workflow} inicia pela leitura das saídas da anterior. 
-Cada arquivo
-torna-se um \emph{data frame}, e os dados da execução inteira são unificados em 
-uma estrutura.
-É possível ter múltiplos \emph{traces} de aplicações sendo analisados em 
-paralelo
-para comparação, basta multiplicar a leitura com entradas diferentes e 
+Cada arquivo torna-se um \emph{data frame}, e os dados da execução inteira são unificados em 
+uma estrutura. É possível ter múltiplos \emph{traces} de aplicações sendo analisados em 
+paralelo para comparação, basta multiplicar a leitura com entradas diferentes e 
 elas podem posteriormente ser combinadas em uma única visualização. A criação 
-dos gráficos ainda 
-possui processamento de dados, o que traz certa flexibilidade para as 
-visualizações. Como última etapa dessa fase, o usuário 
-parametriza o sistema com um arquivo de configuração no formato YAML, para que 
-a 
-montagem da visualização seja customizada. Finalmente, o usuário pode analisar 
+dos gráficos ainda possui processamento de dados, o que traz certa flexibilidade para as 
+visualizações. Como última etapa dessa fase, o usuário parametriza o sistema com um arquivo de configuração no formato YAML, para que 
+a montagem da visualização seja customizada. Finalmente, o usuário pode analisar 
 os gráficos gerados pela ferramenta.
 
 Nos experimentos realizados em \citet{ref:starvz}, em uma máquina equipada com 
@@ -97,13 +95,9 @@ a visualização levou em torno de 2 minutos.
 \section{Trabalhos Relacionados}\label{sect:related-work}
 
 O trabalho de \citet{ref:drakestarvz} foi o primeiro a tentar otimizar o fluxo 
-do StarVZ. 
-Sua principal motivação foi a melhoria de performance da etapa de manipulação 
-de 
-dados, a mais
-custosa de acordo com os experimentos observados, com o objetivo de permitir o 
-processamento de 
-entradas maiores em um tempo aceitável.
+do StarVZ. Sua principal motivação foi a melhoria de performance da etapa de manipulação 
+de dados, a mais custosa de acordo com os experimentos observados, com o objetivo de permitir o 
+processamento de entradas maiores em um tempo aceitável.
 
 Nele utilizou-se \texttt{Drake} \cite{ref:drake}, uma biblioteca para a 
 linguagem de programação R, cujo foco é executar apenas as 
