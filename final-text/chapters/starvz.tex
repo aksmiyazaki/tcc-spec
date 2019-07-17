@@ -8,14 +8,23 @@ propostas e testadas e a Seção \ref{sect:motivation} fala sobre a motivação 
 abordagem adotadas neste trabalho.
 
 \section{Visão Geral}\label{sect:starvz-overview}
+
 O StarVZ \cite{ref:starvz} é um \emph{workflow} de análise de performance cujo 
 objetivo é auxiliar na avaliação e na verificação de hipóteses sobre a execução 
-de 
-aplicações \emph{task-based} em ambientes heterogêneos, executados sobre o
+de aplicações \emph{task-based} em ambientes heterogêneos, executados sobre o
 \emph{runtime} StarPU \cite{ref:starpu}. Ele é composto de duas fases, cada uma 
 delas composta de uma combinação de diversas ferramentas, resultando em um 
-\emph{framework}
-rápido, consistente, flexível e versátil.
+\emph{framework} rápido, consistente, flexível e versátil.
+
+\begin{figure}[ht]
+ \centerline{\includegraphics[width=1\textwidth]{./img/step1-final.pdf}}
+ \caption{\emph{Workflow} de pré-processamento do StarVZ.}
+ \label{fig:starvz-workflow1}
+\end{figure}
+
+
+
+\section{Fases}\label{sect:starvz-phases}
 
 Na primeira fase, que pode ser visualizada na Figura 
 \ref{fig:starvz-workflow1}, 
@@ -87,7 +96,7 @@ minutos. Já a segunda fase do \emph{workflow}, para executar a leitura dos
 arquivos \emph{FEATHER} e gerar
 a visualização levou em torno de 2 minutos.
 
-\section{Fases}\label{sect:starvz-phases}
+
 
 \section{Trabalhos Relacionados}\label{sect:related-work}
 
