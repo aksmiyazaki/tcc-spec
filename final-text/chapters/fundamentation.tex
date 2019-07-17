@@ -151,21 +151,25 @@ Seção \ref{ref:hadoop} contextualizamos a plataforma Hadoop e na Seção
 
 \subsection{Hadoop} \label{ref:hadoop}
 
+O Hadoop é um \emph{framework} que permite o processamento distribuído de 
+grandes volumes de dados. A principal motivação de seu desenvolvimento é o desenvolvimento de uma
+leitura distribuída para dados armazenados em uma plataforma distribuída, pois a velocidade de leitura e escrita
+dos discos não evoluíram da mesma forma que seu tamanho.
 
-\begin{figure}[H]
- \centerline{\includegraphics[width=1\textwidth]{./img/hadoop-layers.pdf}}
- \caption{TODO.}
- \label{fig:hadoop}
-\end{figure}
-
-O Hadoop é uma plataforma de código aberto que implementa o modelo de 
-programação paralela MapReduce, desenvolvido pelo Google com o objetivo de 
-processar grandes volumes de dados. Tal modelo baseia-se em duas primitivas 
+O Hadoop pode ser separado em camadas, como mostra a Figura \ref{fig:hadoop}. A primeira camada, de aplicação, 
+é a de mais alto nível, a qual o usuário usualmente interage. Ele suporta o modelo de programação MapReduce, originalmente
+desenvolvido pelo Google com o objetivo de processar grandes volumes de dados.Tal modelo baseia-se em duas primitivas 
 presentes em linguagens funcionais: \emph{map} e \emph{reduce}. Esta abordagem 
 foi adotada pois observaram que frequentemente era necessário mapear fragmentos 
 de dados de uma entrada à uma chave identificadora e, em seguida, realizar 
 computações sobre os dados mapeados para uma chave em comum 
 \cite{ref:mapreduce}.
+
+\begin{figure}[H]
+ \centerline{\includegraphics[width=1\textwidth]{./img/hadoop-layers.pdf}}
+ \caption{Organização do Hadoop em camadas.}
+ \label{fig:hadoop}
+\end{figure}
 
 A Figura \ref{fig:mrworkflow} mostra o fluxo de execução básico do MapReduce. 
 A Fase de \emph{Shuffle \& Merge} não será detalhada no trabalho, mas é 
@@ -190,6 +194,31 @@ conjuntos de tuplas intermediárias. Estas sofrem um pré-processamento na fase
 de \emph{Shuffle} e são disponibilizados para os nós que irão executar a fase 
 de redução. Finalmente, os executores da redução obtém os dados e executam suas 
 tarefas, gerando a saída da execução.
+
+Voltando a Figura \ref{fig:hadoop}, na segunda camada encontra-se o gerenciador de recursos 
+do \emph{framework}. O YARN (Yet Another Resource Negotiator) foi introduzido no Hadoop 2.0
+e além de melhorar a implementação do modelo MapReduce, suporta outros paradigmas de computação.
+Ele fornece APIs para requisitar e manipular recursos, mas não é comum o usuário interagir 
+diretamente com essa camada.
+
+Como o Hadoop trabalha sobre dados muito grandes, é comum que tais cargas de trabalho
+ultrapassem a capacidade de uma única máquina física. Isso implica na necessidade de particionar
+os dados sobre múltiplas máquinas. Os sistemas de arquivos que lidam com tal tipo de armazenamento são
+denominados sistemas de arquivos distribuídos (\textit{distributed filesystems} ou \textit{DFS}).
+Hadoop possui sua própria implementação de um \textit{DFS}, inspirado no \textit{Google File System},
+denominado \textit{Hadoop Distributed Filesystem}, que é representado como a terceira camada da Figura \ref{fig:hadoop}.
+
+De forma similar a sistemas de arquivos convencionais, existe é utilizada a abstração de blocos, que consistem no volume
+mínimo para leitura e escrita. Enquanto nestes, eles têm tipicamente poucos bytes, o tamanho de blocos no HDFS
+é na ordem de megabytes, sendo por padrão, 128 (configurável pelo usuário, por arquivo). Tal abstração permite ao 
+Sistema de arquivos: armazenar arquivos maiores do que qualquer disco no ambiente; simplifica o gerenciamento do 
+armazenamento de dados; facilita replicação para garantir alta disponibilidade.
+
+Um HDFS possui dois tipos de nós: \emph{namenode} e \emph{datanodes}. Eles seguem uma política mestre-escravo, 
+onde o nó do primeiro tipo atua como mestre e gerencia o sistema de arquivos e nós do segundo tipo recebem
+requisições (de clientes ou do namenode) e armazenam ou recuperam blocos. Também é possível executar um 
+\textit{secondary namenode} para evitar pontos únicos de falha na arquitetura. O principal papel deste nó seria 
+manter uma cópia dos dados de gerência do primeiro, em caso de falhas.
 
 \subsection{Spark} \label{ref:spark}
 
