@@ -81,16 +81,8 @@ a montagem da visualização seja customizada. Finalmente, o usuário pode anali
 os gráficos gerados pela ferramenta.
 
 Nos experimentos realizados em \citet{ref:starvz}, em uma máquina equipada com 
-um Intel(R) Xeon(R) 
-CPU E3-1225 v3 @3.20GHz e 32GB de memória principal e com uma entrada de 
-aproximadamente 18GB, a 
-primeira fase do \emph{workflow} levou cerca de 32 minutos para executar: a 
-execução da \texttt{starpu\_fxt\_tool}
-levou em torno de 10 minutos, o \texttt{pj\_dump} levou cerca de 9 minutos e a 
-ferramenta R levou cerca de 13
-minutos. Já a segunda fase do \emph{workflow}, para executar a leitura dos 
-arquivos \emph{FEATHER} e gerar
-a visualização levou em torno de 2 minutos.
+um Intel(R) Xeon(R) CPU E3-1225 v3 @3.20GHz e 32GB de memória principal e com uma entrada de aproximadamente 18GB, a primeira fase do \emph{workflow} levou cerca de 32 minutos para executar. A segunda fase do \emph{workflow}, para executar a leitura dos 
+arquivos \emph{FEATHER} e gerar a visualização levou em torno de 2 minutos.
 
 \section{Trabalhos Relacionados}\label{sect:related-work}
 
@@ -186,12 +178,33 @@ local e/ou em máquinas remotas; e etc.
 
 \section{Motivação e Abordagem}\label{sect:motivation}
 
-Há algum tempo, vivemos na era dos dados. A quantidade de dados armazenada em 
+Há algum tempo, vivemos na era dos dados. O volume armazenado em 
 meios eletrônicos é dificil de medir, mas existem alguns estudos que podem nos 
-auxiliar a ter uma noção disso. Uma estimativa da IDC (\textit{International 
-Data Corporation}) \cite{ref:idcdigitaluniverse}, de acordo com o histórico de 
-crescimento do mundo digital, este deve crescer entre 2013 e 2020 de 4.4 para 
-44 zettabytes \footnote{Um zettabyte significa um trilhão de gigabytes.}.
+auxiliar a ter uma noção disso. A IDC (\textit{International 
+Data Corporation}) \cite{ref:idcdigitaluniverse} estima que, de acordo com o histórico de crescimento do mundo digital, este deve crescer entre 2013 e 2020 de 4.4 para 44 zettabytes \footnote{Um zettabyte significa um trilhão de gigabytes.}.
 
-Neste cenário
+Conforme explicitado na Seção \ref{sect:starvz-phases}, o tempo total de execução da primeira Fase do StarVZ, para uma carga de trabalho de 18 gigabytes levou cerca de 32 minutos. Para viabilizar o processamento de maiores volumes de dados em um tempo aceitável, trazendo as vantagens da utilização da ferramenta para esses cenários, 
+é necessário otimizar esta Fase do \emph{workflow}.  
 
+Decompondo esse tempo entre todas as ferramentas utilizadas, a Tabela \ref{tab:exectimes} exibe o tempo de cada ferramenta no \textit{workflow} para a execução mencionada no trabalho de \citet{ref:starvz}. Como o volume de dados utilizado foram apenas 18 gigabytes, essas aplicações não possuem um tempo de execução aceitável para tratamento
+de grandes volumes de dados.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l c c} \toprule
+\textbf{Ferramenta}  &  \textbf{Tempo de Execução}  & \textbf{Tempo Relativo}\\ \midrule
+starpu\_fxt\_tool     & 10 minutos   & 31,25\%  \\
+pj\_dump            & 9 minutos    & 28,12\%     \\
+Ferramenta R        & 13 minutos   & 40,62\%      \\
+\textbf{Total}     & 32 minutos & -
+\end{tabular}
+\caption{Tempos de execução das ferramentas da primeira fase.}
+\label{tab:exectimes}
+\end{table}
+
+Como na segunda fase, não é evidente um ponto de otimização urgente, tendo em 
+vista que nos experimentos forma gerados resultados em poucos minutos, a motivação deste trabalho é a otimização do ponto mais crítico do tempo de execução da primeira fase do \emph{workflow}. Como as ferramentas desenvolvidas em R manipulam data frames, fazendo 
+operações comuns a Data Science, este trabalho migrará os data frames normais para RDDs 
+Spark, com o intuito de distribuir o trabalho em diversas máquinas. Além disso, 
+para esta adaptação suportar arquivos muito grandes, essa instância do Spark irá
+executar sobre o Hadoop, garantindo que os dados terão uma leitura otimizada.
