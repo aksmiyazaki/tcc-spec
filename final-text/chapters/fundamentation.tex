@@ -4,7 +4,7 @@
 Este Capítulo apresenta a fundamentação necessária para o entendimento do 
 trabalho. Ele é separado em duas Seções, na primeira, são apresentadas as 
 ferramentas de análise de desempenho de aplicações paralelas e, na segunda,
-contextualizam-se plataformas e \emph{frameworks} utilizados no trabalho.
+contextualizam-se plataformas e arcabouços utilizados no trabalho.
 
 \section{Análise de desempenho de aplicações paralelas}
 
@@ -18,17 +18,16 @@ aplicações desenvolvidas no modelo orientado a tarefas.
 
 Essas ferramentas possuem o objetivo de prover visualizações de rastros para 
 aplicações de HPC tradicionais. Estas eram desenvolvidas seguindo o modelo 
-\emph{Bulk-Synchronous Parallel} (BSP), que consiste em uma série de 
-\emph{supersteps} (computações, comunicações, sincronizações), executadas sobre 
-um ambiente homogêneo. Como esta abordagem  dominou o cenário HPC durante muito 
-tempo, suas necessidades balizaram o desenvolvimento da maior parte das 
-ferramentas de análise de desempenho.
+BSP, que consiste em uma série de super passos (computações, comunicações, 
+sincronizações), executadas sobre um ambiente homogêneo. Como esta abordagem  
+foi dominante durante muito tempo, suas necessidades balizaram 
+o desenvolvimento da maior parte das ferramentas de análise de desempenho.
 
 \subsubsection{ViTE}
-ViTE \cite{ref:vite} é uma ferramenta de visualização de \emph{traces} 
-open-source. Para o processamento de grandes entradas ele conta com aceleração 
-de Hardware e OpenGL. Suas entradas são arquivos na linguagem Pajé 
-\cite{ref:paje}.
+ViTE \cite{ref:vite} é uma ferramenta de visualização de rastros de código 
+aberto. Suas entradas são arquivos na linguagem Pajé \cite{ref:paje} e para o 
+processamento de grandes volumes ele conta com aceleração de Hardware e 
+OpenGL. 
 
 Essa ferramenta exibe os recursos de forma hierárquica, onde oferece a 
 visualização das tarefas (eixo vertical) em função de tempo (eixo horizontal), 
@@ -37,16 +36,17 @@ incluir indicadores de transferências de dados.
 
 \subsubsection{Paraver}
 Paraver \cite{ref:paraver} também objetiva a visualização e análise de 
-\emph{traces} de execução. Ele conta com uma agregação de dados, definida pelo
-usuário via arquivo de configuração, para conseguir exibir entradas volumosas. 
-Suas entradas são geradas por vários modelos de programação, pela ferramenta 
-Extrae.
+rastros de execução. Suas entradas são geradas por vários modelos de 
+programação, pela ferramenta Extrae. Para lidar com grandes volumes de 
+dados, ele realiza agregações com uma abordagem definida pelo usuário via 
+arquivo de configuração.
+
 
 \subsubsection{Vampir}
 Vampir \cite{ref:vampir} é uma ferramenta proprietária de código fechado para 
-fins de análise de \emph{traces}. Ela traz uma abordagem de cliente-servidor, 
-onde o servidor pode ser executado no hardware de experimentação e o cliente é o 
-computador do usuário.
+fins de análise de rastros. Ela traz uma abordagem de cliente-servidor, 
+onde o primeiro pode ser executado no hardware de experimentação e o segundo é
+o usualmente é o computador do usuário.
 
 Suas entradas são arquivos OTF2 (Open Trace Format, version 2) \cite{ref:otf2}.  
 Ele fornece múltiplas visualizações como gráficos de espaço-tempo e estatísticas 
@@ -54,29 +54,36 @@ de execução.
 
 \subsubsection{Ravel}
 O objetivo da ferramenta Ravel \cite{ref:ravel} também é a visualização de 
-\emph{traces}. Suas entradas são em formato OTF (\emph{Open Trace Format}) e 
-sua diferença em relação aos demais é que ele mostra as linhas de tempo 
-lógicas, fornecendo uma estruturação para melhor entendimento de operações.
+rastros. Suas entradas são em formato OTF (\emph{Open Trace Format}) e 
+sua diferença em relação aos demais é que ele estrutura melhor as 
+operações com a utilização de linhas de tempo lógicas.
 
 \subsubsection{FrameSoc e Ocelotl}
 
-FrameSoc \cite{ref:framesoc} é uma ferramenta de análise de performance, capaz 
+FrameSoc \cite{ref:framesoc} é uma ferramenta de análise de desempenho, capaz 
 de lidar com grandes volumes de dados. Como entrada, ela suporta diversos
-formatos como Pajé, CTF, Paraver e OTF2. Além dos dados de \emph{trace}, é 
-possível armazenar informações como metadados e anotações. A ferramenta converte 
-tudo para um modelo de dados genérico e armazena em uma base de dados 
-relacional.
+formatos como Pajé, CTF, Paraver e OTF2. Além dos rastros, é possível armazenar 
+informações como metadados e anotações. A ferramenta converte tudo para um 
+modelo de dados genérico e armazena em uma base de dados relacional.
 
 Para visualizar grandes volumes de dados, a ferramenta baseia-se no Ocelotl 
-\cite{ref:ocelotl}. Esse módulo possui um arquivo de configuração parametrizável 
-pelo usuário, que gerencia uma agregação espaçotemporal dados.
+\cite{ref:ocelotl}. Esse módulo gerencia uma agregação espaçotemporal dados via 
+um arquivo de configuração parametrizável pelo usuário.
 
 \subsection{Ferramentas de visualização orientadas a tarefas}
+
+O modelo de computação orientado a tarefas segue o conceito de um conjunto de 
+porções de trabalho independentes, de tamanhos variados, que podem ser 
+executadas em paralelo. Este insere uma camada intermediária entre 
+hardware e o software desenvolvido que facilita a implementação pois provê uma 
+certa independência de arquitetura para este.
+
 
 Este modelo possui custo de execução de tarefas inconstante e costuma ser 
 executado sobre um ambiente heterogêneo. Os analistas de desempenho que 
 trabalham sobre as aplicações nesse cenário são diferentes, no modelo 
-BSP é quem desenvolve a aplicação, neste é quem desenvolve o runtime. 
+BSP é quem desenvolve a aplicação, neste é quem desenvolve o ambiente 
+de execução (\textit{runtime}). 
 
 Devido a dominância do modelo BSP, a maior parte das ferramentas de 
 visualização para o modelo corrente carrega características daquelas 
@@ -98,7 +105,7 @@ Essa ferramenta traz uma visualização diferente do modelo BSP, exibindo as
 tarefas como um grafo hierárquico. Nele, o analista pode colapsar e expandir os 
 grupos de tarefas. Dados de tempo de execução não são tratados pela ferramenta.
 
-\subsubsection{Traces de execução com dependências de tarefas}
+\subsubsection{Rastros de execução com dependências de tarefas}
 
 A ferramenta desenvolvida por \citet{ref:visuexecdep} traz um gráfico no estilo 
 espaço-tempo (Gantt). Há algumas outras funcionalidades como a identificação de 
@@ -107,21 +114,23 @@ mouse sobre as caixas que representam as tarefas.
 
 Como entradas, são utilizados a representação do DAG e os \emph{traces} de 
 execução. Essa ferramenta é desenvolvida especificamente para o 
-\emph{runtime} PaRSEC.
+ambiente de execução PaRSEC.
 
 \subsubsection{Temanejo}
 
 Temanejo \cite{ref:temanejo} é um \emph{debugger} para o modelo de programação 
 baseado em tarefas, onde o analista visualiza um DAG. Ele suporta grande parte 
-dos \emph{runtimes} de execução de aplicações baseadas em tarefas, como OmpSs, 
+dos ambientes de execução de execução de aplicações baseadas em 
+tarefas, como OmpSs, 
 StarPU e PaRSEC. Suas funcionalidades são focadas em depuração, permitindo que o 
 usuário possa identificar e consertar parâmetros e dependências de tarefas.
 
 \subsubsection{Delay Spotter}
 
 Delay Spotter \cite{ref:delayspotter} é uma ferramenta, construída sobre o 
-DAGViz, que possibilita a identificação de atrasos em \emph{runtimes}. Ela 
-divide os estados dos \emph{workers} em três categorias, permitindo a 
+DAGViz, que possibilita a identificação de atrasos em ambientes 
+de execução. Ela divide os estados dos \emph{workers} em três categorias, 
+permitindo a 
 identificação de delays decorrentes de problemas de escalonamento. Como em 
 ambientes heterogêneos com tarefas variadas, a presença de \emph{delays} faz 
 parte da execução das aplicações, essa ferramenta é pouco efetiva.
@@ -132,11 +141,11 @@ TaskInsight \cite{ref:taskinsight} é uma ferramenta que objetiva identificar o
 comportamento de memória e seu impacto na execução de tarefas. Apesar de prover 
 algumas estatísticas e possibilitar algumas identificações de anomalias, apenas 
 essa análise não é o suficiente para identificar a maioria dos pontos de 
-otimização de aplicações \emph{task-based}.
+otimização de aplicações baseadas em tarefas.
 
 \subsubsection{StarVZ}
 
-\emph{Framework} que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui 
+Arcabouço que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui 
 a visualização de dados mais avançada dentre as ferramentas citadas. Construído 
 com uma abordagem de \emph{script}, ela possui um grande poder de customização 
 e, por isso, é difícil enumerar o que a ferramenta fornece. Ele será detalhado 
@@ -151,8 +160,9 @@ Seção \ref{ref:hadoop} contextualizamos a plataforma Hadoop e na Seção
 
 \subsection{Hadoop} \label{ref:hadoop}
 
-O Hadoop é um \emph{framework} que permite o processamento distribuído de 
-grandes volumes de dados. A principal motivação de seu desenvolvimento é o desenvolvimento de uma
+O Hadoop é um arcabouço que permite o processamento distribuído de 
+grandes volumes de dados. A principal motivação de seu desenvolvimento é o  
+desenvolvimento de uma
 leitura distribuída para dados armazenados em uma plataforma distribuída, pois a velocidade de leitura e escrita
 dos discos não evoluíram da mesma forma que seu tamanho.
 
@@ -178,7 +188,7 @@ redução.
 
 \begin{figure}[ht]
  \centerline{\includegraphics[width=1\textwidth]{./img/mapreduce-workflow.pdf}}
- \caption{\emph{Workflow} do MapReduce.}
+ \caption{Fluxo de execução do MapReduce.}
  \label{fig:mrworkflow}
 \end{figure}
 
@@ -196,7 +206,7 @@ de redução. Finalmente, os executores da redução obtém os dados e executam 
 tarefas, gerando a saída da execução.
 
 Voltando a Figura \ref{fig:hadoop}, na segunda camada encontra-se o gerenciador 
-de recursos do \emph{framework}. O YARN (Yet Another Resource Negotiator) foi 
+de recursos do arcabouço. O YARN (Yet Another Resource Negotiator) foi 
 introduzido no Hadoop 2.0 e além de melhorar a implementação do modelo 
 MapReduce, suporta outros paradigmas de computação. Ele fornece APIs para 
 requisitar e manipular recursos, mas não é comum o usuário interagir diretamente 
@@ -264,9 +274,10 @@ Spark manipula RDDs através de uma API unificada disponibilizada para diversas
 linguagens, que facilita o desenvolvimento de aplicações. Nela, o usuário é 
 capaz de passar funções locais para serem executadas de forma distribuída. A 
 avaliação dos RDDs é realizada de forma \emph{Lazy}, o que significa que as 
-manipulações são efetivadas apenas quando é executada uma ação no data frame. 
-Isso permite que ele encontre um plano de execução eficiente pois pode agregar 
-operações, otimizando o tempo de execução.
+manipulações são efetivadas apenas quando é executada uma ação nos dados, que 
+se trata de uma instrução para computar o resultado de uma série de 
+transformações.Isso permite que ele encontre um plano de execução eficiente pois 
+pode agregar operações, otimizando o tempo de execução.
 
 
 
