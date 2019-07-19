@@ -175,6 +175,21 @@ X.4 Motivação/Abordagem
   big data podem resolver o problema
 - Explicitar bem rapidamente a abordagem
 - Gancho para o próximo capítulo
+** 2019-07-19 Revisão do TCC
+*** Capítulo 3 (StarVZ)
+- genéricamente não tem acento
+- "de forma detalhadas" cuidar concordância
+- Em PT-BR, usar "rastros" ao invés de "traços" (do inglês trace)
+3.1
+- Suavizar a afirmação que starvz é a mais avançada
+- remover itemize no segundo parágrafo, integrar em um único parágrafo
+  separado por ponto-e-vírgulas.
+- Fig 3.1: usar linhas pretas entre os blocos para diferenciar dos  blocos
+3.3
+- "que os mesmo problemas"
+- Remover o "; e etc." no final de 3.3
+3.4
+- "esta Fase do fluxo"
 * Instalação do StarPU
 
 ** Manualmente
