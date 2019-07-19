@@ -176,6 +176,17 @@ X.4 Motivação/Abordagem
 - Explicitar bem rapidamente a abordagem
 - Gancho para o próximo capítulo
 ** 2019-07-19 Revisão do TCC
+*** Capítulo 2 (Fundamentação)
+- O índice ficou poluído com a lista de ferramentas de 2.1.1 e 2.1.2
+  - Para resolver, remover a presença na TOC através de um comando do tipo
+    #+BEGIN_EXPORT latex
+    \subsubsection*{DAGViz}
+    #+END_EXPORT
+    ao invés de
+    #+BEGIN_EXPORT latex
+    \subsubsection{DAGViz}
+    #+END_EXPORT
+    Perceba o ~*~.
 *** Capítulo 3 (StarVZ)
 - genéricamente não tem acento
 - "de forma detalhadas" cuidar concordância
