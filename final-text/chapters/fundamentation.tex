@@ -23,7 +23,7 @@ sincronizações), executadas sobre um ambiente homogêneo. Como esta abordagem
 foi dominante durante muito tempo, suas necessidades balizaram 
 o desenvolvimento da maior parte das ferramentas de análise de desempenho.
 
-\subsubsection{ViTE}
+\subsubsection*{ViTE}
 ViTE \cite{ref:vite} é uma ferramenta de visualização de rastros de código 
 aberto. Suas entradas são arquivos na linguagem Pajé \cite{ref:paje} e para o 
 processamento de grandes volumes ele conta com aceleração de Hardware e 
@@ -34,7 +34,7 @@ visualização das tarefas (eixo vertical) em função de tempo (eixo horizontal
 similar a um Gantt. Na análise de aplicações distribuídas, também é possível 
 incluir indicadores de transferências de dados.
 
-\subsubsection{Paraver}
+\subsubsection*{Paraver}
 Paraver \cite{ref:paraver} também objetiva a visualização e análise de 
 rastros de execução. Suas entradas são geradas por vários modelos de 
 programação, pela ferramenta Extrae. Para lidar com grandes volumes de 
@@ -42,7 +42,7 @@ dados, ele realiza agregações com uma abordagem definida pelo usuário via
 arquivo de configuração.
 
 
-\subsubsection{Vampir}
+\subsubsection*{Vampir}
 Vampir \cite{ref:vampir} é uma ferramenta proprietária de código fechado para 
 fins de análise de rastros. Ela traz uma abordagem de cliente-servidor, 
 onde o primeiro pode ser executado no hardware de experimentação e o segundo é
@@ -52,13 +52,13 @@ Suas entradas são arquivos OTF2 (Open Trace Format, version 2) \cite{ref:otf2}.
 Ele fornece múltiplas visualizações como gráficos de espaço-tempo e estatísticas 
 de execução.
 
-\subsubsection{Ravel}
+\subsubsection*{Ravel}
 O objetivo da ferramenta Ravel \cite{ref:ravel} também é a visualização de 
 rastros. Suas entradas são em formato OTF (\emph{Open Trace Format}) e 
 sua diferença em relação aos demais é que ele estrutura melhor as 
 operações com a utilização de linhas de tempo lógicas.
 
-\subsubsection{FrameSoc e Ocelotl}
+\subsubsection*{FrameSoc e Ocelotl}
 
 FrameSoc \cite{ref:framesoc} é uma ferramenta de análise de desempenho, capaz 
 de lidar com grandes volumes de dados. Como entrada, ela suporta diversos
@@ -74,25 +74,19 @@ um arquivo de configuração parametrizável pelo usuário.
 
 O modelo de computação orientado a tarefas segue o conceito de um conjunto de 
 porções de trabalho independentes, de tamanhos variados, que podem ser 
-executadas em paralelo. Este insere uma camada intermediária entre 
-hardware e o software desenvolvido que facilita a implementação pois provê uma 
-certa independência de arquitetura para este.
+executadas em paralelo. Este insere uma camada intermediária entre o 
+hardware e o software desenvolvido que facilita a implementação, pois provê uma 
+certa independência de arquitetura. Além disso, quem analisa o desempenho de 
+aplicações não é mais o seu desenvolvedor, mas sim aqueles responsáveis pelo 
+ambiente de execução.
 
+As ferramentas de visualização para esse modelo de computação se inspiram em 
+características daquelas desenvolvidas para o modelo BSP, pois este dominou o 
+cenário de HPC por muito tempo. Todavia, como diversas premissas são quebradas 
+nesse novo paradigma, as funcionalidades outrora utilizadas com eficiência 
+para a análise de desempenho não são mais suficientes.
 
-Este modelo possui custo de execução de tarefas inconstante e costuma ser 
-executado sobre um ambiente heterogêneo. Os analistas de desempenho que 
-trabalham sobre as aplicações nesse cenário são diferentes, no modelo 
-BSP é quem desenvolve a aplicação, neste é quem desenvolve o ambiente 
-de execução (\textit{runtime}). 
-
-Devido a dominância do modelo BSP, a maior parte das ferramentas de 
-visualização para o modelo corrente carrega características daquelas 
-desenvolvidas para o predecessor. Todavia, as necessidades para análise de 
-desempenho são diferentes tendo em vista que há diferenças impactantes entre 
-ambos os modelos.
-
-
-\subsubsection{DAGViz}
+\subsubsection*{DAGViz}
 
 DAGViz \cite{ref:dagviz} é composto por dois passos: 
 
@@ -105,7 +99,7 @@ Essa ferramenta traz uma visualização diferente do modelo BSP, exibindo as
 tarefas como um grafo hierárquico. Nele, o analista pode colapsar e expandir os 
 grupos de tarefas. Dados de tempo de execução não são tratados pela ferramenta.
 
-\subsubsection{Rastros de execução com dependências de tarefas}
+\subsubsection*{Rastros de execução com dependências de tarefas}
 
 A ferramenta desenvolvida por \citet{ref:visuexecdep} traz um gráfico no estilo 
 espaço-tempo (Gantt). Há algumas outras funcionalidades como a identificação de 
@@ -116,16 +110,15 @@ Como entradas, são utilizados a representação do DAG e os \emph{traces} de
 execução. Essa ferramenta é desenvolvida especificamente para o 
 ambiente de execução PaRSEC.
 
-\subsubsection{Temanejo}
+\subsubsection*{Temanejo}
 
 Temanejo \cite{ref:temanejo} é um \emph{debugger} para o modelo de programação 
 baseado em tarefas, onde o analista visualiza um DAG. Ele suporta grande parte 
-dos ambientes de execução de execução de aplicações baseadas em 
-tarefas, como OmpSs, 
+dos ambientes de execução de aplicações baseadas em tarefas, como OmpSs, 
 StarPU e PaRSEC. Suas funcionalidades são focadas em depuração, permitindo que o 
 usuário possa identificar e consertar parâmetros e dependências de tarefas.
 
-\subsubsection{Delay Spotter}
+\subsubsection*{Delay Spotter}
 
 Delay Spotter \cite{ref:delayspotter} é uma ferramenta, construída sobre o 
 DAGViz, que possibilita a identificação de atrasos em ambientes 
@@ -135,7 +128,7 @@ identificação de delays decorrentes de problemas de escalonamento. Como em
 ambientes heterogêneos com tarefas variadas, a presença de \emph{delays} faz 
 parte da execução das aplicações, essa ferramenta é pouco efetiva.
 
-\subsubsection{TaskInsight}
+\subsubsection*{TaskInsight}
 
 TaskInsight \cite{ref:taskinsight} é uma ferramenta que objetiva identificar o 
 comportamento de memória e seu impacto na execução de tarefas. Apesar de prover 
@@ -143,37 +136,38 @@ algumas estatísticas e possibilitar algumas identificações de anomalias, apen
 essa análise não é o suficiente para identificar a maioria dos pontos de 
 otimização de aplicações baseadas em tarefas.
 
-\subsubsection{StarVZ}
+\subsubsection*{StarVZ}
 
 Arcabouço que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui 
 a visualização de dados mais avançada dentre as ferramentas citadas. Construído 
-com uma abordagem de \emph{script}, ela possui um grande poder de customização 
-e, por isso, é difícil enumerar o que a ferramenta fornece. Ele será detalhado 
-no Capítulo \ref{ch:starvz}.
+com uma abordagem de \emph{script}, ele possui um grande poder de customização. 
+Ele será detalhado no Capítulo \ref{ch:starvz}.
 
 \section{Ferramental para Big Data}
 
-Esta Seção contextualiza o que será utilizado de ferramentas para 
-tratamento de grandes volumes de dados que serão utilizadas neste trabalho. Na 
-Seção \ref{ref:hadoop} contextualizamos a plataforma Hadoop e na Seção 
-\ref{ref:spark} falamos sobre Spark.
+Esta Seção contextualiza as ferramentas para tratamento de grandes volumes de 
+dados que serão utilizadas neste trabalho. Na Seção \ref{ref:hadoop} 
+contextualizamos a plataforma Hadoop e na Seção \ref{ref:spark} falamos sobre 
+Spark.
 
 \subsection{Hadoop} \label{ref:hadoop}
 
 O Hadoop é um arcabouço que permite o processamento distribuído de 
-grandes volumes de dados. A principal motivação de seu desenvolvimento é o  
-desenvolvimento de uma
-leitura distribuída para dados armazenados em uma plataforma distribuída, pois a velocidade de leitura e escrita
-dos discos não evoluíram da mesma forma que seu tamanho.
+grandes volumes de dados. A principal motivação que implicou em seu 
+desenvolvimento foi o fato de que as velocidades de leitura e escrita dos 
+discos rígidos não evoluíram da mesma forma que o seu tamanho. Ele resolve este 
+problema lendo grandes volumes de dados de muitos discos, paralelizando a 
+leitura.
 
-O Hadoop pode ser separado em camadas, como mostra a Figura \ref{fig:hadoop}. A primeira camada, de aplicação, 
-é a de mais alto nível, a qual o usuário usualmente interage. Ele suporta o modelo de programação MapReduce, originalmente
-desenvolvido pelo Google com o objetivo de processar grandes volumes de dados.Tal modelo baseia-se em duas primitivas 
-presentes em linguagens funcionais: \emph{map} e \emph{reduce}. Esta abordagem 
-foi adotada pois observaram que frequentemente era necessário mapear fragmentos 
-de dados de uma entrada à uma chave identificadora e, em seguida, realizar 
-computações sobre os dados mapeados para uma chave em comum 
-\cite{ref:mapreduce}.
+O Hadoop pode ser separado em camadas, como mostra a Figura \ref{fig:hadoop}. A 
+primeira camada, de aplicação,  é a de mais alto nível, a qual o usuário 
+usualmente interage. Ele suporta o modelo de programação MapReduce, 
+originalmente desenvolvido pelo Google com o objetivo de processar grandes 
+volumes de dados. Tal modelo baseia-se em duas primitivas presentes em 
+linguagens funcionais: \emph{map} e \emph{reduce}. Esta abordagem  foi adotada 
+pois constantemente era necessário mapear pedaços de dados de uma entrada à 
+uma chave identificadora e, em seguida, realizar algum tipo de 
+computação sobre os dados mapeados uma mesma chave \cite{ref:mapreduce}.
 
 \begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{./img/hadoop-layers.pdf}}
@@ -193,24 +187,22 @@ redução.
 \end{figure}
 
 Primeiramente temos os dados sendo inseridos no Sistema de Arquivos Distribuído 
-\footnote{Termo em português para \emph{Distributed File System} (DFS). No caso 
-do utilizado no Hadoop, tal sistema é referênciado como \emph{Hadoop Distributed 
-File System} (HDFS).} da plataforma. Os arquivos são divididos em pedaços de 
-tamanho fixo e armazenados sobre os nós da plataforma. Isso permite que os dados 
-sejam tratados de forma rápida pois há paralelização em sua leitura.
+(\emph{Distributed File System}) da plataforma. Os arquivos são divididos em 
+pedaços de tamanho fixo e distribuídos sobre a plataforma. Isso permite que os 
+dados sejam tratados de forma rápida pois há paralelização em sua leitura.
 
 Com os dados armazenados, pode se iniciar a fase de mapeamento, que resulta em 
 conjuntos de tuplas intermediárias. Estas sofrem um pré-processamento na fase 
 de \emph{Shuffle} e são disponibilizados para os nós que irão executar a fase 
-de redução. Finalmente, os executores da redução obtém os dados e executam suas 
-tarefas, gerando a saída da execução.
+de redução. Finalmente, os executores da redução obtêm os dados e desempenham 
+suas tarefas, gerando a saída da execução.
 
 Voltando a Figura \ref{fig:hadoop}, na segunda camada encontra-se o gerenciador 
-de recursos do arcabouço. O YARN (Yet Another Resource Negotiator) foi 
+de recursos do arcabouço. O YARN (\textit{Yet Another Resource Negotiator}) foi 
 introduzido no Hadoop 2.0 e além de melhorar a implementação do modelo 
 MapReduce, suporta outros paradigmas de computação. Ele fornece APIs para 
-requisitar e manipular recursos, mas não é comum o usuário interagir diretamente 
-com essa camada.
+requisitar e manipular recursos, não sendo comum o usuário interagir 
+diretamente com essa camada.
 
 Como o Hadoop trabalha sobre dados muito grandes, é comum que tais cargas de 
 trabalho ultrapassem a capacidade de uma única máquina física. Isso implica na 
@@ -221,33 +213,34 @@ Hadoop possui sua própria implementação de um \textit{DFS}, inspirado no
 \textit{Google File System}, denominado \textit{Hadoop Distributed Filesystem}, 
 que é representado como a terceira camada da Figura \ref{fig:hadoop}.
 
-De forma similar a sistemas de arquivos convencionais, existe é utilizada a 
-abstração de blocos, que consistem no volume mínimo para leitura e escrita. 
-Enquanto nestes, eles têm tipicamente poucos bytes, o tamanho de blocos no HDFS 
+De forma similar a sistemas de arquivos convencionais, é utilizada a abstração 
+de blocos, que consistem no volume mínimo para leitura e escrita. Enquanto 
+nestes, eles têm tipicamente poucos bytes, o tamanho de blocos no HDFS 
 é na ordem de megabytes, sendo por padrão, 128 (configurável pelo usuário, por 
-arquivo). Tal abstração permite ao Sistema de arquivos: armazenar arquivos 
-maiores do que qualquer disco no ambiente; simplifica o gerenciamento do 
-armazenamento de dados; facilita replicação para garantir alta disponibilidade.
+arquivo). Tal abstração permite ao Sistema: armazenar arquivos maiores do que 
+qualquer disco no ambiente; simplifica o gerenciamento do armazenamento de 
+dados; e facilita replicação para garantir alta disponibilidade.
 
 Um HDFS possui dois tipos de nós: \emph{namenode} e \emph{datanodes}. Eles 
 seguem uma política mestre-escravo, onde o nó do primeiro tipo atua como mestre 
 e gerencia o sistema de arquivos e nós do segundo tipo recebem requisições (de 
 clientes ou do namenode) e armazenam ou recuperam blocos. Também é possível 
 executar um \textit{secondary namenode} para evitar pontos únicos de falha na 
-arquitetura. O principal papel deste nó seria manter uma cópia dos dados de 
-gerência do primeiro, em caso de falhas.
+arquitetura. O principal papel deste nó é manter uma cópia dos dados de gerência 
+do \textit{namenode} principal, em caso de falhas, ele pode assumir o lugar 
+deste.
 
 \subsection{Spark} \label{ref:spark}
 
 Spark é um conjunto de uma engine unificada e um conjunto de bibliotecas para 
 processamento de dados distribuídos \cite{ref:sparkbook}. A motivação para sua 
-criação foi a necessidade de muitos tipos de processamento e a tendência das 
-engines serem cada vez mais específicas no cenário de Big Data.
+criação foi a necessidade de muitos tipos de processamento e a tendência do 
+ferramental ser cada vez mais específico no cenário de Big Data.
 
 A arquitetura do Spark pode ser visualizada na Figura \ref{fig:spark-arch}. A 
 engine usualmente é executada sobre um cluster de máquinas gerenciado por um 
 \texttt{Gerenciador de Cluster}, que mantém o controle dos recursos 
-disponíveis. Ele oferece suporte a três gerenciadores: um próprio da engine, 
+disponíveis. Ele oferece suporte a três gerenciadores: um do próprio Spark, 
 Hadoop YARN ou Mesos \cite{ref:mesos}.
 
 \begin{figure}[ht]
@@ -276,8 +269,8 @@ capaz de passar funções locais para serem executadas de forma distribuída. A
 avaliação dos RDDs é realizada de forma \emph{Lazy}, o que significa que as 
 manipulações são efetivadas apenas quando é executada uma ação nos dados, que 
 se trata de uma instrução para computar o resultado de uma série de 
-transformações.Isso permite que ele encontre um plano de execução eficiente pois 
-pode agregar operações, otimizando o tempo de execução.
+transformações. Isso permite que ele encontre um plano de execução eficiente 
+pois pode agregar operações, otimizando o tempo de execução.
 
 
 
