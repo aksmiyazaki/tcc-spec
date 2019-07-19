@@ -188,6 +188,9 @@ X.4 Motivação/Abordagem
     #+END_EXPORT
     Perceba o ~*~.
 *** Capítulo 3 (StarVZ)
+- Podes dizer que StarVZ é a única ferramenta que emprega ferramentas
+  desenvolvidas para Data Science para se realizar análise de
+  desempenho.
 - genéricamente não tem acento
 - "de forma detalhadas" cuidar concordância
 - Em PT-BR, usar "rastros" ao invés de "traços" (do inglês trace)
