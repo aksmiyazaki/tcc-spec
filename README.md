@@ -185,7 +185,10 @@ tremamente grandes.
     - starVZ package
 - Primeira execução do exemplo retornou o erro ERROR: pj_dump is not installed, please install PajeNG or configure PATH
 
-
-# Notas sobre validação
-- Nature contém o mesmo conteúdo para todas as linhas em Cholesky e poderia ser removido?
--
+# Slurm
+- squeue
+    - information about scheduled jobs
+    - squeue -p <resource>
+- salloc
+    - salloc -p draco -J NOME-JOB-EX1 -t 05:00:00
+    - salloc -p draco -J SPARK-STARVZ-TEST -t 02:00:00 -N 1 --reboot
