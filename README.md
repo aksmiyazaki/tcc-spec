@@ -192,3 +192,12 @@ tremamente grandes.
 - salloc
     - salloc -p draco -J NOME-JOB-EX1 -t 05:00:00
     - salloc -p draco -J SPARK-STARVZ-TEST -t 02:00:00 -N 1 --reboot
+
+# Node Status
+    - Beagle1
+        - Env ok to run sequential
+        - Must set env to run distributed
+    - draco1
+        - Env ok to run sequential
+    - draco4
+        - must install Arrow R-package (```remotes::install_github("apache/arrow", subdir = "r", ref = "apache-arrow-0.14.0```)
