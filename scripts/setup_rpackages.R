@@ -17,4 +17,5 @@ install.packages("remotes")
 remotes::install_github("apache/arrow", subdir = "r", ref = "apache-arrow-0.14.0")
 
 library(sparklyr)
+options(spark.install.dir="/scratch/aksmiyazaki/Workdir")
 spark_install("2.4.3")

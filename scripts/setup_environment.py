@@ -49,16 +49,6 @@ if not os.path.exists(work_dir):
     subprocess.run(['echo "PATH=\$PATH:\${SCRATCH}Workdir/hadoop-2.9.0/bin:\${SCRATCH}Workdir/hadoop-2.9.0/sbin" >> ~/.bashrc'], shell=True)
     subprocess.run(['source ~/.bashrc'], shell=True)
 
-    ### SPARK CONFIGURATION STARTS HERE
-    print("Configuring Spark")
-    subprocess.run(["wget https://archive.apache.org/dist/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz"], shell=True)
-    subprocess.run(["tar -xvf spark-2.4.3-bin-hadoop2.7.tgz"], shell=True)
-    subprocess.run(["rm -rf spark-2.4.3-bin-hadoop2.7.tgz"], shell=True)
-    subprocess.run(["cp env-setup/spark/* spark-2.4.3-bin-hadoop2.7/conf"], shell=True)
-    subprocess.run(["sed -i 's+export HADOOP_CONF_DIR=/home/aksmiyazaki/Spack/opt/spack/linux-debian9-x86_64/gcc-6.3.0/hadoop-2.9.0-e6gqhu36bmugq3hyiqrcfrqcllpekq4j/etc/hadoop+export HADOOP_CONF_DIR=/scratch/aksmiyazaki/Workdir/hadoop-2.9.0/etc/hadoop+g' spark-2.4.3-bin-hadoop2.7/conf/spark-env.sh"], shell=True)
-    subprocess.run(['echo "SPARK_HOME=${SCRATCH}Workdir/spark-2.4.3-bin-hadoop2.7" >> ~/.bashrc'], shell=True)
-
-
     ### Personal Stuff
     print("Configuring R-Package")
     subprocess.run(["wget https://www.dropbox.com/s/9r2436s7xkd7qbj/spark-startvz.tar.gz?dl=1"], shell=True)
