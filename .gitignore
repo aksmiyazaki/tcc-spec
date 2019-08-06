@@ -30,3 +30,19 @@ final-text/texto\.pdf
 final-text/texto\.toc
 
 drawing/step1-final\.pdf
+
+experiments/output\.pdf
+
+experiments/output\.png
+
+experiments/results/experiment_distrib/spark_conf_distrib1\.tgz
+
+experiments/results/experiment_distrib_3nodes/logs/draco1\.tgz
+
+experiments/results/experiment_distrib_3nodes/logs/draco2\.tgz
+
+experiments/results/experiment_distrib_3nodes/logs/draco4\.tgz
+
+experiments/results/experiment_distrib/spark_logs/logs-distrib_draco4\.tgz
+
+experiments/results/experiment_distrib/spark_logs/logs-distrib1_draco1\.tgz
