@@ -331,37 +331,48 @@ read_csv(FILE, col_types=cols()) %>% select(-X1, -Write) %>%
     summarize(N=n(),
               Mean = mean(Value),
               Error = 3*sd(Value)/sqrt(N)) %>%
-    as.data.frame
+    print -> df
 #+end_src
 
 #+RESULTS:
 #+begin_example
 
-   P Variable  N        Mean      Error
-1  1      DAG 30   69.147108 0.84977760
-2  1 Entities 30    3.079080 0.16312141
-3  1   Events 30   89.875757 0.91170624
-4  1     GAPS 30   71.516931 1.83735161
-5  1     Link 30    8.934806 0.16988970
-6  1  Parsing 30 1326.809827 5.65401994
-7  1    State 30  873.315366 4.90139501
-8  1 Variable 30  210.774791 1.39597452
-9  2      DAG 29    7.333403 0.11806712
-10 2 Entities 29    2.293225 0.05807709
-11 2   Events 29   22.402144 0.10033750
-12 2     GAPS 29  112.382994 0.63811098
-13 2     Link 29    3.855702 0.06352553
-14 2  Parsing 29  326.452291 0.92209354
-15 2    State 29  143.655120 0.72477308
-16 2 Variable 29    8.507834 0.26324945
-17 3      DAG 29    6.762180 0.11757505
-18 3 Entities 29    2.308778 0.04160803
-19 3   Events 29   15.917863 0.12085027
-20 3     GAPS 29   95.220308 0.46520447
-21 3     Link 29    3.534295 0.09494105
-22 3  Parsing 29  273.895743 1.01793697
-23 3    State 29  119.202144 0.76608421
-24 3 Variable 29    7.500977 0.34495591
+# A tibble: 24 x 5
+# Groups:   P [3]
+       P Variable     N    Mean  Error
+   <int> <chr>    <int>   <dbl>  <dbl>
+ 1     1 DAG         30   69.1  0.850 
+ 2     1 Entities    30    3.08 0.163 
+ 3     1 Events      30   89.9  0.912 
+ 4     1 GAPS        30   71.5  1.84  
+ 5     1 Link        30    8.93 0.170 
+ 6     1 Parsing     30 1327.   5.65  
+ 7     1 State       30  873.   4.90  
+ 8     1 Variable    30  211.   1.40  
+ 9     2 DAG         29    7.33 0.118 
+10     2 Entities    29    2.29 0.0581
+# … with 14 more rows
 Warning message:
 Missing column names filled in: 'X1' [1]
 #+end_example
+
+#+begin_src R :results output graphics :file img/preliminary-results.png :exports both :width 280 :height 400 :session
+df %>%
+    ggplot(aes(x=P, y=Mean, fill=Variable)) +
+    geom_bar(stat="identity") +
+    scale_fill_brewer(palette = "Set1", guide = guide_legend(nrow=4)) +
+    theme_bw(base_size=22) +
+    theme(plot.margin = unit(c(0,0,0,0), "mm"),
+          legend.position="top",
+          legend.justification = "left",
+          legend.spacing = unit(0, "mm"),
+          legend.box.spacing = unit(0, "pt"),
+          legend.box.margin = margin(0,0,0,0),
+          legend.margin = unit(c(0,0,0,0), "cm"),
+          legend.title = element_blank()) +
+    ylab("Time (s)") +
+    xlab("Processing Units")
+#+end_src
+
+#+RESULTS:
+[[file:img/preliminary-results.png]]
