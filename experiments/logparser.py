@@ -88,11 +88,17 @@ for key, value in aimdir.items():
                 if match:
                     total_time = convert_regex_match(match)
                     continue
+            if state_time > -1 and variable_time > -1 and gaps_time > -1:
+                df.loc[len(df)] = [key, state_time, variable_time, link_time, DAG_time,
+                                        entities_time, events_time, gaps_time, parsing_time,
+                                    write_time, total_time]
+            else:
+                print("Result from file [" + fname + "] Is corrupted");
 
-            df.loc[len(df)] = [key, state_time, variable_time, link_time, DAG_time,
-                                entities_time, events_time, gaps_time, parsing_time,
-                                write_time, total_time]
-
-df.head()
+df.to_csv(path_or_buf='/home/aksmiyazaki/git/tcc-spec/experiments/results/extracted_results.csv',
+            header=True)
 sns.set(style="whitegrid")
-sns.barplot(x="Exec", y="Total", data=df)
+sns.set(rc={'figure.figsize':(15,15)})
+sns_plot = sns.barplot(x="Exec", y="Total", data=df)
+fig = sns_plot.get_figure()
+fig.savefig("/home/aksmiyazaki/git/tcc-spec/experiments/output.png")
