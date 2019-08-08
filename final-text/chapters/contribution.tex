@@ -46,26 +46,40 @@ tem apenas uma fonte de saída.
 
 \section{Implementação} \label{sect:implement}
 
+Para as alterações propostas, a biblioteca \texttt{sparklyr} foi escolhida para fazer a intermediação 
+entre o código R e o Spark. De acordo com \citet{}, a abordagem dela prioriza a 
+experiência com R ao invés do Spark, abstraindo alguns dos conceitos básicos como a seção Spark
+(\emph{Spark Session}), diferindo da abordagem padrão das APIs. Ela foi desenvolvida baseada no pacote \texttt{dplyr},
+o que facilitou a adaptação da aplicação pois ele era responsável pela maior parte das manipulações de tabelas.
+
+
+
 Tratando-se dos detalhes de implementação, foi criado um novo arquivo com o fluxo de dados distribuído.
 Dessa forma, em um único pacote, o usuário pode optar por realizar a execução sequencial ou distribuída do arcabouço.
 Criou-se o parâmetro de execução de tipo, onde \texttt{-S} significa sequencial e \texttt{-D} significa distribuída.
 
-Na parte sequencial, a escrita de arquivos foi modificada para ser realizada com o pacote arrow. Em termos de código, essa
-modificação é bastante pontual, adicionando uma importação de biblioteca e modificando-se os métodos de escrita de arquivos
-(de \texttt{write\_feather} para \texttt{write\_parquet}). É importante salientar que este pacote também possui uma implementação
-de \texttt{write\_feather}, que é mais eficiente que aquela do pacote \texttt{feather}. Além disso, começamos a medir o tempo de
-execução em diversos pontos, que serão aprofundadados no Capítulo \ref{ch:evaluation}.
+\begin{figure}[ht]
+ \centerline{\includegraphics[width=1\textwidth]{./img/applicationflow.pdf}}
+ \caption{Fluxo de execução da aplicação.}
+ \label{fig:spark-starvz-flow}
+\end{figure}
 
-A execução distribuída precisou uma expansão nos parâmetros para comportar o diretório no HDFS, o \texttt{gerenciador de cluster} 
-e o local de instalação do Spark. Isso flexibiliza a aplicação, já que o usuário pode executar 
-em diferentes gerenciadores de cluster (por exemplo, executar em um gerenciador local com cargas de trabalho pequenas e distríbuido
-com cargas de trabalho maiores, apenas mudando um parâmetro). A informação de diretório de entradas locais também é necessária, 
+A Figura \ref{fig:spark-starvz-flow} ilustra o novo fluxo da aplicação. Na parte sequencial, a 
+única modificação foi a escrita de arquivos no formato Parquet, com o pacote arrow. Em termos de código,
+essa modificação é bastante pontual, adicionando uma importação de biblioteca e modificando-se
+os métodos de escrita de arquivos (de \texttt{write\_feather} para \texttt{write\_parquet}). É 
+importante salientar que este pacote também possui uma implementação de \texttt{write\_feather},
+que é mais eficiente que aquela do pacote \texttt{feather}. Além disso, começamos a medir o tempo
+de cada passo representado na Figura.
+
+A execução distribuída precisou uma expansão nos parâmetros para comportar o diretório no HDFS, 
+o \texttt{gerenciador de cluster} e o local de instalação do Spark. Isso flexibiliza a aplicação,
+já que o usuário pode executar em diferentes gerenciadores de cluster (por exemplo, executar 
+em um gerenciador local com cargas de trabalho pequenas e distríbuido com cargas de trabalho maiores, 
+apenas mudando um parâmetro). A informação de diretório de entradas locais também é necessária, 
 tendo em vista que alguns arquivos não compensam ser carregados do HDFS e tratados de forma distribuída.
 
-A biblioteca \texttt{sparklyr} foi selecionada para fazer a intermediação entre o código R e o Spark. De acordo com \citet{}, 
-a abordagem dessa biblioteca prioriza a experiência com R ao invés do Spark, abstraindo alguns dos conceitos básicos como 
-a seção Spark (\emph{Spark Session}), diferindo da abordagem padrão das APIs. Ela foi desenvolvida baseada no pacote \texttt{dplyr},
-o que facilitou a adaptação da aplicação pois ele era responsável pela maior parte das manipulações de tabelas.
+
 
 Primeiramente, é necessário estabelecer uma conexão com o \texttt{gerenciador de cluster}, utilizando o método \texttt{spark\_connect}.
 Com esta estabelecida, é possível utilizar os métodos para carregar tabelas Spark diretamente para tabelas no sparklyr. A primeira
