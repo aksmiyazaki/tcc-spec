@@ -57,10 +57,17 @@ de \texttt{write\_feather}, que é mais eficiente que aquela do pacote \texttt{f
 execução em diversos pontos, que serão aprofundadados no Capítulo \ref{ch:evaluation}.
 
 A execução distribuída precisou uma expansão nos parâmetros para comportar o diretório no HDFS, o \texttt{gerenciador de cluster} 
-no qual o spark irá buscar recursos e o local de instalação do spark. Isso flexibiliza a aplicação, já que o usuário pode executar 
+e o local de instalação do Spark. Isso flexibiliza a aplicação, já que o usuário pode executar 
 em diferentes gerenciadores de cluster (por exemplo, executar em um gerenciador local com cargas de trabalho pequenas e distríbuido
 com cargas de trabalho maiores, apenas mudando um parâmetro). A informação de diretório de entradas locais também é necessária, 
 tendo em vista que alguns arquivos não compensam ser carregados do HDFS e tratados de forma distribuída.
 
-A biblioteca \texttt{sparklyr} fornece uma forma de interação com tabelas R praticamente igual a \texttt{dplyr}, o que 
-facilitou bastante a adaptação. De acordo com \citet{}, a abordagem dessa biblioteca difere da abordagem padrão das APIs 
+A biblioteca \texttt{sparklyr} foi selecionada para fazer a intermediação entre o código R e o Spark. De acordo com \citet{}, 
+a abordagem dessa biblioteca prioriza a experiência com R ao invés do Spark, abstraindo alguns dos conceitos básicos como 
+a seção Spark (\emph{Spark Session}), diferindo da abordagem padrão das APIs. Ela foi desenvolvida baseada no pacote \texttt{dplyr},
+o que facilitou a adaptação da aplicação pois ele era responsável pela maior parte das manipulações de tabelas.
+
+Primeiramente, é necessário estabelecer uma conexão com o \texttt{gerenciador de cluster}, utilizando o método \texttt{spark\_connect}.
+Com esta estabelecida, é possível utilizar os métodos para carregar tabelas Spark diretamente para tabelas no sparklyr. A primeira
+dificultade encontrada foi que nem todos os tipos suportados pelo \texttt{dplyr} são suportados pelo \texttt{sparklyr}, como o tipo \emph{factor} e o tipo \emph{numeric}. Para contornar isso, foi feito um mapeamento de tipos com o objetivo de ter um resultado final equivalente em ambas abordagens.
+
