@@ -34,8 +34,33 @@ foi adaptada para escrever suas saídas neste formato. Isso foi realizado utiliz
  \label{fig:starvz-app-arrow}
 \end{figure}
 
-Considerando o tamanho dos arquivos de entrada, utilizaremos o HDFS para armazená-los. Dessa forma, a leitura dos arquivos 
-também utilizaremos a capacidade de leitura distribuída das entradas. O \texttt{Gerenciador de Cluster} inicialmente trabalharemos
+A Figura \ref{fig:starvz-app-spark} ilustra a arquitetura da aplicação após as modificações propostas. Considerando o tamanho dos arquivos de entrada, utilizaremos o HDFS para armazená-lo. Todavia, alguns arquivos não crescem muito com o aumento do tamanho das entradas, ficando com o tamanho na ordem de KBytes. Para esses arquivos pequenos, o custo de armazená-los no sistema de arquivos e tratá-los no 
+sistema de arquivos distribuído é maior do que armazená-los e trata-los sequencialmente e, por isso, seu armazenamento e tratamento continuou no formato sequencial. A escrita das saídas foi padronizada para escrever com o sparklyr no HDFS, dessa forma o usuário 
+tem apenas uma fonte de saída.
 
+\begin{figure}[ht]
+ \centerline{\includegraphics[width=1\textwidth]{./img/starvz-arch-spark.pdf}}
+ \caption{Arquitetura da aplicação StarVZ utilizando Spark.}
+ \label{fig:starvz-app-spark}
+\end{figure}
 
 \section{Implementação} \label{sect:implement}
+
+Tratando-se dos detalhes de implementação, foi criado um novo arquivo com o fluxo de dados distribuído.
+Dessa forma, em um único pacote, o usuário pode optar por realizar a execução sequencial ou distribuída do arcabouço.
+Criou-se o parâmetro de execução de tipo, onde \texttt{-S} significa sequencial e \texttt{-D} significa distribuída.
+
+Na parte sequencial, a escrita de arquivos foi modificada para ser realizada com o pacote arrow. Em termos de código, essa
+modificação é bastante pontual, adicionando uma importação de biblioteca e modificando-se os métodos de escrita de arquivos
+(de \texttt{write\_feather} para \texttt{write\_parquet}). É importante salientar que este pacote também possui uma implementação
+de \texttt{write\_feather}, que é mais eficiente que aquela do pacote \texttt{feather}. Além disso, começamos a medir o tempo de
+execução em diversos pontos, que serão aprofundadados no Capítulo \ref{ch:evaluation}.
+
+A execução distribuída precisou uma expansão nos parâmetros para comportar o diretório no HDFS, o \texttt{gerenciador de cluster} 
+no qual o spark irá buscar recursos e o local de instalação do spark. Isso flexibiliza a aplicação, já que o usuário pode executar 
+em diferentes gerenciadores de cluster (por exemplo, executar em um gerenciador local com cargas de trabalho pequenas e distríbuido
+com cargas de trabalho maiores, apenas mudando um parâmetro). A informação de diretório de entradas locais também é necessária, 
+tendo em vista que alguns arquivos não compensam ser carregados do HDFS e tratados de forma distribuída.
+
+A biblioteca \texttt{sparklyr} fornece uma forma de interação com tabelas R praticamente igual a \texttt{dplyr}, o que 
+facilitou bastante a adaptação. De acordo com \citet{}, a abordagem dessa biblioteca difere da abordagem padrão das APIs 
