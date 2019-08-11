@@ -104,7 +104,7 @@ order=-1
 
 [item:chapters/contribution.tex]
 archive=true
-column=46
+column=0
 encoding=UTF-8
 highlight=LaTeX
 line=13
@@ -225,7 +225,7 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:chapters/contribution.tex]
-CursorColumn=46
+CursorColumn=0
 CursorLine=13
 JumpList=
 ViMarks=.,7,31,[,7,31,],7,31
