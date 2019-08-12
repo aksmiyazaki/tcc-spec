@@ -201,3 +201,49 @@ tremamente grandes.
         - Env ok to run sequential
     - draco4
         - must install Arrow R-package (```remotes::install_github("apache/arrow", subdir = "r", ref = "apache-arrow-0.14.0```)
+
+# Notas
+## Convenções
+    - Tipos de arquivo - textit
+    - Nomes de bibliotecas - texttt
+    - Linguagem de programação - sem formatação
+    - Spark - sem formatação
+    - Funções e códigos - texttt
+    
+##
+
+
+## State
+- Em manipulações que tratavam uma coluna como parâmetro (e.g. outlier_fun),
+foi necessário expandir pois o sparklyr não consegue tratar esse tipo de manipulação
+
+- Funções de tabelas geralmente possuem sua análoga para tabelas sparklyr
+- Manipulações
+    - .${Column} <> select({Column})
+    - distinct <> unique
+    - sort <> sdf_sort
+    - separate <> ft_regex_tokenizer + sdf_separate_column
+    - gsub <> regexp_replace
+    - rbind <> union_all
+    - grepl -> rlike
+
+## variables
+    - Uso de separate <> ft_regex_tokenizer + sdf_separate_column
+
+## Links
+    - Praticamente igual
+
+## Gaps
+    - Poucas modificações, uso da equivalência de separate pelo par ft_regex_tokenizer + sdf_separate_column
+
+## Entities
+    - Sequencial
+
+## Events
+    - Nenhuma manipulação que valha a pena comentar
+
+## Gaps
+    - Recursiva
+    - Necessário tratar joins com sufixo novo (_ como separador)
+    - . é utilizado internamente pelo spark, portanto, havia problemas (sparklyr retornava esse caractere como separador).
+    - Todavia, como na execução sequencial é escrito com '.' como separador, executou-se um rename no final do cálculo de GAPS.

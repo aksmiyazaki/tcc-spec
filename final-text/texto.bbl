@@ -73,6 +73,12 @@ ISSN 1552-5244.}
   -- 490.
 ISBN 9781614990406.}
 
+\bibitem[Foundation 2018]{ref:parquet}
+\abntrefinfo{Foundation}{FOUNDATION}{2018}
+{FOUNDATION, A. S. \textbf{Apache Parquet Website}. 2018.
+[Acessed: 2019-08-12].
+Available from Internet: \url{https://parquet.apache.org/}.}
+
 \bibitem[Garcia Pinto et al. 2018]{ref:starvz}
 \abntrefinfo{Garcia Pinto et al.}{GARCIA PINTO et al.}{2018}
 {GARCIA PINTO, V. et al. A visual performance analysis framework for
