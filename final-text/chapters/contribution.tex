@@ -5,9 +5,10 @@ de Dados. Nele, são carregadas e manipuladas várias tabelas, utilizando
 bibliotecas do pacote \texttt{tidyverse}. Este Capítulo fala sobre as diferenças 
 propostas e realizadas no StarVZ, com o objetivo de otimizar o tempo de 
 execução da fase de pré-processamento. Resumidamente, no lugar de tabelas R, 
-utilizaremos tabelas Spark (\emph{Spark Dataframes}) para o carregamento e manipulação de dados.
-Na Seção \ref{sect:arch} são apresentadas as mudanças arquiteturais propostas
-e na Seção \ref{sect:implement}, detalha-se a implementação dessas mudanças.
+utilizaremos tabelas Spark (\emph{Spark Dataframes}) para o carregamento e 
+manipulação de dados. Na Seção \ref{sect:arch} são apresentadas as mudanças 
+arquiteturais propostas e na Seção \ref{sect:implement}, detalha-se a 
+implementação dessas mudanças.
 
 \section{Arquitetura Proposta} \label{sect:arch}
 
@@ -62,13 +63,13 @@ A biblioteca escolhida para fazer a intermediação entre o código R e o Spark
 foi a \texttt{sparklyr}. De acordo com \citet{ref:sparkbook}, ela é 
 baseada no pacote \texttt{dplyr} e sua abordagem prioriza a experiência com R, 
 abstraindo alguns dos conceitos básicos como a seção Spark (\emph{Spark 
-Session}), diferindo da abordagem padrão das APIs. O processo Driver é encapsulado
-nas tratativas dessa biblioteca, que faz a intermediação entre o código R e a 
-execução distribuída na infraestrutura. Devido a execução \emph{Lazy} da engine,
-nem todas as operações realizadas em uma tabela geram tarefas distribuídas. Os
-Executores utilizam diretamente o HDFS para leituras e escritas e mesmo aqueles
-arquivos que foram mantidos com processamento sequencial são escritos no HDFS
-para padronizar o local de saída.
+Session}), diferindo da abordagem padrão das APIs. O processo Driver é 
+encapsulado nas tratativas dessa biblioteca, que faz a intermediação entre o 
+código R e a execução distribuída na infraestrutura. Devido a execução 
+\emph{Lazy} da engine, nem todas as operações realizadas em uma tabela geram 
+tarefas distribuídas. Os Executores utilizam diretamente o HDFS para leituras e 
+escritas e mesmo aqueles arquivos que foram mantidos com processamento 
+sequencial são escritos no HDFS para padronizar o local de saída.
 
 
 \section{Implementação} \label{sect:implement}
@@ -144,8 +145,8 @@ separate	& ft\_regex\_tokenizer + sdf\_separate\_column       \\
 A última manipulação de dados a ser realizada antes da escrita dos arquivos 
 \textit{Parquet}, é um conjunto de funções recursivas. Durante o 
 desenvolvimento, foi observada que a versão distribuída levava 
-um tempo maior que a execução sequencial. Isso foi atribuído a avaliação \emph{Lazy} 
-do Spark associado a recursividade, e foi um ponto de atenção 
+um tempo maior que a execução sequencial. Isso foi atribuído a avaliação 
+\emph{Lazy} do Spark associado a recursividade, e foi um ponto de atenção 
 levantado para ser observado durante os experimentos.
 
 Por fim, as saídas são escritas no HDFS. Elas geram múltiplos arquivos, por 
