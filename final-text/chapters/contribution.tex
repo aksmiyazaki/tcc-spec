@@ -4,11 +4,10 @@ A fase de pré-processamento do arcabouço StarVZ é similar a um fluxo de Ciên
 de Dados. Nele, são carregadas e manipuladas várias tabelas, utilizando 
 bibliotecas do pacote \texttt{tidyverse}. Este Capítulo fala sobre as diferenças 
 propostas e realizadas no StarVZ, com o objetivo de otimizar o tempo de 
-execução desta fase. Resumidamente, no lugar de tabelas R, utilizaremos tabelas
-Spark (\emph{Spark Dataframes}) para o carregamento e manipulação de dados.
-Na Seção \ref{sect:arch} são apresentadas as mudanças 
-arquiteturais propostas e na Seção \ref{sect:implement}, detalha-se a 
-implementação dessas mudanças.
+execução da fase de pré-processamento. Resumidamente, no lugar de tabelas R, 
+utilizaremos tabelas Spark (\emph{Spark Dataframes}) para o carregamento e manipulação de dados.
+Na Seção \ref{sect:arch} são apresentadas as mudanças arquiteturais propostas
+e na Seção \ref{sect:implement}, detalha-se a implementação dessas mudanças.
 
 \section{Arquitetura Proposta} \label{sect:arch}
 
@@ -27,9 +26,9 @@ conduzido através de um código R.
 \end{figure}
 
 Durante o trabalho, identificou-se que não havia uma biblioteca que suportasse a 
-escrita de tabelas Spark em arquivos \texttt{Feather}. Isso é essencial para 
+escrita de tabelas Spark em arquivos \textit{Feather}. Isso é essencial para 
 compararmos a escrita do mesmo tipo de dados tanto na execução sequencial quanto 
-na distribuída utilizando tabelas Spark. Devido ao ecossistema Hadoop utilizar 
+na distribuída. Devido ao ecossistema Hadoop utilizar 
 o formato \textit{Parquet} \cite{ref:parquet} como padrão para armazenamento de 
 dados colunares, a aplicação foi adaptada para escrever suas saídas neste 
 formato. Isso foi realizado utilizando a biblioteca \texttt{Apache Arrow}, a 
@@ -46,12 +45,11 @@ A Figura \ref{fig:starvz-app-spark} ilustra a arquitetura da aplicação após a
 modificações propostas. Considerando o tamanho dos arquivos de entrada, 
 utilizaremos o HDFS para armazená-los. Todavia, alguns arquivos não crescem 
 muito com o aumento do tamanho das entradas (seu tamanho fica na ordem de 
-KBytes). Para esses arquivos pequenos, o custo de armazená-los e tratá-los no 
+KBytes). Para estes, o custo de armazená-los e tratá-los no 
 sistema de arquivos distribuído não é vantajoso pois os processamentos 
-adicionais para realizar estes processos são mais caros que o tratamento do 
-arquivo em sí. Portanto, decidiu-se mantê-los com seu armazenamento e 
-processamento sequencial. A escrita das saídas foi padronizada para escrever no 
-HDFS, dessa forma o usuário tem apenas uma fonte de saída.
+adicionais para realizar tais processos são mais caros que o tratamento do 
+arquivo em si. Portanto, decidiu-se mantê-los com seu armazenamento e 
+processamento sequencial.
 
 \begin{figure}[ht]
  \centerline{\includegraphics[width=1\textwidth]{./img/starvz-arch-spark.pdf}}
@@ -61,13 +59,16 @@ HDFS, dessa forma o usuário tem apenas uma fonte de saída.
 
 
 A biblioteca escolhida para fazer a intermediação entre o código R e o Spark 
-foi a \texttt{sparklyr}. De acordo com \citet{ref:sparkbook}, esta biblioteca é 
+foi a \texttt{sparklyr}. De acordo com \citet{ref:sparkbook}, ela é 
 baseada no pacote \texttt{dplyr} e sua abordagem prioriza a experiência com R, 
 abstraindo alguns dos conceitos básicos como a seção Spark (\emph{Spark 
-Session}), diferindo da abordagem padrão das APIs. Ela provê todo o fluxo de 
-manipulação, realizando a leitura dos dados, sua manipulação e a escrita no 
-sistema de arquivos. É importante salientar que ainda utilizamos a leitura e o 
-tratamento sequencial para um arquivo.
+Session}), diferindo da abordagem padrão das APIs. O processo Driver é encapsulado
+nas tratativas dessa biblioteca, que faz a intermediação entre o código R e a 
+execução distribuída na infraestrutura. Devido a execução \emph{Lazy} da engine,
+nem todas as operações realizadas em uma tabela geram tarefas distribuídas. Os
+Executores utilizam diretamente o HDFS para leituras e escritas e mesmo aqueles
+arquivos que foram mantidos com processamento sequencial são escritos no HDFS
+para padronizar o local de saída.
 
 
 \section{Implementação} \label{sect:implement}
@@ -76,7 +77,7 @@ Tratando-se dos detalhes de implementação, foi criado um novo arquivo com o
 fluxo de execução distribuída. Dessa forma, em um único pacote, o usuário pode 
 optar por executar qualquer metodologia do arcabouço. Criou-se o parâmetro de 
 tipo de execução, onde \texttt{-S} significa sequencial e \texttt{-D} significa 
-distribuída, onde cada abordagem conta com parâmetros específicos.
+distribuída, cada um com parâmetros específicos.
 
 \begin{figure}[ht]
  \centerline{\includegraphics[width=1\textwidth]{./img/applicationflow.pdf}}
@@ -96,7 +97,7 @@ para \texttt{write\_parquet}). É importante salientar que este pacote também
 conta com uma implementação de \texttt{write\_feather}, que é mais eficiente 
 que aquela do pacote \texttt{feather}.
 
-Para utilizar a \textit{engine} e executar a aplicação de forma distribuída, é 
+Para utilizar a \textit{Engine} e executar a aplicação de forma distribuída, é 
 necessário estabelecer uma conexão Spark, utilizando o método 
 \texttt{spark\_connect}. Com ela estabelecida, é possível ler arquivos em 
 diversos formatos diretamente para tabelas no \texttt{sparklyr}. É importante 
@@ -106,16 +107,16 @@ disponível na máquina sejam processados. Essa funcionalidade é muito importan
 pois desvincula o potencial da aplicação da limitação física da infraestrutura 
 utilizada.
 
-Com os arquivos carregados em tabelas \texttt{sparklyr} o restante do trabalho 
-foi identificar equivalências entre manipulações realizadas com a 
-\texttt{dplyr}. Como a primeira foi desenvolvida baseada na segunda, esse 
+Com os arquivos carregados em tabelas Spark o restante do trabalho 
+foi identificar equivalências entre as manipulações realizadas com \texttt{dplyr}
+na \texttt{sparklyr}. Como esta foi desenvolvida baseada na primeira, esse 
 processo foi facilitado. Ao encontrar uma manipulação, o seu resultado era 
 observado na tabela original e reproduzido com funções suportadas pela 
 \texttt{sparklyr}. Essa metodologia foi adotada pois, caso fosse necessário um 
 tratamento que não fosse suportado pela biblioteca, seria preciso implementá-lo 
 via funções definidas pelos usuários (\emph{User defined function ou UDFs}). 
 Essa funcionalidade sofre de problemas de desempenho ao utilizar R ou Python 
-pois há o custo de instânciar um processo R e compartilhar os dados de entradas 
+pois há o custo de instanciar um processo R e compartilhar os dados de entradas 
 e saídas. 
 
 A Tabela \ref{tab:equivalence} exibe as principais equivalências de operações 
@@ -142,10 +143,10 @@ separate	& ft\_regex\_tokenizer + sdf\_separate\_column       \\
 
 A última manipulação de dados a ser realizada antes da escrita dos arquivos 
 \textit{Parquet}, é um conjunto de funções recursivas. Durante o 
-desenvolvimento, foi observada que a versão distribuída dessa manipulação levava 
-um tempo maior que a execução sequencial. Isso é devido a avaliação \emph{Lazy} 
-do Spark, e foi um ponto de atenção levantado para ser observado durante a 
-experimentação.
+desenvolvimento, foi observada que a versão distribuída levava 
+um tempo maior que a execução sequencial. Isso foi atribuído a avaliação \emph{Lazy} 
+do Spark associado a recursividade, e foi um ponto de atenção 
+levantado para ser observado durante os experimentos.
 
 Por fim, as saídas são escritas no HDFS. Elas geram múltiplos arquivos, por 
 exemplo, se a saída se chamar \emph{teste.parquet}, a aplicação criará uma pasta 
