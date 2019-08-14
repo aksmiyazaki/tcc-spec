@@ -1,12 +1,14 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
+from colour import Color
+
+%matplotlib inline
 
 csv_input = "/home/aksmiyazaki/git/tcc-spec/experiments/results/extracted_results.csv"
 
 df = pd.read_csv("/home/aksmiyazaki/git/tcc-spec/experiments/results/extracted_results.csv", header=0)
-df.head()
-
 df = df.replace("seq", "Sequencial")
 df = df.replace("d2node", "2 Nós")
 df = df.replace("d3node", "3 Nós")
@@ -14,5 +16,121 @@ df.head()
 
 
 sns.set(style="whitegrid")
-sns.set(rc={'figure.figsize':(15,15)})
-ax = sns.barplot(x="Exec", y="Total", data=df).set(xlabel='Tipo de Execução', ylabel='Tempo (s)', title='Tempo Total')
+sns.set(rc={'figure.figsize':(15,10)})
+
+
+def common_barplot(df, title, save_path = ''):
+    N = len(df['Exec'].unique())
+    ind = np.arange(N)
+    width = 0.5
+    current_palette = sns.color_palette()
+
+    f = plt.figure()
+    piv_df = df.pivot(index="Id", columns="Exec", values=["Total"])
+
+    dataset1 = piv_df['Total'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+    dataset1_err = piv_df['Total'][['Sequencial', '2 Nós', '3 Nós']].std().to_numpy()
+
+    p1 = plt.bar(ind, dataset1, width, yerr=dataset1_err, color=current_palette[0])
+    p1[1].set_color(current_palette[1])
+    p1[2].set_color(current_palette[2])
+
+    plt.ylim([0,1501])
+    plt.yticks(fontsize=12)
+    plt.ylabel("Tempo (S)", fontsize=12)
+    plt.xticks(ind, df['Exec'].unique(), fontsize=12)
+    plt.xlabel('Tipo de Execução', fontsize=12)
+    plt.gca().xaxis.grid(False)
+    plt.title(title, fontsize=12)
+    if len(save_path) > 0:
+        f.savefig(save_path, bbox_inches='tight')
+    plt.show()
+
+def stacked_barplot(df, title, save_path = ''):
+    N = len(df['Exec'].unique())
+    ind = np.arange(N)
+    width = 0.5
+    current_palette = sns.color_palette()
+    f = plt.figure()
+
+    piv_df = df.pivot(index="Id", columns="Exec", values=["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"])
+
+    dataset1 = piv_df['State'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+    dataset2 = piv_df['Variable'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+    dataset3 = piv_df['Link'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+    dataset4 = piv_df['DAG'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+    dataset5 = piv_df['Entities'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+    dataset6 = piv_df['Events'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+    dataset7 = piv_df['GAPS'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+    dataset8 = piv_df['Write'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+
+    p1 = plt.bar(ind, dataset1, width, color=current_palette[0])
+    p2 = plt.bar(ind, dataset2, width, bottom=dataset1, color=current_palette[1])
+    p3 = plt.bar(ind, dataset3, width, bottom =[sum(x) for x in zip(dataset1,dataset2)], color=current_palette[2])
+    p4 = plt.bar(ind, dataset4, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3)], color=current_palette[3])
+    p5 = plt.bar(ind, dataset5, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4)], color=current_palette[4])
+    p6 = plt.bar(ind, dataset6, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5)], color=current_palette[5])
+    p7 = plt.bar(ind, dataset7, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6)], color=current_palette[6])
+    p8 = plt.bar(ind, dataset8, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6,dataset7)], color=current_palette[7])
+
+    plt.ylim([0,1501])
+    plt.yticks(fontsize=12)
+    plt.ylabel("Tempo (S)", fontsize=12)
+    plt.xticks(ind, df['Exec'].unique(), fontsize=12)
+    plt.xlabel('Tipo de Execução', fontsize=12)
+    plt.legend((p1[0], p2[0], p3[0], p4[0], p5[0], p6[0], p7[0], p8[0]), ('State', 'Variable', 'Link', 'DAG', 'Entities', 'Events', 'GAPS', 'Write'), fontsize=12, ncol=4, framealpha=0, fancybox=True)
+    plt.gca().xaxis.grid(False)
+    plt.title(title, fontsize=12)
+    if len(save_path) > 0:
+        f.savefig(save_path, bbox_inches='tight')
+    plt.show()
+
+def stacked_barplot_normalized(df, title, save_path = ''):
+    N = len(df['Exec'].unique())
+    ind = np.arange(N)
+    width = 0.5
+    current_palette = sns.color_palette()
+    f = plt.figure()
+
+    piv_df = df.pivot(index="Id", columns="Exec", values=["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"])
+    total_sequential = df[df['Exec'] == 'Sequencial'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
+    total_2n = df[df['Exec'] == '2 Nós'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
+    total_3n = df[df['Exec'] == '3 Nós'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
+
+    arr_total = np.array([total_sequential, total_2n, total_3n])
+
+    dataset1 = (piv_df['State'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset2 = (piv_df['Variable'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset3 = (piv_df['Link'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset4 = (piv_df['DAG'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset5 = (piv_df['Entities'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset6 = (piv_df['Events'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset7 = (piv_df['GAPS'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset8 = (piv_df['Write'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+
+    p1 = plt.bar(ind, dataset1, width, color=current_palette[0])
+    p2 = plt.bar(ind, dataset2, width, bottom=dataset1, color=current_palette[1])
+    p3 = plt.bar(ind, dataset3, width, bottom =[sum(x) for x in zip(dataset1,dataset2)], color=current_palette[2])
+    p4 = plt.bar(ind, dataset4, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3)], color=current_palette[3])
+    p5 = plt.bar(ind, dataset5, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4)], color=current_palette[4])
+    p6 = plt.bar(ind, dataset6, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5)], color=current_palette[5])
+    p7 = plt.bar(ind, dataset7, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6)], color=current_palette[6])
+    p8 = plt.bar(ind, dataset8, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6,dataset7)], color=current_palette[7])
+
+    plt.ylim([0,120])
+    plt.yticks(fontsize=12)
+    plt.ylabel("Tempo em %", fontsize=12)
+    plt.xticks(ind, df['Exec'].unique(), fontsize=12)
+    plt.xlabel('Tipo de Execução', fontsize=12)
+    plt.legend((p1[0], p2[0], p3[0], p4[0], p5[0], p6[0], p7[0], p8[0]), ('State', 'Variable', 'Link', 'DAG', 'Entities', 'Events', 'GAPS', 'Write'), fontsize=12, ncol=4, framealpha=0, fancybox=True)
+    plt.gca().xaxis.grid(False)
+    plt.title(title, fontsize=12)
+    if len(save_path) > 0:
+        f.savefig(save_path, bbox_inches='tight')
+    plt.show()
+
+
+
+common_barplot(df, 'Tempo total', '/home/aksmiyazaki/git/tcc-spec/experiments/total.pdf')
+stacked_barplot(df, 'Tempo rotal por etapa', '/home/aksmiyazaki/git/tcc-spec/experiments/total_step.pdf')
+stacked_barplot_normalized(df, 'Tempo relativo entre execuções', '/home/aksmiyazaki/git/tcc-spec/experiments/total_relative.pdf')

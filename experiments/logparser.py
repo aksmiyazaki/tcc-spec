@@ -12,11 +12,12 @@ def convert_regex_match(regex_group):
     return float(str(match.group(1))[:-1])
 
 
-df = pd.DataFrame(columns=['Exec', 'State','Variable','Link','DAG','Entities','Events', 'GAPS', 'Parsing', 'Write', 'Total'])
+df = pd.DataFrame(columns=['Id', 'Exec', 'State','Variable','Link','DAG','Entities','Events', 'GAPS', 'Parsing', 'Write', 'Total'])
 
 for key, value in aimdir.items():
     file_names = [f for f in glob.glob(value + 'experiment_[0-9][0-9].log')]
     file_names.sort()
+    exp_iter = 0
 
     for fname in file_names:
         if fname == '':
@@ -89,14 +90,19 @@ for key, value in aimdir.items():
                     total_time = convert_regex_match(match)
                     continue
             if state_time > -1 and variable_time > -1 and gaps_time > -1:
-                df.loc[len(df)] = [key, state_time, variable_time, link_time, DAG_time,
+                df.loc[len(df)] = [int(exp_iter), key, state_time, variable_time, link_time, DAG_time,
                                         entities_time, events_time, gaps_time, parsing_time,
                                     write_time, total_time]
+                exp_iter += 1
             else:
                 print("Result from file [" + fname + "] Is corrupted");
 
+df["Id"] = df["Id"].asint
+df = df.set_index('Id')
+
 df.to_csv(path_or_buf='/home/aksmiyazaki/git/tcc-spec/experiments/results/extracted_results.csv',
             header=True)
+            
 sns.set(style="whitegrid")
 sns.set(rc={'figure.figsize':(15,15)})
 sns_plot = sns.barplot(x="Exec", y="Total", data=df)

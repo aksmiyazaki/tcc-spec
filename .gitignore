@@ -46,3 +46,9 @@ experiments/results/experiment_distrib_3nodes/logs/draco4\.tgz
 experiments/results/experiment_distrib/spark_logs/logs-distrib_draco4\.tgz
 
 experiments/results/experiment_distrib/spark_logs/logs-distrib1_draco1\.tgz
+
+experiments/total_relative\.pdf
+
+experiments/total_step\.pdf
+
+experiments/total\.pdf
