@@ -19,7 +19,7 @@ sns.set(style="whitegrid")
 sns.set(rc={'figure.figsize':(15,10)})
 
 
-def common_barplot(df, title, save_path = ''):
+def common_barplot(df, font_sz, title, save_path = ''):
     N = len(df['Exec'].unique())
     ind = np.arange(N)
     width = 0.5
@@ -35,18 +35,18 @@ def common_barplot(df, title, save_path = ''):
     p1[1].set_color(current_palette[1])
     p1[2].set_color(current_palette[2])
 
-    plt.ylim([0,1501])
-    plt.yticks(fontsize=12)
-    plt.ylabel("Tempo (S)", fontsize=12)
-    plt.xticks(ind, df['Exec'].unique(), fontsize=12)
-    plt.xlabel('Tipo de Execução', fontsize=12)
+    plt.ylim([0,1601])
+    plt.yticks(fontsize=font_sz)
+    plt.ylabel("Tempo (S)", fontsize=font_sz)
+    plt.xticks(ind, ['1', '2', '3'], fontsize=font_sz)
+    plt.xlabel('Quantidade de Nós', fontsize=font_sz)
     plt.gca().xaxis.grid(False)
-    plt.title(title, fontsize=12)
+    plt.title(title, fontsize=font_sz)
     if len(save_path) > 0:
         f.savefig(save_path, bbox_inches='tight')
     plt.show()
 
-def stacked_barplot(df, title, save_path = ''):
+def stacked_barplot(df, font_sz, title, save_path = ''):
     N = len(df['Exec'].unique())
     ind = np.arange(N)
     width = 0.5
@@ -73,19 +73,19 @@ def stacked_barplot(df, title, save_path = ''):
     p7 = plt.bar(ind, dataset7, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6)], color=current_palette[6])
     p8 = plt.bar(ind, dataset8, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6,dataset7)], color=current_palette[7])
 
-    plt.ylim([0,1501])
-    plt.yticks(fontsize=12)
-    plt.ylabel("Tempo (S)", fontsize=12)
-    plt.xticks(ind, df['Exec'].unique(), fontsize=12)
-    plt.xlabel('Tipo de Execução', fontsize=12)
-    plt.legend((p1[0], p2[0], p3[0], p4[0], p5[0], p6[0], p7[0], p8[0]), ('State', 'Variable', 'Link', 'DAG', 'Entities', 'Events', 'GAPS', 'Write'), fontsize=12, ncol=4, framealpha=0, fancybox=True)
+    plt.ylim([0,1601])
+    plt.yticks(fontsize=font_sz)
+    plt.ylabel("Tempo (S)", fontsize=font_sz)
+    plt.xticks(ind, ['1', '2', '3'], fontsize=font_sz)
+    plt.xlabel('Quantidade de Nós', fontsize=font_sz)
+    plt.legend((p1[0], p2[0], p3[0], p4[0], p5[0], p6[0], p7[0], p8[0]), ('State', 'Variable', 'Link', 'DAG', 'Entities', 'Events', 'GAPS', 'Write'), fontsize=font_sz, ncol=3, framealpha=0, fancybox=True)
     plt.gca().xaxis.grid(False)
-    plt.title(title, fontsize=12)
+    plt.title(title, fontsize=font_sz)
     if len(save_path) > 0:
         f.savefig(save_path, bbox_inches='tight')
     plt.show()
 
-def stacked_barplot_normalized(df, title, save_path = ''):
+def stacked_barplot_normalized(df, font_sz, title, save_path = ''):
     N = len(df['Exec'].unique())
     ind = np.arange(N)
     width = 0.5
@@ -118,19 +118,28 @@ def stacked_barplot_normalized(df, title, save_path = ''):
     p8 = plt.bar(ind, dataset8, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6,dataset7)], color=current_palette[7])
 
     plt.ylim([0,120])
-    plt.yticks(fontsize=12)
-    plt.ylabel("Tempo em %", fontsize=12)
-    plt.xticks(ind, df['Exec'].unique(), fontsize=12)
-    plt.xlabel('Tipo de Execução', fontsize=12)
-    plt.legend((p1[0], p2[0], p3[0], p4[0], p5[0], p6[0], p7[0], p8[0]), ('State', 'Variable', 'Link', 'DAG', 'Entities', 'Events', 'GAPS', 'Write'), fontsize=12, ncol=4, framealpha=0, fancybox=True)
+    plt.yticks(fontsize=font_sz)
+    plt.ylabel("Tempo em %", fontsize=font_sz)
+    plt.xticks(ind, ['1', '2', '3'], fontsize=font_sz)
+    plt.xlabel('Quantidade de Nós', fontsize=font_sz)
+    plt.legend((p1[0], p2[0], p3[0], p4[0], p5[0], p6[0], p7[0], p8[0]), ('State', 'Variable', 'Link', 'DAG', 'Entities', 'Events', 'GAPS', 'Write'), fontsize=font_sz, ncol=4, framealpha=0, fancybox=True)
     plt.gca().xaxis.grid(False)
-    plt.title(title, fontsize=12)
+    plt.title(title, fontsize=22)
     if len(save_path) > 0:
         f.savefig(save_path, bbox_inches='tight')
     plt.show()
 
 
 
-common_barplot(df, 'Tempo total', '/home/aksmiyazaki/git/tcc-spec/experiments/total.pdf')
-stacked_barplot(df, 'Tempo rotal por etapa', '/home/aksmiyazaki/git/tcc-spec/experiments/total_step.pdf')
-stacked_barplot_normalized(df, 'Tempo relativo entre execuções', '/home/aksmiyazaki/git/tcc-spec/experiments/total_relative.pdf')
+
+piv_df = df.pivot(index="Id", columns="Exec", values=["Total"])
+
+dataset1 = piv_df['Total'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy()
+dataset1_err = piv_df['Total'][['Sequencial', '2 Nós', '3 Nós']].std().to_numpy()
+
+dataset1
+
+
+common_barplot(df, 22, 'Tempo total', '/home/aksmiyazaki/git/tcc-spec/experiments/total.pdf')
+stacked_barplot(df, 22, 'Tempo total por etapa', '/home/aksmiyazaki/git/tcc-spec/experiments/total_step.pdf')
+stacked_barplot_normalized(df, 22, 'Tempo relativo entre execuções', '/home/aksmiyazaki/git/tcc-spec/experiments/total_relative.pdf')
