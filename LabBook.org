@@ -376,3 +376,45 @@ df %>%
 
 #+RESULTS:
 [[file:img/preliminary-results.png]]
+
+
+** Feedback dos gráficos enviados por e-mail
+
+
+Sobre os gráficos, tem três:
+- total_relative
+- total_step
+- total
+
+Dicas gerais, (1) a fonte dos textos nos gráficos deve ser
+maior. Podes fazer com theme_bw(base_size=22) por exemplo. Ajustar o
+valor 22. Para saber o tamanho "ideal", basta comparar com o texto
+normal uma vez a figura for colocada no manuscrito. O tamanho da fonte
+do gráfico deve ser ligeiramente menor que aquela do texto normal. (2)
+No eixo X, colocar 1, 2 e 3. Ajustar o label do eixo para dizer
+"Quantidade de nós". A dúvida que fiquei agora diz respeito ao uso de
+workers. No caso do spark (2 e 3 nós), tu usas vários workers por nó
+ou apenas um? Acho que se a resposta for vários, valeria talvez a pena
+usar a quantidade de workers, para ter uma ideia do potencial de
+aceleração. (3) Melhorar as cores, utilizando o Set1 do color_brewer
+para o fill.
+
+Sobre os gráficos em si, as informações são as mesmas, eu ficaria
+apenas com o gráfico total_step, com a discretização interna das
+etapas. O problema do emprego de tempos relativos (total_relative) é
+que eles funcionam bem somente para caso a caso (1, 2 ou 3), mas a
+figura leva a uma comparação entre 1 e 2 por exemplo, algo que não faz
+nenhum sentido pois as dimensões entre casos (1 e 2) não são
+comparáveis. Por exemplo, a área rosa dá uma ideia de aumento (de 1
+para 2 e 3), quando na realidade ela ficou menor. Outro exemplo, a
+área rosa dá uma ideia de estabilidade (de 2 para 3) quando novamente
+ela ficou menor em 3.
+
+Se tu tens um controle mais fino da quantidade de workers por nós, o
+que tu poderias fazer para ter mais informação a respeito da
+escalabilidade é averiguar (mais testes!) com 2, 3, 4, 5, 6, 7, 8,
+... até 40 workers (um por core em duas dracos por exemplo) ou
+até 60. Claro que isso se o item (2) da dicas gerais se averiguar.
+
+Ainda não tive tempo de me debruçar sobre o capítulo de
+contribuições. Mas estou quase lá. Vai me atualizando.
