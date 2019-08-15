@@ -1,6 +1,6 @@
 #+STARTUP: overview indent
 
-* Estrutura do texto final
+* Texto final
 ** Recomendação #1
 Sobre a estrutura, entendo o enfoques que queres dar com a parte de
 visualização (clássica ou task-based) mas acredito que esse enfoque é
@@ -204,6 +204,58 @@ X.4 Motivação/Abordagem
 - Remover o "; e etc." no final de 3.3
 3.4
 - "esta Fase do fluxo"
+** 2019-08-14 Revisão do TCC
+*** Capítulo 3 (StarVZ)
+Último parágrafo
+- [ ] Cuidar separação do sujeito do verbo tal qual em "Como na
+  segunda fase, não é evidente". Aquela vírgula não existe. Tentar
+  fazer frases mais curtas, mais diretas, sintéticas.
+*** Capítulo 4 (Contribuição)
+4.1
+- [ ] Há uma semelhança bastante grande entre Fig4.1 e Fig4.2. Talvez
+  possa se ganhar em clareza removendo a Fig4.2.
+- [ ] Na Figura 4.3, talvez fosse interessante especificar quais
+  arquivos foram para o HDFS e quais não.
+- [ ] No parágrafo iniciado por "A biblioteca escolhida ... sparklyr",
+  talvez seja interessante mencionar que seu emprego faz com que
+  poucas modificações sejam necessárias no workflow já existente,
+  facilitando a sua manutenção. Tu poderias inclusive discutir quais
+  foram as modificações principais e do porquê elas foram necessárias.
+  Vi agora que tal detalhamento aparece mais tarde, em 4.2.
+4.2
+- [ ] Não fica claro no primeiro parágrafo o que é o "novo arquivo com
+  o fluxo da exec. distribuída", nem o que é o "único pacote".
+- [ ] Os parâmetros -S e -D são para qual script?
+- [ ] Menção à Fig4.4 deve aparecer antes da figura. Utilize [!htb] no
+  begin figure.
+- [ ] Falas que a ordem de processamento não foi alterada, mas não
+  fica claro qual é a ordem no processamento sequencial (pelo menos
+  não neste capítulo). Talvez fazer uma referência com alguma figura
+  do capítulo anterior onde consta a ordem.
+- [ ] Acredito que a Sec4.2 mereça um parágrafo inicial onde lista-se
+  o que será descrito em seguida. Exemplo: explicitar o que ficou
+  sequencial/paralelo, o que foi modificado, equivalências de
+  operações, validação (um enfoque maior à validação talvez possa ser
+  dado, deixando explícito que o resultado é o mesmo), etc. 
+- [ ] Cuidar o respeito à margens da página
+- [ ] Cuidar emprego de vírgulas como aquela empregada na primeira
+  frase do parágrafo que começa com "A última manipulação"
+- [ ] Substituir o termo manipulação para transformação dado o
+  significado potencialmente negativo de manipulação.
+- [ ] "Durante o desenvolvimento, foi observada que a versão
+  distribuída levava um tempo maior que a execução sequencial" -> isso
+  foi resolvido?
+- [ ] pasta -> diretório
+
+O fim do capítulo me pareceu um pouco abrupto demais.
+
+De uma maneira geral, lendo seu conteúdo, acredito que talvez este
+capítulo mereça uma re-organização interna tendo em vista a
+intersecção de arquitetura/implementação. Talvez um enfoque em cada
+uma das contribuições (listagens do que foi falado da sec4.2 mas
+também da 4.1), transformando-a cada uma em uma seção deste capítulo,
+possa permitir uma maior valorização do teu trabalho.
+
 * Instalação do StarPU
 
 ** Manualmente
@@ -297,7 +349,6 @@ cd /tmp/qrmumps
 # O script foi editado manualmente para não chamar o programa em R da fase 1
 phase1-workflow.sh . qrmumps
 #+end_src
-
 
 * 2019-08-07 Resultados 1, 2 e 3 nós                                 :ATTACH:
 :PROPERTIES:
