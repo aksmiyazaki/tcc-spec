@@ -397,9 +397,21 @@ workers. No caso do spark (2 e 3 nós), tu usas vários workers por nó
 ou apenas um? Acho que se a resposta for vários, valeria talvez a pena
 usar a quantidade de workers, para ter uma ideia do potencial de
 aceleração. (3) Melhorar as cores, utilizando o Set1 do color_brewer
-para o fill.
+para o fill. (4) Adicionar as barras de variabilidade, considerando
+que fizeste várias execuções. É importante demonstrar a variabilidade
+(incerteza) dos experimentos. Isso pode ser eventualmente complicado
+tendo em vista o cenário preferível de emprego do stacked bar com
+cores diferentes indicando as etapas. Uma opção é ter duas figuras:
+aquela com valores totais (com barras de erro geom_errorbar) sem
+etapas, e uma segunda com a parte que cabe a cada etapa (sem barras de
+erro), ou ainda analisar separadamente cada etapa daí com barras de
+erro. Isso tudo depende bastante do teu discurso na descrição dos
+resultados, mas enriquece a discussão.
 
-Sobre os gráficos em si, as informações são as mesmas, eu ficaria
+Veja o gráfico em anexo, criado com código em LabBook.org do
+repositório, que incorpora algumas dessas dicas gerais.
+
+Sobre os gráficos enviados, as informações são as mesmas, eu ficaria
 apenas com o gráfico total_step, com a discretização interna das
 etapas. O problema do emprego de tempos relativos (total_relative) é
 que eles funcionam bem somente para caso a caso (1, 2 ou 3), mas a
@@ -418,3 +430,4 @@ até 60. Claro que isso se o item (2) da dicas gerais se averiguar.
 
 Ainda não tive tempo de me debruçar sobre o capítulo de
 contribuições. Mas estou quase lá. Vai me atualizando.
+
