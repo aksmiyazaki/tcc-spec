@@ -1,6 +1,12 @@
 ## Texto - Padronização
 - Termos em inglês - emph
-- nomes de pacotes/bibliotecas/ferramentas - texttt
+- Tipos de arquivo - textit
+- Nomes de bibliotecas - texttt
+- Linguagem de programação - sem formatação
+- Spark - sem formatação
+- Funções e códigos - texttt
+
+
 
 
 ## Glossário de termos da área
@@ -203,14 +209,7 @@ tremamente grandes.
         - must install Arrow R-package (```remotes::install_github("apache/arrow", subdir = "r", ref = "apache-arrow-0.14.0```)
 
 # Notas
-## Convenções
-    - Tipos de arquivo - textit
-    - Nomes de bibliotecas - texttt
-    - Linguagem de programação - sem formatação
-    - Spark - sem formatação
-    - Funções e códigos - texttt
-    
-##
+
 
 
 ## State
