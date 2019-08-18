@@ -1,6 +1,7 @@
 ## Texto - Padronização
-- Termos em inglês - emph
-- Tipos de arquivo - textit
+- Termos em inglês - textit | emph
+- Tipos de arquivo - textit | emph
+- Referências a coisas em Figuras - textit | emph
 - Nomes de bibliotecas - texttt
 - Linguagem de programação - sem formatação
 - Spark - sem formatação

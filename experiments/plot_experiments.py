@@ -38,10 +38,10 @@ def common_barplot(df, font_sz, title, save_path = ''):
     p1[2].set_color(current_palette[2])
     p1[3].set_color(current_palette[3])
 
-    plt.ylim([0,2801])
+    plt.ylim([0,1601])
     plt.yticks(fontsize=font_sz)
     plt.ylabel("Tempo (S)", fontsize=font_sz)
-    plt.xticks(ind, ['1', '15', '16+16', '15+15+15'], fontsize=font_sz)
+    plt.xticks(ind, ['1', '15', '15+15', '15+15+15'], fontsize=font_sz)
     plt.xlabel('Nível de Paralelismo', fontsize=font_sz)
     plt.gca().xaxis.grid(False)
     plt.title(title, fontsize=font_sz)
@@ -49,7 +49,7 @@ def common_barplot(df, font_sz, title, save_path = ''):
         f.savefig(save_path, bbox_inches='tight')
     plt.show()
 
-def stacked_barplot(df, font_sz, title, save_path = '', colarr=['Sequencial','1 Nó', '2 Nós', '3 Nós'], idxarr=['1', '15', '16+16', '15+15+15'], maxv = 2801):
+def stacked_barplot(df, font_sz, title, save_path = '', colarr=['Sequencial','1 Nó', '2 Nós', '3 Nós'], idxarr=['1', '15', '15+15', '15+15+15'], maxv = 1601):
     N = len(colarr)
     ind = np.arange(N)
     width = 0.5
@@ -90,10 +90,22 @@ def stacked_barplot(df, font_sz, title, save_path = '', colarr=['Sequencial','1 
 
 
 
+
+piv_df = df.pivot(index="Id", columns="Exec", values=["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"])
+
+dataset1 = piv_df['State'][colarr].mean().to_numpy()
+dataset2 = piv_df['Variable'][colarr].mean().to_numpy()
+dataset3 = piv_df['Link'][colarr].mean().to_numpy()
+dataset4 = piv_df['DAG'][colarr].mean().to_numpy()
+dataset5 = piv_df['Entities'][colarr].mean().to_numpy()
+dataset6 = piv_df['Events'][colarr].mean().to_numpy()
+dataset7 = piv_df['GAPS'][colarr].mean().to_numpy()
+dataset8 = piv_df['Write'][colarr].mean().to_numpy()
+
+
 common_barplot(df, 22, 'Tempo total', '/home/aksmiyazaki/git/tcc-spec/experiments/total.pdf')
 stacked_barplot(df, 22, 'Tempo total por etapa', '/home/aksmiyazaki/git/tcc-spec/experiments/total_step.pdf')
 
-stacked_barplot(df, 22, 'Tempo total por etapa', '/home/aksmiyazaki/git/tcc-spec/experiments/total_step_minus_1d.pdf', colarr=['Sequencial', '2 Nós', '3 Nós'], idxarr=['1', '16+16', '15+15+15'], maxv=1601)
 
 #stacked_barplot_normalized(df, 22, 'Tempo relativo entre execuções', '/home/aksmiyazaki/git/tcc-spec/experiments/total_relative.pdf')
 #def stacked_barplot_normalized(df, font_sz, title, save_path = ''):

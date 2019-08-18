@@ -1,17 +1,16 @@
 \chapter{Avaliação} \label{ch:evaluation}
 
 Este Capítulo apresenta resultados comparativos da solução desenvolvida com a 
-aplicação original. A Seção \ref{sect:methodology} apresenta os detalhes da 
-avaliação e a Seção \ref{sect:results} disserta sobre os resultados.
+aplicação original. A Seção \ref{sect:methodology} apresenta detalhes da 
+metodologia de avaliação e a Seção \ref{sect:results} disserta sobre os 
+resultados.
 
 
 \section{Metodologia de Avaliação} \label{sect:methodology}
 
-Os experimentos foram realizados no Parque Computacional de Alto 
-Desempenho (PCAD) da UFRGS. Eles ocorreram nos nós de computação draco, sua 
-configuração é mostrada na Tabela \ref{tab:draco_config}. Foram realizados 
-testes em uma máquina, com a implementação original da aplicação e em múltiplas 
-máquinas, utilizando a implementação modificada.
+Os experimentos foram realizados no Parque Computacional de Alto Desempenho 
+(PCAD) da UFRGS. Eles ocorreram nos nós de computação draco, sua 
+configuração é mostrada na Tabela \ref{tab:draco_config}.
 
 \begin{table}[H]
 \centering
@@ -29,9 +28,9 @@ Memória       & 64 GB DDR3 RAM   \\
 
 
 A Figura \ref{fig:experiment_arch} exibe a arquitetura que foi seguida durante 
-os experimentos. Inicialmente executamos o Hadoop pois era necessário 
-copiar as entradas para o HDFS. Um dos nós era responsável por executar o 
-\emph{namenode}, e também executava uma instância de \emph{datanode}. Os demais 
+os experimentos. Como os experimentos com o Spark acessam dados direto do HDFS, 
+primeiramente executamos o Hadoop. Um dos nós era responsável por executar o 
+\emph{namenode} e também executava uma instância de \emph{datanode}. Os demais 
 executavam apenas instâncias de \emph{datanodes}.
 
 
@@ -46,20 +45,28 @@ executavam apenas instâncias de \emph{datanodes}.
 O gerenciador de cluster utilizado foi o do próprio Spark ao invés do YARN. 
 Essa decisão foi tomada durante os testes pois seus logs mostraram 
 informações mais claras sobre o que estava ocorrendo. A instânciação dele foi 
-similar àquela utilizada no Hadoop, onde um nó executou como mestre e 
-trabalhador enquanto os demais executaram apenas como trabalhadores. Cada 
-Worker do Spark executa N executores, que são responsáveis por executar tarefas.
+similar àquela utilizada no Hadoop, um nó executou como \emph{mestre} e 
+\emph{trabalhador} enquanto os demais executaram apenas como 
+\emph{trabalhadores}. 
 
-Realizamos testes com um nó, utilizando a aplicação original, um dois e três 
-nós, utilizando a aplicação modificada. Cada teste foi executado múltiplas 
-vezes para garantir a confiabilidade de seus resultados. 
+Cada \emph{trabalhador} do Spark instancia N \emph{executores}, responsáveis 
+por processar tarefas. Cada um destes possui uma quantidade de cores e uma 
+quantidade de memória dedicada. Durante os experimentos, parametrizamos a 
+\emph{Engine} para que cada \emph{trabalhador} instanciasse 15 
+\emph{executores}, cada um com 2 cores e 4 GB de memória para processamento de 
+tarefas.
+
+Realizamos testes com um nó, utilizando a aplicação original, um, dois e três 
+nós, utilizando a aplicação modificada. Cada teste foi executado 
+aproximadamente 30 vezes (a salvo algum problema de execução em alguma 
+repetição) para garantir a confiabilidade de seus resultados. 
 
 
 \section{Experimentos e Resultados} \label{sect:results}
 
 A carga de trabalho dos experimentos já no formato CSV (entrada para a fase de 
 pré-processamento no StarVZ), tinha um somatório de 12 GB. Ela consiste em 
-rastros de execução de uma aplicação cholesky, e foi escolhida pois era a maior
+rastros de execução de uma aplicação cholesky e foi escolhida pois era a maior
 entrada que tínhamos no momento. O tamanho de cada um dos arquivos pode ser 
 visualizado na Tabela \ref{tab:input_sz}.
 
@@ -85,40 +92,20 @@ no formato sequencial pois esse arquivo armazena apenas informações de
 plataforma e por isso, costuma não passar da ordem de tamanho de KB. Podemos 
 observar que isso se confirma nesta carga de trabalho.
 
-Nas execuções distribuídas, o Spark alocou diferentes configurações por nó, 
-como pode ser visualizado na Tabela \ref{tab:spark_def_config}. É importante 
-salientar que a definição dessas configurações foram decididos pela engine, 
-pois não houve parametrização.
 
-
-\begin{table}[H]
-\centering
-\begin{tabular}{c c c c} \toprule
-\textbf{Número de nós}  &  \textbf{Executores por Nó} & \textbf{Cores por 
-Executor} & \textbf{Memória por Executor} \\ 
-\midrule
-1	& 15 & 2 & 4 GB\\
-2	& 16 & 2 & 3 GB\\
-3	& 15 & 2 & 4 GB\\
-\end{tabular}
-\caption{Ambiente instânciado pelo Spark.}
-\label{tab:spark_def_config}
-\end{table}
-
-Foram executadas 30 repetições dos testes, mas para o cálculo da média e desvio 
-padrão dos testes com dois e três nós, utilizou-se apenas 29 resultados pois uma 
-repetição apresentou problemas de execução. Como isso foi um caso isolado, sua 
-causa não foi investigada.
+Foram executadas 30 repetições em cada teste, todavia, os experimentos com o 
+Spark apresentaram problemas em algumas execuções. Com um nó, 3 execuções foram 
+interrompidas e com dois e três nós, uma. Nesses casos, consideramos apenas 
+aquelas que processaram com sucesso (27, 29 e 29 repetições, respectivamente). 
 
 A Figura \ref{fig:total_full} mostra a média do tempo total de execução dos 
 experimentos e o desvio padrão no topo da barra, em função do nível de 
-paralelismo (quantidade de executores de tarefas) em cada nó. A 
-execução original, de forma sequencial, levou em média 1489,02 segundos para 
-completar o processamento. Já as execuções com a aplicação adaptada para 
-utilizar o Spark, com dois nós levou 461,99 segundos e com três, 385,44 
-segundos. Isso consiste em um \emph{speedup} de respectivamente 3,22x e 3,86x em 
-relação ao original.
-
+paralelismo (quantidade de executores de tarefas) em cada nó. A execução 
+original, de forma sequencial, levou em média, 1489,02 segundos para completar 
+o processamento. Já as execuções com a aplicação adaptada para utilizar o 
+Spark, com apenas um nó levou em média 708,17 segundos, com dois, 460,81 
+segundos e com três, 385,44 segundos. Isso consiste em um \emph{speedup} de 
+respectivamente 2,10x, 3,23x e 3,86x em relação ao original.
 
 \begin{figure}[ht]
 \centerline{
@@ -127,56 +114,76 @@ relação ao original.
  \label{fig:total_full}
 \end{figure}
 
-Segmentamos a análise por etapa exibida na Figura \ref{fig:spark-starvz-flow}, 
-seus tempos de execução podem ser visualizados na Figura \ref{fig:total_step}. 
-Fica claro que o processamento dominante em todos os tipos de execução é o de 
-State. Todavia, comparando os experimentos distribuídos com o sequencial, 
-concluímos que sua dominância não é relacionada ao seu tamanho mas sim as 
-manipulações realizadas com ele.
 
-\begin{figure}[ht]
+Segmentamos a análise pelas etapas exibidas na Figura 
+\ref{fig:spark-starvz-flow}, seus tempos de execução podem ser visualizados na 
+Figura \ref{fig:total_step}. Analisando os resultados e o código, identificamos 
+quatro grupos de manipulações.
+
+O primeiro e mais trivial deles, é o grupo em que observa-se quase nenhuma 
+variação, pois não existe motivo para ela ocorrer. É o caso do tratamento de 
+Entities, que manteve-se praticamente o mesmo e isso é observado em seus tempos 
+de execução, que pode ser visto com mais detalhes na Tabela 
+
+
+Fica claro que o processamento dominante em todos 
+os tipos de execução é o de State. Isso é causado por uma associação entre seu 
+tamanho, pois esta tabela é gerada pelo maior arquivo, além das manipulações 
+realizadas em sua etapa de tratamento, que disparam jobs Spark e comunicação 
+entre executores. 
+
+
+
+
+
+\begin{figure}[H]
 \centerline{
-\includegraphics[width=0.9\textwidth]{./img/total_step.pdf}}
+\includegraphics[width=0.5\textwidth]{./img/total_step.pdf}}
  \caption{Tempos de execução segmentados por etapas.}
  \label{fig:total_step}
 \end{figure}
 
-Analisando o processamento de variables, o segundo maior arquivo da carga de 
+Analisando o processamento de Variables, o segundo maior arquivo da carga de 
 trabalho, na execução sequencial é o segundo mais custoso levando em média 
-210,77 segundos. Já na distribuída seu tempo cai para 8,50 segundos com 2 nós e 
-7,50 com três, representando um \emph{speedup} de respectivamente 24,79x e 
-28,10x.
+210,77 segundos. Já com o Spark. seu tempo cai para 21,17 segundos com 1 nó, 
+10,44 segundos com 2 nós e 7,50 segundos com três. Essa grande redução de 
+tempo está associada as otimizações realizadas pela Engine, tendo em vista que 
+essa tabela é apenas filtrada, apenas os dados necessários são carregados para 
+a memória durante essa etapa. É importante salientar que uma parte dessas 
+economias serão penalizadas quando essa tabela for necessária por completo, 
+para uma junção ou até mesmo para a escrita, embora a \emph{Engine} consiga 
+otimizar bastante carregando apenas os dados filtrados para memória.
 
-Ao comparar-se as manipulações realizadas entre esses dois arquivos, em 
-variables são realizadas filtragens e manipulações na própria tabela, enquanto 
-states possui algumas junções de tabelas. Também há a definição de uma variável 
-que exige que seja executada uma operação \texttt{sdf\_collect}, que ao ser 
-executada em uma tabela Spark, trás os dados para uma tabela local. Portanto é 
-possível haver pontos de otimização dentro dessa função que levem a 
-\emph{speedups} ainda melhores.
+Os processamentos de Link e de DAG são similares ao de Variables. Não há ações 
+que precisem com que a \emph{Engine} traga muitos dados para a memória e, 
+portanto, observamos melhora no desempenho. A média dos tempos de execução, na 
+ordem da esquerda para a direita no gráfico para Link são de, em segundos, 
+8,93, 4,59, 3,84 e 3,53. Para DAG esses valores são de 69,14, 10,10, 7,58 e 
+6,76.
 
-O processamento de entities fora mantido na forma sequencial devido ao seu 
+O processamento de entities foi mantido na forma sequencial devido ao seu 
 tamanho ser na ordem de KB. Seu tempo de processamento tem um valor irrisório 
-a ponto de ser difícil de observar no gráfico. Em média, para a execução com 
-um nó ele levou 3,07 segundos, já com dois e três nós foram respectivamente 
-2,29 segundos e 2,30 segundos. Portanto, nossa decisão teve pouco impacto no 
-resultado final, o que era o objetivo já que sua constribuição para o tempo 
-total da aplicação é tão pequeno e o custo para processá-lo de forma 
-distribuída prejudicaria o resultado.
+a ponto de ser difícil de observar no gráfico. Em média, para a execução com a 
+aplicação no modo sequencial ele levou 3,07 segundos, já com o Spark, com 
+um, dois e três nós foram respectivamente 2,42, 2,29 e 2,30 segundos. Portanto, 
+essa decisão teve pouco impacto no resultado final, o que era o objetivo já que 
+sua constribuição para o tempo total da aplicação é tão pequeno.
 
-GAPS fora levantado durante a implementação como um ponto de atenção, devido ao 
-seu tempo ter aumentado de forma considerável em experimentos locais. Olhando 
-para os tempos de execução, temos 71,51 segundos na execução sequencial, 
-112,38 na execução com 2 nós utilizando o Spark, e 95,22 utilizando 3 nós. Esse 
-processamento utiliza duas funções recursivas e, dentro de rodada de iteração, 
-é realizada uma junção. Junções são custosas, principalmente quando realizadas 
-em tabelas grandes pois o Spark irá realizar um \emph{shuffle join} 
+O cálculo de GAPS foi levantado durante a implementação como um ponto de 
+atenção, devido ao seu tempo ter aumentado de forma considerável em experimentos 
+locais. Olhando para os tempos de execução temos, em segundos, 71,51 na 
+execução sequencial, 154,03 na execução com 1 nó utilizando Spark, 110,83 na 
+execução com 2 nós e 95,22 utilizando 3 nós. Esse processamento utiliza duas 
+funções recursivas e, dentro de rodada de iteração, é realizada uma junção. 
+Estas operações são custosas, principalmente quando realizadas em tabelas 
+grandes pois o Spark irá realizar um \emph{shuffle join} 
 \cite{ref:sparkbook}. Nesse tipo de junção, cada nó precisa falar com cada nó, 
 sendo um gargalo para o processamento como um todo. Dentro desse processamento 
 há ainda a junção de uma tabela derivada de state que, conforme mencionado 
-anteriormente, é a maior tabela que temos.
+anteriormente, é a maior tabela que temos, exigindo que muitos dados sejam 
+carregados para a memória.
 
-A escrita também se beneficiou da execução distribuída, obtivemos em média os 
+A escrita se beneficiou da execução distribuída, obtivemos em média os 
 tempos de 162,19 segundos para a sequencial, 125,6 segundos (\textit{speedup} 
 de 1,29 em relação a primeira) para a distribuída com dois nós e 102,87 
 segundos (\textit{speedup} de 1,57 em relação a primeira) para três. 

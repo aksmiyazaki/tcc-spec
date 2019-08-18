@@ -216,8 +216,9 @@ X.4 Motivação/Abordagem
 - [X] Há uma semelhança bastante grande entre Fig4.1 e Fig4.2. Talvez
   possa se ganhar em clareza removendo a Fig4.2.
 -- Ok
-- [ ] Na Figura 4.3, talvez fosse interessante especificar quais
+- [X] Na Figura 4.3, talvez fosse interessante especificar quais
   arquivos foram para o HDFS e quais não.
+-- Ok
 - [X] No parágrafo iniciado por "A biblioteca escolhida ... sparklyr",
   talvez seja interessante mencionar que seu emprego faz com que
   poucas modificações sejam necessárias no workflow já existente,
@@ -239,11 +240,12 @@ X.4 Motivação/Abordagem
   não neste capítulo). Talvez fazer uma referência com alguma figura
   do capítulo anterior onde consta a ordem.
 -- Ok - tentei ser mais claro
-- [ ] Acredito que a Sec4.2 mereça um parágrafo inicial onde lista-se
+- [X] Acredito que a Sec4.2 mereça um parágrafo inicial onde lista-se
   o que será descrito em seguida. Exemplo: explicitar o que ficou
   sequencial/paralelo, o que foi modificado, equivalências de
   operações, validação (um enfoque maior à validação talvez possa ser
   dado, deixando explícito que o resultado é o mesmo), etc.
+-- Ok
 - [X] Cuidar o respeito à margens da página
 -- Ok
 - [X] Cuidar emprego de vírgulas como aquela empregada na primeira
@@ -271,6 +273,9 @@ intersecção de arquitetura/implementação. Talvez um enfoque em cada
 uma das contribuições (listagens do que foi falado da sec4.2 mas
 também da 4.1), transformando-a cada uma em uma seção deste capítulo,
 possa permitir uma maior valorização do teu trabalho.
+
+-- Tentei melhorar um pouco o Capítulo no geral. Trabalhei um pouco
+mais a Figura 4.3 e adicionei detalhamentos sobre a validação.
 
 * Instalação do StarPU
 
