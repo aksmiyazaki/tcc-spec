@@ -29,18 +29,10 @@ conduzido através de um código R.
 Durante o trabalho, identificou-se que não havia uma biblioteca que suportasse a 
 escrita de tabelas Spark em arquivos \textit{Feather}. Isso é essencial para 
 compararmos a escrita do mesmo tipo de dados tanto na execução sequencial quanto 
-na distribuída. Devido ao ecossistema Hadoop utilizar 
-o formato \textit{Parquet} \cite{ref:parquet} como padrão para armazenamento de 
-dados colunares, a aplicação foi adaptada para escrever suas saídas neste 
-formato. Isso foi realizado utilizando a biblioteca \texttt{Apache Arrow}, a 
-arquitetura final da aplicação sequencial pode ser visualizada na Figura 
-\ref{fig:starvz-app-arrow}. 
-
-\begin{figure}[ht]
- \centerline{\includegraphics[width=1\textwidth]{./img/starvz-arch-arrow.pdf}}
- \caption{Arquitetura da aplicação StarVZ adaptada para escrever Parquet.}
- \label{fig:starvz-app-arrow}
-\end{figure}
+na distribuída. Devido ao ecossistema Hadoop utilizar o formato \textit{Parquet} 
+\cite{ref:parquet} como padrão para armazenamento de dados colunares, a 
+aplicação foi adaptada para escrever suas saídas neste formato, utilizando a 
+biblioteca \texttt{Apache Arrow}.
 
 A Figura \ref{fig:starvz-app-spark} ilustra a arquitetura da aplicação após as 
 modificações propostas. Considerando o tamanho dos arquivos de entrada, 
@@ -74,23 +66,32 @@ sequencial são escritos no HDFS para padronizar o local de saída.
 
 \section{Implementação} \label{sect:implement}
 
-Tratando-se dos detalhes de implementação, foi criado um novo arquivo com o 
-fluxo de execução distribuída. Dessa forma, em um único pacote, o usuário pode 
-optar por executar qualquer metodologia do arcabouço. Criou-se o parâmetro de 
-tipo de execução, onde \texttt{-S} significa sequencial e \texttt{-D} significa 
-distribuída, cada um com parâmetros específicos.
+Nesta Seção, começaremos dando uma visão geral das modificações realizadas no 
+pacote StarVZ. Em seguida, aprofundaremos o fluxo de processamento da aplicação 
+original (sequencial) e da modificada (distribuída), mostrando que ambas seguem 
+praticamente o mesmo fluxo. Por fim as modificações realizadas são detalhadas e 
+a forma que elas foram validadas é explicitada.
 
-\begin{figure}[ht]
+A execução do script da fase de pré-processamento agora conta com o parâmetro de 
+tipo, onde \texttt{-S}, significa sequencial e \texttt{-D}, distribuído. Este 
+foi criado dentro do próprio pacote StarVZ como um novo conjunto de funções, 
+permitindo ao usuário a utilização de qualquer metodologia do arcabouço.
+
+A ordem original de processamento das tabelas de forma sequencial, pode ser 
+visualizada na Figura \ref{fig:spark-starvz-flow}. Nela também há a 
+representação do fluxo distribuído, pois ele segue exatamente a mesma ordem com 
+um pequeno passo adicional no início que é a criação da conexão com o Spark 
+(que não é executada no fluxo sequencial). O processamento de Entities é 
+executado de forma sequencial em ambos os fluxos pois, conforme explicitado na 
+Seção anterior, seu tamanho fica na ordem de KBytes.
+
+\begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{./img/applicationflow.pdf}}
  \caption{Fluxo de execução da aplicação.}
  \label{fig:spark-starvz-flow}
 \end{figure}
 
-As modificações realizadas tiveram o objetivo de otimizar o processamento das 
-tabelas. A ordem como elas são processadas não foi alterada, como pode ser 
-visualizado na Figura \ref{fig:spark-starvz-flow}.
-
-Na parte sequencial, a única modificação foi a escrita de arquivos no formato 
+A única modificação no fluxo original foi a escrita de arquivos no formato 
 \textit{Parquet}, com o pacote \texttt{Apache Arrow}. Em termos de código, essa 
 modificação é bastante pontual, adicionando uma importação de biblioteca e 
 modificando os métodos de escrita de arquivos (de \texttt{write\_feather} 
@@ -109,22 +110,21 @@ pois desvincula o potencial da aplicação da limitação física da infraestrut
 utilizada.
 
 Com os arquivos carregados em tabelas Spark o restante do trabalho 
-foi identificar equivalências entre as manipulações realizadas com \texttt{dplyr}
-na \texttt{sparklyr}. Como esta foi desenvolvida baseada na primeira, esse 
-processo foi facilitado. Ao encontrar uma manipulação, o seu resultado era 
-observado na tabela original e reproduzido com funções suportadas pela 
-\texttt{sparklyr}. Essa metodologia foi adotada pois, caso fosse necessário um 
-tratamento que não fosse suportado pela biblioteca, seria preciso implementá-lo 
-via funções definidas pelos usuários (\emph{User defined function ou UDFs}). 
-Essa funcionalidade sofre de problemas de desempenho ao utilizar R ou Python 
-pois há o custo de instanciar um processo R e compartilhar os dados de entradas 
-e saídas. 
+foi identificar equivalências entre as transformações realizadas com 
+\texttt{dplyr} na \texttt{sparklyr}. Como esta foi desenvolvida baseada na 
+primeira, esse processo foi facilitado. Ao encontrar uma manipulação, o seu 
+resultado era observado na tabela original e reproduzido com funções suportadas 
+pela \texttt{sparklyr}. Essa metodologia foi adotada pois, caso fosse necessário 
+um tratamento que não fosse suportado pela biblioteca, seria preciso 
+implementá-lo via funções definidas pelos usuários (\emph{User defined function 
+ou UDFs}). Essa funcionalidade sofre de problemas de desempenho ao utilizar R ou 
+Python pois há o custo de instanciar um processo R e compartilhar os dados de 
+entradas e saídas. 
 
-A Tabela \ref{tab:equivalence} exibe as principais equivalências de operações 
-utilizadas em todas as tabelas. Enquanto a maior parte das operações possui uma 
-equivalência de um pra um, a função \texttt{separate} necessita de um conjunto 
-de manipulações para chegar no mesmo resultado. Ao aplicar essas equivalênias em 
-todo o código, os dataframes foram validados um a um, comparando seu conteúdo. 
+A Tabela \ref{tab:equivalence} exibe as principais equivalências utilizadas em 
+todas as tabelas. Enquanto a maior parte das operações possui uma equivalência 
+de um pra um, a função \texttt{separate} necessita de um conjunto de 
+transformações para chegar no mesmo resultado.  
 
 \begin{table}[H]
 \centering
@@ -142,18 +142,43 @@ separate	& ft\_regex\_tokenizer + sdf\_separate\_column       \\
 \label{tab:equivalence}
 \end{table}
 
-A última manipulação de dados a ser realizada antes da escrita dos arquivos 
-\textit{Parquet}, é um conjunto de funções recursivas. Durante o 
-desenvolvimento, foi observada que a versão distribuída levava 
-um tempo maior que a execução sequencial. Isso foi atribuído a avaliação 
-\emph{Lazy} do Spark associado a recursividade, e foi um ponto de atenção 
-levantado para ser observado durante os experimentos.
+A última transformação de dados a ser realizada antes da escrita dos arquivos 
+\textit{Parquet} é um conjunto de funções recursivas. Durante o desenvolvimento, 
+foi observada que a versão distribuída levava um tempo maior que a execução 
+sequencial. Isso foi atribuído a avaliação \emph{Lazy} do Spark associado ao 
+conjunto de junções de tabelas realizado de forma recursiva nessa etapa, e foi 
+um ponto de atenção levantado para ser observado durante os experimentos.
+
+Logo após o cálculo de GAPS, os dados estão prontos para serem escritos. Neste 
+ponto foi realizada a validação dos resultados, executando ambos os 
+fluxos da aplicação com um conjunto de dados de 835 MB. Para cada um, validamos 
+tabela por tabela, realizando diversas operações de sumarização e comparando 
+seus resultados. Por exemplo, na tabela State, realizamos a comparação do 
+número de linhas das tabelas (ambas tinham 5207577 linhas), além da comparação 
+de 7 agrupamentos diferentes. A tabela \ref{tab:validation} reproduz os dados 
+observados em ambos os fluxos ao realizar-se o agrupamento dos dados pela coluna 
+Type.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l c} \toprule
+\textbf{Agrupamento}  &  \textbf{Número de Linhas} \\ 
+\midrule
+Communication Thread State	& 199180 \\
+Memory Node State		& 326886 \\
+Worker State			& 952006 \\
+User Thread State		& 1623915 \\
+hread State			& 2105590 \\
+\end{tabular}
+\caption{Número de linhas dos dados da tabela State agrupados pela coluna Type}
+\label{tab:validation}
+\end{table}
 
 Por fim, as saídas são escritas no HDFS. Elas geram múltiplos arquivos, por 
-exemplo, se a saída se chamar \emph{teste.parquet}, a aplicação criará uma pasta 
-com esse nome e dentro dela haverá diversos arquivos, conforme abaixo. Isso 
-ocorre pois por padrão as tabelas Spark são particionadas e escrevê-las gera um 
-arquivo por partição.
+exemplo, se a saída se chamar \emph{teste.parquet}, a aplicação criará um 
+diretório com esse nome e dentro dela haverá diversos arquivos, conforme abaixo. 
+Isso ocorre pois por padrão as tabelas Spark são particionadas e escrevê-las 
+gera um arquivo por partição.
 
 \footnotesize
 \begin{lstlisting}

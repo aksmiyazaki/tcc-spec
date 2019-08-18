@@ -207,45 +207,61 @@ X.4 Motivação/Abordagem
 ** 2019-08-14 Revisão do TCC
 *** Capítulo 3 (StarVZ)
 Último parágrafo
-- [ ] Cuidar separação do sujeito do verbo tal qual em "Como na
+- [X] Cuidar separação do sujeito do verbo tal qual em "Como na
   segunda fase, não é evidente". Aquela vírgula não existe. Tentar
   fazer frases mais curtas, mais diretas, sintéticas.
+-- Ok
 *** Capítulo 4 (Contribuição)
 4.1
-- [ ] Há uma semelhança bastante grande entre Fig4.1 e Fig4.2. Talvez
+- [X] Há uma semelhança bastante grande entre Fig4.1 e Fig4.2. Talvez
   possa se ganhar em clareza removendo a Fig4.2.
+-- Ok
 - [ ] Na Figura 4.3, talvez fosse interessante especificar quais
   arquivos foram para o HDFS e quais não.
-- [ ] No parágrafo iniciado por "A biblioteca escolhida ... sparklyr",
+- [X] No parágrafo iniciado por "A biblioteca escolhida ... sparklyr",
   talvez seja interessante mencionar que seu emprego faz com que
   poucas modificações sejam necessárias no workflow já existente,
   facilitando a sua manutenção. Tu poderias inclusive discutir quais
   foram as modificações principais e do porquê elas foram necessárias.
   Vi agora que tal detalhamento aparece mais tarde, em 4.2.
+-- Ok. Já atendido.
 4.2
-- [ ] Não fica claro no primeiro parágrafo o que é o "novo arquivo com
+- [X] Não fica claro no primeiro parágrafo o que é o "novo arquivo com
   o fluxo da exec. distribuída", nem o que é o "único pacote".
-- [ ] Os parâmetros -S e -D são para qual script?
-- [ ] Menção à Fig4.4 deve aparecer antes da figura. Utilize [!htb] no
+-- Ok, tentei ser mais claro.
+- [X] Os parâmetros -S e -D são para qual script?
+-- Ok.
+- [X] Menção à Fig4.4 deve aparecer antes da figura. Utilize [!htb] no
   begin figure.
-- [ ] Falas que a ordem de processamento não foi alterada, mas não
+-- Ok
+- [X] Falas que a ordem de processamento não foi alterada, mas não
   fica claro qual é a ordem no processamento sequencial (pelo menos
   não neste capítulo). Talvez fazer uma referência com alguma figura
   do capítulo anterior onde consta a ordem.
+-- Ok - tentei ser mais claro
 - [ ] Acredito que a Sec4.2 mereça um parágrafo inicial onde lista-se
   o que será descrito em seguida. Exemplo: explicitar o que ficou
   sequencial/paralelo, o que foi modificado, equivalências de
   operações, validação (um enfoque maior à validação talvez possa ser
-  dado, deixando explícito que o resultado é o mesmo), etc. 
-- [ ] Cuidar o respeito à margens da página
-- [ ] Cuidar emprego de vírgulas como aquela empregada na primeira
+  dado, deixando explícito que o resultado é o mesmo), etc.
+- [X] Cuidar o respeito à margens da página
+-- Ok
+- [X] Cuidar emprego de vírgulas como aquela empregada na primeira
   frase do parágrafo que começa com "A última manipulação"
-- [ ] Substituir o termo manipulação para transformação dado o
+-- Ok
+- [X] Substituir o termo manipulação para transformação dado o
   significado potencialmente negativo de manipulação.
-- [ ] "Durante o desenvolvimento, foi observada que a versão
+-- Ok
+- [X] "Durante o desenvolvimento, foi observada que a versão
   distribuída levava um tempo maior que a execução sequencial" -> isso
   foi resolvido?
-- [ ] pasta -> diretório
+-- O cálculo de GAPS é um conjunto de junções de forma recursiva. Não chega a
+ser um problema, pois de forma distribuída ele leva pouco tempo a mais que a
+sequencial. Isso porque para fazer junções, o spark precisa comunicar via rede,
+o que realmente degrada desempenho. É um ponto de otimização para trabalhos futu
+ros tentar minimizar junções dessa etapa.
+- [X] pasta -> diretório
+-- Ok
 
 O fim do capítulo me pareceu um pouco abrupto demais.
 
@@ -276,7 +292,7 @@ siga os três passos lá descritos:
 #+begin_src shell :results output
 cd $HOME
 git clone https://github.com/spack/spack.git
-source ./spack/share/spack/setup-env.sh 
+source ./spack/share/spack/setup-env.sh
 spack --help
 #+end_src
 
@@ -339,13 +355,13 @@ Obter apenas arquivos CSV (sem executar a parte em R da primeira fase).
 Exemplo com ~qrmumps~.
 
 #+begin_src shell :results output
-source ~/spack/share/spack/setup-env.sh 
+source ~/spack/share/spack/setup-env.sh
 export PATH=$(spack location -i starpu@develop~cuda~examples+fast~fortran+fxt+mlr~mpi~nmad~opencl+openmp+poti+shared~simgrid~simgridmc~verbose)/bin/:$PATH
 export PATH=$PATH:~/dev/starvz/src/
 export PATH=$PATH:~/dev/pajeng/b/
 
 # Ir para o diretório que contém o arquivo prof_file e atree.dot
-cd /tmp/qrmumps 
+cd /tmp/qrmumps
 # O script foi editado manualmente para não chamar o programa em R da fase 1
 phase1-workflow.sh . qrmumps
 #+end_src
@@ -392,15 +408,15 @@ read_csv(FILE, col_types=cols()) %>% select(-X1, -Write) %>%
 # Groups:   P [3]
        P Variable     N    Mean  Error
    <int> <chr>    <int>   <dbl>  <dbl>
- 1     1 DAG         30   69.1  0.850 
- 2     1 Entities    30    3.08 0.163 
- 3     1 Events      30   89.9  0.912 
- 4     1 GAPS        30   71.5  1.84  
- 5     1 Link        30    8.93 0.170 
- 6     1 Parsing     30 1327.   5.65  
- 7     1 State       30  873.   4.90  
- 8     1 Variable    30  211.   1.40  
- 9     2 DAG         29    7.33 0.118 
+ 1     1 DAG         30   69.1  0.850
+ 2     1 Entities    30    3.08 0.163
+ 3     1 Events      30   89.9  0.912
+ 4     1 GAPS        30   71.5  1.84
+ 5     1 Link        30    8.93 0.170
+ 6     1 Parsing     30 1327.   5.65
+ 7     1 State       30  873.   4.90
+ 8     1 Variable    30  211.   1.40
+ 9     2 DAG         29    7.33 0.118
 10     2 Entities    29    2.29 0.0581
 # … with 14 more rows
 Warning message:
@@ -481,4 +497,3 @@ até 60. Claro que isso se o item (2) da dicas gerais se averiguar.
 
 Ainda não tive tempo de me debruçar sobre o capítulo de
 contribuições. Mas estou quase lá. Vai me atualizando.
-

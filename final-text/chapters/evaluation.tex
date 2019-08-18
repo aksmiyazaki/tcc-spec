@@ -28,24 +28,31 @@ Memória       & 64 GB DDR3 RAM   \\
 \end{table}
 
 
-Nos testes distribuídos, inicialmente executamos o Hadoop para copiar as 
-entradas para o HDFS. Um dos nós era responsável por executar o \emph{namenode}, 
-e também executava uma instância de \emph{datanode}. Os demais executavam apenas 
-instâncias de \emph{datanodes}.
+A Figura \ref{fig:experiment_arch} exibe a arquitetura que foi seguida durante 
+os experimentos. Inicialmente executamos o Hadoop pois era necessário 
+copiar as entradas para o HDFS. Um dos nós era responsável por executar o 
+\emph{namenode}, e também executava uma instância de \emph{datanode}. Os demais 
+executavam apenas instâncias de \emph{datanodes}.
+
+
+\begin{figure}[ht]
+\centerline{
+\includegraphics[width=0.9\textwidth]{./img/experiments_arch.pdf}}
+ \caption{Arquitetura de aplicações durante os experimentos.}
+ \label{fig:experiment_arch}
+\end{figure}
+
 
 O gerenciador de cluster utilizado foi o do próprio Spark ao invés do YARN. 
 Essa decisão foi tomada durante os testes pois seus logs mostraram 
 informações mais claras sobre o que estava ocorrendo. A instânciação dele foi 
 similar àquela utilizada no Hadoop, onde um nó executou como mestre e 
-trabalhador enquanto os demais executaram apenas como trabalhadores. Além 
-disso, o mesmo nó que executou o \emph{namenode} Hadoop foi o que executou o 
-mestre Spark.
+trabalhador enquanto os demais executaram apenas como trabalhadores. Cada 
+Worker do Spark executa N executores, que são responsáveis por executar tarefas.
 
-Realizamos testes com um nó, utilizando a aplicação original, dois e três nós, 
-utilizando a aplicação modificada. Cada teste foi executado múltiplas vezes 
-para garantir a confiabilidade de seus resultados. Nos experimentos, nenhuma 
-configuração do Spark foi definida, utilizou-se os valores padrão que a engine 
-definiu.
+Realizamos testes com um nó, utilizando a aplicação original, um dois e três 
+nós, utilizando a aplicação modificada. Cada teste foi executado múltiplas 
+vezes para garantir a confiabilidade de seus resultados. 
 
 
 \section{Experimentos e Resultados} \label{sect:results}
@@ -76,7 +83,7 @@ events.csv	& 1.8 GB \\
 Durante a implementação, optou-se por manter o processamento do arquivo entities 
 no formato sequencial pois esse arquivo armazena apenas informações de 
 plataforma e por isso, costuma não passar da ordem de tamanho de KB. Podemos 
-observar que isso se confirma nessa carga de trabalho.
+observar que isso se confirma nesta carga de trabalho.
 
 Nas execuções distribuídas, o Spark alocou diferentes configurações por nó, 
 como pode ser visualizado na Tabela \ref{tab:spark_def_config}. É importante 
@@ -90,6 +97,7 @@ pois não houve parametrização.
 \textbf{Número de nós}  &  \textbf{Executores por Nó} & \textbf{Cores por 
 Executor} & \textbf{Memória por Executor} \\ 
 \midrule
+1	& 15 & 2 & 4 GB\\
 2	& 16 & 2 & 3 GB\\
 3	& 15 & 2 & 4 GB\\
 \end{tabular}
@@ -97,20 +105,22 @@ Executor} & \textbf{Memória por Executor} \\
 \label{tab:spark_def_config}
 \end{table}
 
-Tratando-se dos resultados, foram executadas 30 repetições dos testes, mas para 
-o cálculo da média e desvio padrão dos testes com dois e três nós, utilizou-se 
-apenas 29 resultados pois uma repetição apresentou problemas de execução. Como 
-isso foi um caso isolado, sua causa não foi investigada.
+Foram executadas 30 repetições dos testes, mas para o cálculo da média e desvio 
+padrão dos testes com dois e três nós, utilizou-se apenas 29 resultados pois uma 
+repetição apresentou problemas de execução. Como isso foi um caso isolado, sua 
+causa não foi investigada.
 
 A Figura \ref{fig:total_full} mostra a média do tempo total de execução dos 
-experimentos e o desvio padrão no topo da barra. A execução original, de forma 
-sequencial, levou em média 1489,02 segundos para completar o processamento. Já 
-as execuções com a aplicação adaptada para utilizar o Spark, com dois nós levou 
-461,99 segundos e com três, 385,44 segundos. Isso consiste em um \emph{speedup} 
-de respectivamente 3,22x e 3,86x em relação ao original.
+experimentos e o desvio padrão no topo da barra, em função do nível de 
+paralelismo (quantidade de executores de tarefas) em cada nó. A 
+execução original, de forma sequencial, levou em média 1489,02 segundos para 
+completar o processamento. Já as execuções com a aplicação adaptada para 
+utilizar o Spark, com dois nós levou 461,99 segundos e com três, 385,44 
+segundos. Isso consiste em um \emph{speedup} de respectivamente 3,22x e 3,86x em 
+relação ao original.
 
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \centerline{
 \includegraphics[width=0.9\textwidth]{./img/total.pdf}}
  \caption{Tempo total de execução da aplicação.}
@@ -124,7 +134,7 @@ State. Todavia, comparando os experimentos distribuídos com o sequencial,
 concluímos que sua dominância não é relacionada ao seu tamanho mas sim as 
 manipulações realizadas com ele.
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \centerline{
 \includegraphics[width=0.9\textwidth]{./img/total_step.pdf}}
  \caption{Tempos de execução segmentados por etapas.}
@@ -155,29 +165,23 @@ total da aplicação é tão pequeno e o custo para processá-lo de forma
 distribuída prejudicaria o resultado.
 
 GAPS fora levantado durante a implementação como um ponto de atenção, devido ao 
-seu tempo ter aumentado considerável em experimentos locais. 
+seu tempo ter aumentado de forma considerável em experimentos locais. Olhando 
+para os tempos de execução, temos 71,51 segundos na execução sequencial, 
+112,38 na execução com 2 nós utilizando o Spark, e 95,22 utilizando 3 nós. Esse 
+processamento utiliza duas funções recursivas e, dentro de rodada de iteração, 
+é realizada uma junção. Junções são custosas, principalmente quando realizadas 
+em tabelas grandes pois o Spark irá realizar um \emph{shuffle join} 
+\cite{ref:sparkbook}. Nesse tipo de junção, cada nó precisa falar com cada nó, 
+sendo um gargalo para o processamento como um todo. Dentro desse processamento 
+há ainda a junção de uma tabela derivada de state que, conforme mencionado 
+anteriormente, é a maior tabela que temos.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% \begin{figure}[ht]
-% \centerline{
-% \includegraphics[width=1\textwidth]{./img/total_relative.pdf}}
-%  \caption{Tempos de execução segmentados por etapas.}
-%  \label{fig:total_step}
-% \end{figure}
+A escrita também se beneficiou da execução distribuída, obtivemos em média os 
+tempos de 162,19 segundos para a sequencial, 125,6 segundos (\textit{speedup} 
+de 1,29 em relação a primeira) para a distribuída com dois nós e 102,87 
+segundos (\textit{speedup} de 1,57 em relação a primeira) para três. 
+Inicialmente, esperávamos um ganho de desempenho um pouco melhor, todavia, 
+algumas operações de filtragem só são executadas nesse momento (execução 
+\textit{lazy} da engine), o que justifica o ganho inferior ao esperado.
 
 

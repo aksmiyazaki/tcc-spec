@@ -5,6 +5,7 @@ import glob
 import seaborn as sns
 
 aimdir = {'seq':'/home/aksmiyazaki/git/tcc-spec/experiments/results/experiment_seq/',
+    'd1node':'/home/aksmiyazaki/git/tcc-spec/experiments/results/experiment_distrib_1node/',
     'd2node':'/home/aksmiyazaki/git/tcc-spec/experiments/results/experiment_distrib/',
     'd3node': '/home/aksmiyazaki/git/tcc-spec/experiments/results/experiment_distrib_3nodes/'}
 
@@ -96,13 +97,12 @@ for key, value in aimdir.items():
                 exp_iter += 1
             else:
                 print("Result from file [" + fname + "] Is corrupted");
-
-df["Id"] = df["Id"].asint
+df.head()
 df = df.set_index('Id')
 
 df.to_csv(path_or_buf='/home/aksmiyazaki/git/tcc-spec/experiments/results/extracted_results.csv',
             header=True)
-            
+
 sns.set(style="whitegrid")
 sns.set(rc={'figure.figsize':(15,15)})
 sns_plot = sns.barplot(x="Exec", y="Total", data=df)

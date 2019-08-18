@@ -52,3 +52,7 @@ experiments/total_relative\.pdf
 experiments/total_step\.pdf
 
 experiments/total\.pdf
+
+*.tgz
+
+experiments/results/experiment_distrib_3nodes/\.tarfile::spark-aksmiyazaki-org\.apache\.spark\.deploy\.worker\.Worker-1-draco4\.out\.swp
