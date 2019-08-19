@@ -21,11 +21,30 @@ Available from Internet:
 ISSN 1532-0626.
 Available from Internet: \url{http://dx.doi.org/10.1002/cpe.1631}.}
 
+\bibitem[{Ayguade} et al. 2009]{ref:openmp4}
+\abntrefinfo{{Ayguade} et al.}{{Ayguade} et al.}{2009}
+{{Ayguade}, E. et al. The design of openmp tasks.
+\textbf{IEEE Transactions on Parallel and Distributed Systems}, v.~20, n.~3, p.
+  404--418, March 2009.
+ISSN 1045-9219.}
+
 \bibitem[Bengtsson 2019]{ref:future}
 \abntrefinfo{Bengtsson}{BENGTSSON}{2019}
 {BENGTSSON, H. \textbf{future Github Repository}. 2019.
 [Acessed: 2019-06-25].
 Available from Internet: \url{https://github.com/HenrikBengtsson/future}.}
+
+\bibitem[Berkelaar 2016]{ref:lpsolve}
+\abntrefinfo{Berkelaar}{BERKELAAR}{2016}
+{BERKELAAR, M. \textbf{lp\_solve reference guide Version 5.5}. 2016.
+[Acessed: 2019-05-05].
+Available from Internet: \url{http://lpsolve.sourceforge.net/}.}
+
+\bibitem[{Bosilca} et al. 2013]{ref:parsec}
+\abntrefinfo{{Bosilca} et al.}{{Bosilca} et al.}{2013}
+{{Bosilca}, G. et al. Parsec: Exploiting heterogeneity to enhance scalability.
+\textbf{Computing in Science Engineering}, v.~15, n.~6, p. 36--45, Nov 2013.
+ISSN 1521-9615.}
 
 \bibitem[Ceballos et al. 2018]{ref:taskinsight}
 \abntrefinfo{Ceballos et al.}{CEBALLOS et al.}{2018}
@@ -39,9 +58,8 @@ Available from Internet:
 \bibitem[Chambers and Zaharia 2018]{ref:sparkbook}
 \abntrefinfo{Chambers and Zaharia}{CHAMBERS; ZAHARIA}{2018}
 {CHAMBERS, B.; ZAHARIA, M. \textbf{Spark: The Definitive Guide : Big Data
-  Processing Made Simple}. O'Reilly Media, 2018.
-ISBN 9781491912218. Available from Internet:
-  \url{https://books.google.com.br/books?id=urjpAQAACAAJ}.}
+  Processing Made Simple}. [S.l.]: O'Reilly Media, 2018.
+ISBN 9781491912218.}
 
 \bibitem[Coulomb et al. 2009]{ref:vite}
 \abntrefinfo{Coulomb et al.}{COULOMB et al.}{2009}
@@ -58,6 +76,12 @@ Available from Internet: \url{http://vite.gforge.inria.fr/index.php}.}
 ISSN 0001-0782.
 Available from Internet: \url{http://doi.acm.org/10.1145/1327452.1327492}.}
 
+\bibitem[Dominik 2010]{ref:org-mode}
+\abntrefinfo{Dominik}{DOMINIK}{2010}
+{DOMINIK, C. \textbf{The Org Mode 7 Reference Manual - Organize Your Life with
+  GNU Emacs}. [S.l.]: Network Theory Ltd., 2010.
+ISBN 1906966087, 9781906966089.}
+
 \bibitem[{Dosimont} et al. 2014]{ref:ocelotl}
 \abntrefinfo{{Dosimont} et al.}{{Dosimont} et al.}{2014}
 {{Dosimont}, D. et al. A spatiotemporal data aggregation technique for
@@ -65,6 +89,12 @@ Available from Internet: \url{http://doi.acm.org/10.1145/1327452.1327492}.}
   International Conference on Cluster Computing (CLUSTER)}. [S.l.: s.n.], 2014.
   p. 149--157.
 ISSN 1552-5244.}
+
+\bibitem[Duran et al. 2011]{ref:ompss}
+\abntrefinfo{Duran et al.}{DURAN et al.}{2011}
+{DURAN, A. et al. Ompss: a proposal for programming heterogeneous multi-core
+  architectures.
+\textbf{Parallel Processing Letters}, v.~21, p. 173--193, 06 2011.}
 
 \bibitem[Eschweiler et al. 2012]{ref:otf2}
 \abntrefinfo{Eschweiler et al.}{ESCHWEILER et al.}{2012}
@@ -163,12 +193,25 @@ Available from Internet: \url{https://github.com/ropensci/drake}.}
 {PILLET, V. et al. Paraver: A tool to visualize and analyze parallel code.
 \textbf{WoTUG-18}, v.~44, 03 1995.}
 
+\bibitem[{R Core Team} 2017]{ref:rlanguage}
+\abntrefinfo{{R Core Team}}{{R Core Team}}{2017}
+{{R Core Team}. \textbf{R: A Language and Environment for Statistical
+  Computing}. Vienna, Austria, 2017.
+[Acessed: 2019-05-04].
+Available from Internet: \url{http://www.r-project.org/}.}
+
 \bibitem[Stein et al. 2015]{ref:paje}
 \abntrefinfo{Stein et al.}{STEIN et al.}{2015}
 {STEIN, B. d.~O. et al. \textbf{Pajé - trace file format}. 2015.
 [Acessed: 2019-05-07].
 Available from Internet:
   \url{https://github.com/schnorr/pajeng/blob/master/doc/lang-paje/lang-paje.pdf}.}
+
+\bibitem[Tidyverse 2019]{ref:tidyverse}
+\abntrefinfo{Tidyverse}{TIDYVERSE}{2019}
+{TIDYVERSE. 2019.
+[Acessed: 2019-05-05].
+Available from Internet: \url{https://www.tidyverse.org/}.}
 
 \bibitem[Tierney 2018]{ref:snow}
 \abntrefinfo{Tierney}{TIERNEY}{2018}
@@ -177,12 +220,31 @@ Available from Internet:
 Available from Internet:
   \url{http://homepage.divms.uiowa.edu/~luke/R/cluster/cluster.html}.}
 
+\bibitem[White 2015]{ref:hadoopbook}
+\abntrefinfo{White}{WHITE}{2015}
+{WHITE, T. \textbf{Hadoop: The Definitive Guide}. 4. ed. Beijing: O'Reilly,
+  2015.
+ISBN 978-1-4919-0163-2.}
+
+\bibitem[Wickham 2009]{ref:ggplot2}
+\abntrefinfo{Wickham}{WICKHAM}{2009}
+{WICKHAM, H. \textbf{Ggplot2: Elegant Graphics for Data Analysis}. [S.l.:
+  s.n.], 2009.
+ISBN 9780387981406.}
+
 \bibitem[Wickham 2019]{ref:feather}
 \abntrefinfo{Wickham}{WICKHAM}{2019}
 {WICKHAM, H. \textbf{feather: R Bindings to the Feather 'API'}. 2019.
 [Acessed: 2019-06-14].
 Available from Internet:
   \url{https://cran.r-project.org/web/packages/feather/index.html}.}
+
+\bibitem[World 2018]{ref:data_minute2}
+\abntrefinfo{World}{WORLD}{2018}
+{WORLD, D.~I. \textbf{How Much Data Is Generated Per Minute?} 2018.
+[Acessed: 2019-08-19].
+Available from Internet:
+  \url{https://www.digitalinformationworld.com/2018/06/infographics-data-never-sleeps-6.html}.}
 
 \bibitem[Yu 2013]{ref:rmpi}
 \abntrefinfo{Yu}{YU}{2013}

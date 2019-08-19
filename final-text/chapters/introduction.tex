@@ -1,3 +1,69 @@
 % introducao
 \chapter{Introdução} \label{ch:intro}
-TODO: Será escrito após a conclusão.
+
+A quantidade de dados gerados em todo o mundo diariamente é surpreendente. De 
+acordo com \citet{ref:data_minute2}, há uma estimativa que em 2020 cada pessoa 
+deve gerar em média 1,7MB de dados por dia. Estes frequentemente precisam ser 
+processados para ter algum valor, o que implica em uma constante necessidade por 
+sistemas computacionais mais poderosos.
+
+Plataformas de HPC (\textit{High-Performance Computing}) costumam ser o estado 
+da arte em poder computacional. Tais plataformas evoluíram para utilizar 
+uma variabilidade de recursos de Hardware, como processadores multicore e GPUs 
+(\textit{Graphics processing units}, comumente referenciadas como 
+\textit{accelerators}). Com a evolução do Hardware, a abordagem de 
+desenvolvimento de aplicações de HPC tradicional, chamada de 
+\textit{Bulk-synchronous parallel} (BSP) tornou-se obsoleta. Esta espera que os 
+recursos de computação sejam homogêneos (recursos idênticos, conectados por 
+links estáveis e de alta vazão) e portanto, é incapaz de utilizar a 
+heterogeneidade dos recursos disponíveis no ambiente ao seu favor. 
+
+A abordagem que está sendo utilizada para o desenvolvimento de aplicações nesse 
+cenário é orientada a tarefas. Nela, a aplicação é desenvolvida em alto nível, 
+descrevendo as computações como um \textit{Directed Acyclic Graph} (DAG). Ela é 
+implementada em diverssos modelos de programação como OpenMP 4 
+\cite{ref:openmp4}, StarPU \cite{ref:starpu}, OmpSs \cite{ref:ompss}, 
+ParSEC \cite{ref:parsec}, etc. Neles a responsabilidade de 
+escalonar e executar a aplicação de forma performática é atribuída para outra 
+camada de software, denominada \textit{runtime}. Ferramentas de análise de 
+rastros, que antes auxiliavam o desenvolvedor da aplicação a fazer 
+otimizações, como Paraver \cite{ref:paraver} e Vampir \cite{ref:vampir} não são 
+eficazes ao analisar aplicações baseadas em tarefas.
+
+Com essa motivação, foi desenvolvido um arcabouço denominado StarVZ 
+\cite{ref:starvz}, cujo objetivo é fornecer uma visualização de rastros mais 
+elaborada, provendo facilidade no entendimento e identificação de problemas de 
+performance sutis, que dificilmente seriam identificados com abordagens 
+clássicas. Esse arcabouço foi desenvolvido combinando \textit{pj\_dump},  
+a linguagem R \cite{ref:rlanguage} e algumas bibliotecas expressivas dessa 
+linguagem (\mytexttt{ggplot2} \cite{ref:ggplot2}, \mytexttt{lpSolve} 
+\cite{ref:lpsolve}, \mytexttt{tidyverse} \cite{ref:tidyverse}), Org-mode 
+\cite{ref:org-mode} e \mytexttt{plotly} para análise de traces gerados pelo 
+modelo de programação StarPU.
+
+Em um estudo de caso onde o StarVZ foi utilizado, ele conseguiu contribuir para 
+a identificação de problemas de performance no StarPU. A primeira fase do 
+arcabouço (pré-processamento de dados) levou cerca de 32 minutos para processar 
+18 GB. Tendo em vista que a tendência é que aplicações gerem cada vez mais 
+dados, o objetivo deste trabalho é otimizar essa etapa do arcabouço na tentativa 
+de viabilizar a utilização dele para volumes maiores de dados com tempos e 
+recursos aceitáveis.
+
+Mais especificamente, este trabalho será focado na etapa de manipulações 
+realizadas sobre tabelas utilizando R e a biblioteca \mytexttt{dplyr}, 
+que são operações comumente realizadas em fluxos de Ciência de Dados. Esta 
+é a etapa mais custosa da fase de pré-processamento, no estudo de caso citado, 
+ela foi responsável por 13 dos 32 minutos (40,62\% do tempo total). 
+Utilizaremos ferramentas de Big Data para atingir nossos objetivos, como o 
+Hadoop \cite{ref:hadoopbook} e o Spark \cite{ref:sparkbook}, além das 
+facilidades oferecidas pela biblioteca \mytexttt{sparklyr}. 
+
+Este documento consiste em um trabalho de conclusão de curso da Especialização 
+em Big Data \& Data Science. Os próximos Capítulos são organizados da seguinte 
+forma: o Capítulo \ref{ch:fundamentation} apresenta a fundamentação necessária 
+para o entendimento do trabalho; o Capítulo \ref{ch:starvz} descreve com 
+detalhes o arcabouço StarVZ; o Capítulo \ref{ch:contribution} disserta sobre as 
+modificações propostas e realizadas; o Capítulo \ref{ch:evaluation} apresenta 
+os resultados obtidos com as alterações realizadas; e o Capítulo 
+\ref{ch:conclusion} finaliza este trabalho e cita algumas possibilidades de 
+trabalhos futuros.

@@ -1,5 +1,5 @@
 ## Texto - Padronização
-- Termos em inglês - textit | emph
+- Termos em inglês - textit
 - Tipos de arquivo - textit | emph
 - Referências a coisas em Figuras - textit | emph
 - Nomes de bibliotecas - texttt
