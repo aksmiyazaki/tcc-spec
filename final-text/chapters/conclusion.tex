@@ -1,3 +1,41 @@
 \chapter{Conclusão e Trabalhos Futuros} \label{ch:conclusion}
 
-Aguardando dois últimos capítulos.
+Este trabalho teve como objetivo otimizar o fluxo de Ciência de Dados realizado 
+em R dentro da primeira fase (pré-processamento) do arcabouço StarVZ. 
+Analisando trabalhos anteriores, identificamos que este seria o ponto de 
+otimização mais interessante, tendo em vista que ele é o que mais contribui 
+para esta fase, sendo responsável por 40,62\% do tempo total.
+
+Nos testes realizados com uma carga de trabalho de 12 GB, observamos um tempo 
+de 1489,02 segundos ($\approx$ 24 minutos). Como esta é apenas uma parcela do 
+tempo total da fase de pré-processamento, isso pode inviabilizar seu uso para 
+maiores volumes de dados.
+
+Nas adaptações realizadas, foi utilizado o ferramental para processamento de 
+grandes volumes de dados, como o Hadoop e o Spark. Usamos o HDFS para 
+armazenamento de entradas e saídas e o Spark para tratamento dos dados. Para 
+adaptar a aplicação ao Spark, foi utilizada a biblioteca \mytexttt{sparklyr}, o 
+que facilitou muito a adaptação pois ela é inspirada no 
+\mytexttt{dplyr}, pacote utilizado no fluxo original.
+
+Os experimentos mostraram redução no tempo de execução. Com um nó, apenas 
+utilizando o Spark para realizar o processamento paralelo, ele foi reduzido 
+pela metade metade (2,10x de \emph{speedup}). Ao realizar o processamento de 
+forma distribuída com 2 e 3 nós, atingimos \emph{speedups} de 3,23x e 3,86x 
+respectivamente, no melhor caso, levando apenas 385,44 segundos. Embora esta 
+seja apenas uma etapa da fase de pré-processamento, tal redução contribui para 
+a viabilização de sua utilização com volumes de dados maiores.
+
+Além disso, este fluxo é limitado pela quantidade física de memória presente 
+nas máquinas. Ao utilizar o HDFS e o Spark, permitimos que a aplicação processe 
+mais dados do que esta limitação, avanço importante para o processamento de 
+grandes volumes de dados.
+
+Como trabalhos futuros, dentro do fluxo de Ciência de Dados, é importante 
+realizar mais avaliações (no final do trabalho foi disponibilizado uma entrada 
+de centenas de Gigabytes, mas não tivemos tempo de realizar testes com ela). 
+Diversificar as avaliações também é importante pois os rastros de outros tipos 
+de aplicação (diferentes de cholesky) podem ter um comportamento diferente. 
+Além disso, as demais ferramentas utilizadas nesta fase também precisam ser 
+trabalhadas (\mytexttt{starpu\_fxt\_tool}, \mytexttt{dot2csv}, 
+\mytexttt{pjdump}) para otimizar-se o pré-processamento total.
