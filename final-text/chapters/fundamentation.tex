@@ -2,17 +2,19 @@
 \chapter{Fundamentação} \label{ch:fundamentation}
 
 Este Capítulo apresenta a fundamentação necessária para o entendimento do 
-trabalho. Ele é separado em duas Seções, na primeira, são apresentadas as 
-ferramentas de análise de desempenho de aplicações paralelas e, na segunda,
-contextualizam-se plataformas e arcabouços utilizados no trabalho.
+trabalho. A primeira Seção busca apresentar o contexto no qual o StarVZ está 
+inserido, enumerando diversas ferramentas de análise de desempenho de aplicações 
+paralelas. Na Segunda Seção, são apresentadas as plataformas e arcabouços que 
+serão utilizados na otimização do StarVZ.
+
 
 \section{Análise de desempenho de aplicações paralelas}
 
 Para melhor organização do trabalho, esta Seção foi dividida em duas partes. A 
 primeira apresenta ferramentas que oferecem visualização de rastros de 
-aplicações desenvolvidas no modelo \emph{Bulk-synchronous parallel} (BSP), a 
-segunda, contextualiza ferramentas voltadas para visualização de rastros de 
-aplicações desenvolvidas no modelo orientado a tarefas.
+aplicações desenvolvidas no modelo BSP. A segunda contextualiza ferramentas 
+voltadas para visualização de rastros de aplicações desenvolvidas no modelo 
+orientado a tarefas.
 
 \subsection{Ferramentas de visualização clássicas}
 
@@ -26,7 +28,7 @@ o desenvolvimento da maior parte das ferramentas de análise de desempenho.
 \subsubsection*{ViTE}
 ViTE \cite{ref:vite} é uma ferramenta de visualização de rastros de código 
 aberto. Suas entradas são arquivos na linguagem Pajé \cite{ref:paje} e para o 
-processamento de grandes volumes ele conta com aceleração de Hardware e 
+processamento de grandes volumes ele conta com aceleração de hardware e 
 OpenGL. 
 
 Essa ferramenta exibe os recursos de forma hierárquica, onde oferece a 
@@ -38,15 +40,15 @@ incluir indicadores de transferências de dados.
 Paraver \cite{ref:paraver} também objetiva a visualização e análise de 
 rastros de execução. Suas entradas são geradas por vários modelos de 
 programação, pela ferramenta Extrae. Para lidar com grandes volumes de 
-dados, ele realiza agregações com uma abordagem definida pelo usuário via 
-arquivo de configuração.
+dados, são realizadas agregações com uma abordagem definida pelo usuário 
+via arquivo de configuração.
 
 
 \subsubsection*{Vampir}
 Vampir \cite{ref:vampir} é uma ferramenta proprietária de código fechado para 
 fins de análise de rastros. Ela traz uma abordagem de cliente-servidor, 
 onde o primeiro pode ser executado no hardware de experimentação e o segundo é
-o usualmente é o computador do usuário.
+usualmente o computador do usuário.
 
 Suas entradas são arquivos OTF2 (Open Trace Format, version 2) \cite{ref:otf2}.  
 Ele fornece múltiplas visualizações como gráficos de espaço-tempo e estatísticas 
@@ -54,7 +56,7 @@ de execução.
 
 \subsubsection*{Ravel}
 O objetivo da ferramenta Ravel \cite{ref:ravel} também é a visualização de 
-rastros. Suas entradas são em formato OTF (\emph{Open Trace Format}) e 
+rastros. Suas entradas são em formato OTF (\textit{Open Trace Format}) e 
 sua diferença em relação aos demais é que ele estrutura melhor as 
 operações com a utilização de linhas de tempo lógicas.
 
@@ -106,26 +108,27 @@ espaço-tempo (Gantt). Há algumas outras funcionalidades como a identificação
 dependências de tarefas (apenas o primeiro nível) a medida que o usuário passa o 
 mouse sobre as caixas que representam as tarefas.
 
-Como entradas, são utilizados a representação do DAG e os \emph{traces} de 
+Como entradas, são utilizados a representação do DAG e os \textit{traces} de 
 execução. Essa ferramenta é desenvolvida especificamente para o 
 ambiente de execução PaRSEC.
 
 \subsubsection*{Temanejo}
 
-Temanejo \cite{ref:temanejo} é um \emph{debugger} para o modelo de programação 
-baseado em tarefas, onde o analista visualiza um DAG. Ele suporta grande parte 
-dos ambientes de execução de aplicações baseadas em tarefas, como OmpSs, 
-StarPU e PaRSEC. Suas funcionalidades são focadas em depuração, permitindo que o 
-usuário possa identificar e consertar parâmetros e dependências de tarefas.
+Temanejo \cite{ref:temanejo} é um \textit{debugger} para o modelo de 
+programação baseado em tarefas, onde o analista visualiza um DAG. Ele suporta 
+grande parte dos ambientes de execução de aplicações baseadas em tarefas, como 
+OmpSs, StarPU e PaRSEC. Suas funcionalidades são focadas em depuração, 
+permitindo que o usuário possa identificar e consertar parâmetros e dependências 
+de tarefas.
 
 \subsubsection*{Delay Spotter}
 
 Delay Spotter \cite{ref:delayspotter} é uma ferramenta, construída sobre o 
 DAGViz, que possibilita a identificação de atrasos em ambientes 
-de execução. Ela divide os estados dos \emph{workers} em três categorias, 
+de execução. Ela divide os estados dos \textit{workers} em três categorias, 
 permitindo a 
 identificação de delays decorrentes de problemas de escalonamento. Como em 
-ambientes heterogêneos com tarefas variadas, a presença de \emph{delays} faz 
+ambientes heterogêneos com tarefas variadas, a presença de \textit{delays} faz 
 parte da execução das aplicações, essa ferramenta é pouco efetiva.
 
 \subsubsection*{TaskInsight}
@@ -140,8 +143,8 @@ otimização de aplicações baseadas em tarefas.
 
 Arcabouço que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui 
 a visualização de dados mais avançada dentre as ferramentas citadas. Construído 
-com uma abordagem de \emph{script}, ele possui um grande poder de customização. 
-Ele será detalhado no Capítulo \ref{ch:starvz}.
+com uma abordagem de \textit{script}, ele possui um grande poder de 
+customização. Ele será detalhado no Capítulo \ref{ch:starvz}.
 
 \section{Ferramental para Big Data}
 
@@ -164,7 +167,8 @@ primeira camada, de aplicação,  é a de mais alto nível, a qual o usuário
 usualmente interage. Ele suporta o modelo de programação MapReduce, 
 originalmente desenvolvido pelo Google com o objetivo de processar grandes 
 volumes de dados. Tal modelo baseia-se em duas primitivas presentes em 
-linguagens funcionais: \emph{map} e \emph{reduce}. Esta abordagem  foi adotada 
+linguagens funcionais: \textit{map} e \textit{reduce}. Esta abordagem  foi 
+adotada 
 pois constantemente era necessário mapear pedaços de dados de uma entrada à 
 uma chave identificadora e, em seguida, realizar algum tipo de 
 computação sobre os dados mapeados uma mesma chave \cite{ref:mapreduce}.
@@ -176,7 +180,7 @@ computação sobre os dados mapeados uma mesma chave \cite{ref:mapreduce}.
 \end{figure}
 
 A Figura \ref{fig:mrworkflow} mostra o fluxo de execução básico do MapReduce. 
-A Fase de \emph{Shuffle \& Merge} não será detalhada no trabalho, mas é 
+A Fase de \textit{Shuffle \& Merge} não será detalhada no trabalho, mas é 
 importante salientar que existe um processamento entre as fases de mapeamento e 
 redução.
 
@@ -187,13 +191,13 @@ redução.
 \end{figure}
 
 Primeiramente temos os dados sendo inseridos no Sistema de Arquivos Distribuído 
-(\emph{Distributed File System}) da plataforma. Os arquivos são divididos em 
+(\textit{Distributed File System}) da plataforma. Os arquivos são divididos em 
 pedaços de tamanho fixo e distribuídos sobre a plataforma. Isso permite que os 
 dados sejam tratados de forma rápida pois há paralelização em sua leitura.
 
 Com os dados armazenados, pode se iniciar a fase de mapeamento, que resulta em 
 conjuntos de tuplas intermediárias. Estas sofrem um pré-processamento na fase 
-de \emph{Shuffle} e são disponibilizados para os nós que irão executar a fase 
+de \textit{Shuffle} e são disponibilizados para os nós que irão executar a fase 
 de redução. Finalmente, os executores da redução obtêm os dados e desempenham 
 suas tarefas, gerando a saída da execução.
 
@@ -221,7 +225,7 @@ arquivo). Tal abstração permite ao Sistema: armazenar arquivos maiores do que
 qualquer disco no ambiente; simplifica o gerenciamento do armazenamento de 
 dados; e facilita replicação para garantir alta disponibilidade.
 
-Um HDFS possui dois tipos de nós: \emph{namenode} e \emph{datanodes}. Eles 
+Um HDFS possui dois tipos de nós: \textit{namenode} e \textit{datanodes}. Eles 
 seguem uma política mestre-escravo, onde o nó do primeiro tipo atua como mestre 
 e gerencia o sistema de arquivos e nós do segundo tipo recebem requisições (de 
 clientes ou do namenode) e armazenam ou recuperam blocos. Também é possível 
@@ -258,7 +262,7 @@ atribuídas e reportam o estado das computações para o \texttt{Processo
 Driver}.
 
 O Spark é atrelado a um modelo de programação similar ao MapReduce, todavia, 
-possui uma abstração para compartilhamento de dados, chamada \emph{Resilient 
+possui uma abstração para compartilhamento de dados, chamada \textit{Resilient 
 Distributed Datasets} (RDDs). Estas, consistem em coleções de objetos tolerantes 
 a falhas e que podem ser manipulados em paralelo e são particionados sobre a 
 infraestrutura que executa a engine. 
@@ -266,7 +270,7 @@ infraestrutura que executa a engine.
 Spark manipula RDDs através de uma API unificada disponibilizada para diversas 
 linguagens, que facilita o desenvolvimento de aplicações. Nela, o usuário é 
 capaz de passar funções locais para serem executadas de forma distribuída. A 
-avaliação dos RDDs é realizada de forma \emph{Lazy}, o que significa que as 
+avaliação dos RDDs é realizada de forma \textit{Lazy}, o que significa que as 
 manipulações são efetivadas apenas quando é executada uma ação nos dados, que 
 se trata de uma instrução para computar o resultado de uma série de 
 transformações. Isso permite que ele encontre um plano de execução eficiente 
