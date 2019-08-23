@@ -303,7 +303,11 @@ mais a Figura 4.3 e adicionei detalhamentos sobre a validação.
 - [ ] Fiquei com a impressão que as tabelas estão com uma fonte
   demasiada grande quando comparado ao texto
   - Veja a Tab5.2 por exemplo
-
+*** Intro
+- Considerado adequado, próximo do que tínhamos para o plano
+- Talvez adicionar antes da estrutura uma descrição rápida dos
+  principais resultados obtidos, na mesma linha de sugestões para
+  resumo/abstract.
 *** Cap 2
 Sec2.1.2 (sobre DagViz)
 - Primeiro parágrafo, remover os itens com números, transformar todo o
@@ -347,7 +351,13 @@ Sec5.2
   na figura (pois dá a noção de paralelismo), mas é importante que o
   texto faça a correlação entre executors e quantidade de nós.
 - [ ] "DAG também" -> A etapa que lida com o DAG também...
-- [ ] "temos speedups singelos" -> substituir "singelo" por algo mais formal
+- [ ] "temos speedups singelos" -> substituir "singelo" por algo mais
+  formal
+
+Temos apenas um workload no capítulo de resultados
+- Talvez pudesse ter um segundo workload maior (aquele último que foi
+  passado por exemplo, caso consigas resolver os problemas)
+
 *** Cap6
 - [ ] "pela metade metade"
 - [ ] "ele foi reduzido pela metade metade (2,10x de speedup)"
@@ -365,7 +375,16 @@ Para reflexão
   sentido, alternativamente, os valores de aceleração poderiam ser
   apresentados diante da ótica da quantidade de executors, e não
   somente de workers.
-
+- Por que esta discussão? Valores de aceleração são mais interessantes
+  quando comparados a um limite. Estamos próximos do limite. Em
+  paralelimo, o "limite" é que, por exemplo, quando dobramos os
+  workers, diminuamos pela metade o tempo de execução. Ora, aqui temos
+  a figura dos workers e do executors. São os executors que fazem o
+  trabalho. Neste sentido. Ao usar 15 executors, poderíamos esperar
+  uma redução de tempo de exec por 15 vezes (no limite teórico)
+  assumindo que existas paralelismo suficiente.
+- Acredito que essa discussão possa enriquecer mais o teu trabalho, na
+  parte de discussão dos resultados.
 
 * Instalação do StarPU
 
