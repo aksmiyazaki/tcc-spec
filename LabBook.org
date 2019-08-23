@@ -277,6 +277,96 @@ possa permitir uma maior valorização do teu trabalho.
 -- Tentei melhorar um pouco o Capítulo no geral. Trabalhei um pouco
 mais a Figura 4.3 e adicionei detalhamentos sobre a validação.
 
+** 2019-08-23 Revisão do TCC
+*** Resumo/Abstract
+- No final, colocar uma porcentagem que ilustra a magnitude dos
+  "ganhos significativos". Pode ser algo do tipo: "Utilizando três nós
+  computacionais, com X elementos executores, obteve-se uma redução do
+  tempo de execução de XX% quando comparada a uma execução sequencial
+  utilizando um volume de dados de XX GBYtes."
+- Poderias colocar um pequeno nível de detalhe (uma frase) informando
+  como foi feita a adaptação do starvz para esse novo ambiente,
+  salientando que poucas modificações foram necessárias pois o
+  framework estava em R, portável sobre spark.
+*** Abstract
+- "for trace visualization"
+- It is divided in two phases. The first one...
+- "large workloads" -> large application traces and many gigabytes.
+- Adaptar a versão EN com os comentários para PT-BR
+*** Geral e Tabelas
+- Cuidar o respeito às margens, tais como na Pg14:
+  - "(ESCHWEILER"
+- Ou na Pg31
+  - "usuários"
+- Por vezes a única solução é editar o texto.
+
+- [ ] Fiquei com a impressão que as tabelas estão com uma fonte
+  demasiada grande quando comparado ao texto
+  - Veja a Tab5.2 por exemplo
+
+*** Cap 2
+Sec2.1.2 (sobre DagViz)
+- Primeiro parágrafo, remover os itens com números, transformar todo o
+  texto sobre DagVIZ em um único parágrafo.
+*** Cap 4
+- [ ] Falta espaço em "Figura 4.3.É"
+- [ ] ", cálculo de GAPS," me pareceu um pouco deslocado esses termos
+  entre vírgulas
+- [ ] Colocar uma nova Subseção "4.3 Sumário" que tem duas frases em
+  um parágrafo. A primeira frase diz o que foi apresentado neste
+  capítulo. A segunda frase faz a ponte com o próximo capítulo,
+  explicitando o que esta por vir.
+*** Cap 5
+- [ ] Usar texttt quando aparecer o nome da máquina/cluster ~draco~
+- [ ] Caption Tab5.1, dizer que é a configuração de _um_ nó do cluster
+  draco, todos são idênticos (salvo a questão da memória mas acredito
+  não ser necessário dar esse tipo de detalhamento)
+- [ ] logs -> arquivos de registro (logs)
+- [ ] "(a salvo" -> remover "salvo"
+  - Neste sentido, remover os parênteses, transformar em
+    frase. Afirmar que a ausência de menos replicações em alguns
+    experimentos não afetou as tendências gerais observadas a partir
+    das quais se chega às conclusões
+Sec5.2
+- [ ] Na Fig5.2, o topo da barra contém o "desvio padrão". Acho que
+  seria importante tu apresentar o "erro padrão" assumindo uma
+  distribuição gaussiana das observações. Neste LabBook.org, abaixo
+  tem o código em R para calcular isso. Veja este estrato:
+  #+BEGIN_EXAMPLE
+      summarize(N=n(),
+              Mean = mean(Value),
+              Error = 3*sd(Value)/sqrt(N)) %>%
+  #+END_EXAMPLE
+  O erro padrão é melhor pois assume um CI (Confidence
+  Interval). Neste caso, como se usa 3\times, temos um CI de 99.7%.
+- [ ] Ainda na Fig5.2, melhorar a representação gráfica dos traços que
+  representam o erro padrão. Veja exemplos do ~geom_errorbar~ do ggplot
+  para se inspirar e tentar replicar em python/plot.
+- [ ] No texto que comentar a Fig5.2 se fala em nós, mas na figura
+  temos a listagem dos executors. Acho que tem que manter os executors
+  na figura (pois dá a noção de paralelismo), mas é importante que o
+  texto faça a correlação entre executors e quantidade de nós.
+- [ ] "DAG também" -> A etapa que lida com o DAG também...
+- [ ] "temos speedups singelos" -> substituir "singelo" por algo mais formal
+*** Cap6
+- [ ] "pela metade metade"
+- [ ] "ele foi reduzido pela metade metade (2,10x de speedup)"
+  - Veja que ao reportar 2.1 de speedup, os ganhos foram mais que a metade
+  - Isso em si é surpreendente, pois trata-se de uma aceleração superlinear
+    - Descobrir o porquê e como é possível pode enriquecer o texto
+
+Para reflexão
+- Ao relatar ganhos de aceleração, estes ganhos estão sendo
+  "explicados", na maior parte das vezes, diante da quantidadade de
+  nós. Na conclusão por exemplo se fala em 2.1 com 1 nó, 3.23 com 2 e
+  3.86 com 3. Mas por baixo dos panos, temos a noção de executors. São
+  eles (claro que em conjunto com a quantida de workers) que habilitam
+  o paralelismo mais expressivo (15+15+15 com três nós). Neste
+  sentido, alternativamente, os valores de aceleração poderiam ser
+  apresentados diante da ótica da quantidade de executors, e não
+  somente de workers.
+
+
 * Instalação do StarPU
 
 ** Manualmente
