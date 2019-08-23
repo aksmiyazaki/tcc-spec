@@ -64,23 +64,24 @@ operações com a utilização de linhas de tempo lógicas.
 
 FrameSoc \cite{ref:framesoc} é uma ferramenta de análise de desempenho, capaz 
 de lidar com grandes volumes de dados. Como entrada, ela suporta diversos
-formatos como Pajé, CTF, Paraver e OTF2. Além dos rastros, é possível armazenar 
-informações como metadados e anotações. A ferramenta converte tudo para um 
-modelo de dados genérico e armazena em uma base de dados relacional.
+formatos como Pajé, CTF (\textit{Common Trace Format}), Paraver e OTF2. Além 
+dos rastros, é possível armazenar informações como metadados e anotações. A 
+ferramenta converte tudo para um modelo de dados genérico e armazena em uma base 
+de dados relacional.
 
 Para visualizar grandes volumes de dados, a ferramenta baseia-se no Ocelotl 
-\cite{ref:ocelotl}. Esse módulo gerencia uma agregação espaçotemporal dados via 
+\cite{ref:ocelotl}. Este módulo gerencia uma agregação espaçotemporal dados via 
 um arquivo de configuração parametrizável pelo usuário.
 
 \subsection{Ferramentas de visualização orientadas a tarefas}
 
 O modelo de computação orientado a tarefas segue o conceito de um conjunto de 
 porções de trabalho independentes, de tamanhos variados, que podem ser 
-executadas em paralelo. Este insere uma camada intermediária entre o 
+executados em paralelo. Este insere uma camada intermediária entre o 
 hardware e o software desenvolvido que facilita a implementação, pois provê uma 
 certa independência de arquitetura. Além disso, quem analisa o desempenho de 
-aplicações não é mais o seu desenvolvedor, mas sim aqueles responsáveis pelo 
-ambiente de execução.
+aplicações neste contexto não é mais o seu desenvolvedor, mas sim aqueles 
+responsáveis pelo ambiente de execução (\textit{runtime}).
 
 As ferramentas de visualização para esse modelo de computação se inspiram em 
 características daquelas desenvolvidas para o modelo BSP, pois este dominou o 
@@ -108,13 +109,13 @@ espaço-tempo (Gantt). Há algumas outras funcionalidades como a identificação
 dependências de tarefas (apenas o primeiro nível) a medida que o usuário passa o 
 mouse sobre as caixas que representam as tarefas.
 
-Como entradas, são utilizados a representação do DAG e os \textit{traces} de 
+Como entradas, são utilizados a representação do DAG e os rastros de 
 execução. Essa ferramenta é desenvolvida especificamente para o 
 ambiente de execução PaRSEC.
 
 \subsubsection*{Temanejo}
 
-Temanejo \cite{ref:temanejo} é um \textit{debugger} para o modelo de 
+Temanejo \cite{ref:temanejo} é um depurador para o modelo de 
 programação baseado em tarefas, onde o analista visualiza um DAG. Ele suporta 
 grande parte dos ambientes de execução de aplicações baseadas em tarefas, como 
 OmpSs, StarPU e PaRSEC. Suas funcionalidades são focadas em depuração, 
@@ -125,11 +126,11 @@ de tarefas.
 
 Delay Spotter \cite{ref:delayspotter} é uma ferramenta, construída sobre o 
 DAGViz, que possibilita a identificação de atrasos em ambientes 
-de execução. Ela divide os estados dos \textit{workers} em três categorias, 
-permitindo a 
-identificação de delays decorrentes de problemas de escalonamento. Como em 
-ambientes heterogêneos com tarefas variadas, a presença de \textit{delays} faz 
-parte da execução das aplicações, essa ferramenta é pouco efetiva.
+de execução. Ela divide os estados dos trabalhadores em três categorias, 
+permitindo a identificação de atrasos decorrentes de problemas de 
+escalonamento. Como em ambientes heterogêneos com tarefas variadas, a presença 
+de atrasos faz parte da execução das aplicações, essa ferramenta é 
+pouco efetiva.
 
 \subsubsection*{TaskInsight}
 
@@ -143,7 +144,7 @@ otimização de aplicações baseadas em tarefas.
 
 Arcabouço que é objeto deste trabalho, o StarVZ \cite{ref:starvz} possui 
 a visualização de dados mais avançada dentre as ferramentas citadas. Construído 
-com uma abordagem de \textit{script}, ele possui um grande poder de 
+com uma abordagem de script, ele possui um grande poder de 
 customização. Ele será detalhado no Capítulo \ref{ch:starvz}.
 
 \section{Ferramental para Big Data}
@@ -191,9 +192,10 @@ redução.
 \end{figure}
 
 Primeiramente temos os dados sendo inseridos no Sistema de Arquivos Distribuído 
-(\textit{Distributed File System}) da plataforma. Os arquivos são divididos em 
-pedaços de tamanho fixo e distribuídos sobre a plataforma. Isso permite que os 
-dados sejam tratados de forma rápida pois há paralelização em sua leitura.
+(\textit{Distributed File System} ou DFS) da plataforma. Os arquivos são 
+divididos em pedaços de tamanho fixo e distribuídos sobre a plataforma. Isso 
+permite que os dados sejam tratados de forma rápida pois há paralelização em sua 
+leitura.
 
 Com os dados armazenados, pode se iniciar a fase de mapeamento, que resulta em 
 conjuntos de tuplas intermediárias. Estas sofrem um pré-processamento na fase 
@@ -212,10 +214,11 @@ Como o Hadoop trabalha sobre dados muito grandes, é comum que tais cargas de
 trabalho ultrapassem a capacidade de uma única máquina física. Isso implica na 
 necessidade de particionar os dados sobre múltiplas máquinas. Os sistemas de 
 arquivos que lidam com tal tipo de armazenamento são denominados sistemas de 
-arquivos distribuídos (\textit{distributed filesystems} ou \textit{DFS}). 
-Hadoop possui sua própria implementação de um \textit{DFS}, inspirado no 
-\textit{Google File System}, denominado \textit{Hadoop Distributed Filesystem}, 
-que é representado como a terceira camada da Figura \ref{fig:hadoop}.
+arquivos distribuídos. Hadoop possui sua própria implementação de um 
+DFS, inspirado no \textit{Google File System} (Comumente 
+referenciado como \textit{GFS}), denominado \textit{Hadoop Distributed 
+Filesystem} (\textit{HDFS}), que é representado como a terceira camada da 
+Figura \ref{fig:hadoop}.
 
 De forma similar a sistemas de arquivos convencionais, é utilizada a abstração 
 de blocos, que consistem no volume mínimo para leitura e escrita. Enquanto 
@@ -228,22 +231,23 @@ dados; e facilita replicação para garantir alta disponibilidade.
 Um HDFS possui dois tipos de nós: \textit{namenode} e \textit{datanodes}. Eles 
 seguem uma política mestre-escravo, onde o nó do primeiro tipo atua como mestre 
 e gerencia o sistema de arquivos e nós do segundo tipo recebem requisições (de 
-clientes ou do namenode) e armazenam ou recuperam blocos. Também é possível 
-executar um \textit{secondary namenode} para evitar pontos únicos de falha na 
-arquitetura. O principal papel deste nó é manter uma cópia dos dados de gerência 
-do \textit{namenode} principal, em caso de falhas, ele pode assumir o lugar 
-deste.
+clientes ou do \textit{namenode}) e armazenam ou recuperam blocos. Também é 
+possível executar um \textit{secondary namenode} para evitar pontos únicos de 
+falha na arquitetura. O principal papel deste nó é manter uma cópia dos dados de 
+gerência do \textit{namenode} principal, em caso de falhas, ele pode assumir o 
+lugar deste.
 
 \subsection{Spark} \label{ref:spark}
 
-Spark é um conjunto de uma engine unificada e um conjunto de bibliotecas para 
-processamento de dados distribuídos \cite{ref:sparkbook}. A motivação para sua 
-criação foi a necessidade de muitos tipos de processamento e a tendência do 
-ferramental ser cada vez mais específico no cenário de Big Data.
+Spark é um conjunto de uma \textit{engine} unificada e um conjunto de 
+bibliotecas para processamento de dados distribuídos \cite{ref:sparkbook}. A 
+motivação para sua criação foi a necessidade de muitos tipos de processamento e 
+a tendência do ferramental ser cada vez mais específico no cenário de 
+\textit{Big Data}.
 
 A arquitetura do Spark pode ser visualizada na Figura \ref{fig:spark-arch}. A 
-engine usualmente é executada sobre um cluster de máquinas gerenciado por um 
-\texttt{Gerenciador de Cluster}, que mantém o controle dos recursos 
+\textit{engine} usualmente é executada sobre um cluster de máquinas gerenciado 
+por um \texttt{Gerenciador de Cluster}, que mantém o controle dos recursos 
 disponíveis. Ele oferece suporte a três gerenciadores: um do próprio Spark, 
 Hadoop YARN ou Mesos \cite{ref:mesos}.
 

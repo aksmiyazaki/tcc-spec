@@ -17,23 +17,24 @@ visualização de rastros desse tipo de aplicação, na pesquisa realizada foi
 identificado que o StarVZ se destaca pela utilização de ferramentas de 
 Ciência de Dados para análise de desempenho.
 
+Construído com uma abordagem de script, ele possui grande poder de customização. 
+No trabalho de \citet{ref:starvz}, pode-se visualizar diversos gráficos de 
+execução da aplicação: gráfico com comportamento de tarefas; gráfico com a 
+quantidade de tarefas submetidas; o comportamento do ambiente de execução, com 
+os estados dos trabalhadores StarPU; quantidade de tarefas prontas; 
+taxa de GFlops (Gigaflops) do ambiente; tráfego de dados entre a memória das 
+GPUs; transferências de rede MPI; e o número de operações MPI concorrentes.
+
+Ele é composto de duas fases, que podem ser visualizadas de forma simplificada 
+na Figura \ref{fig:starvz-workflow-general}.Cada uma delas é formada por uma 
+combinação de diversas ferramentas, resultando em um arcabouço rápido, 
+consistente, flexível e versátil.
+
 \begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{./img/all-proc.pdf}}
  \caption{Fluxo de processamento do StarVZ.}
  \label{fig:starvz-workflow-general}
 \end{figure}
-
-Construído com uma abordagem de \textit{script}, ele possui grande poder de 
-customização. No trabalho de \citet{ref:starvz}, pode-se visualizar diversos 
-gráficos de execução da aplicação: gráfico com comportamento de tarefas; 
-gráfico com a quantidade de tarefas submetidas; o comportamento do ambiente de 
-execução, com os estados dos \emph{workers} StarPU; quantidade de tarefas 
-prontas; taxa de GFlops do ambiente; tráfego de dados entre a memória das GPUs; 
-transferências de rede MPI; e o número de operações MPI concorrentes.
-
-Ele é composto de duas fases, que podem ser visualizadas de forma simplificada na Figura \ref{fig:starvz-workflow-general}.
-Cada uma delas é formada por uma combinação de diversas ferramentas, resultando em um 
-arcabouço rápido, consistente, flexível e versátil.
 
 \section{Fases}\label{sect:starvz-phases}
 
@@ -61,13 +62,13 @@ consiste em métricas de desempenho da plataforma e ambiente de execução;
 \textit{links} contém dados sobre comunicação MPI; e as informações de 
 plataforma são registradas no arquivo \textit{entities}. O DAG também passa por 
 uma conversão e por fim, todos os arquivos são gravados no formato de Valores 
-Separados por Vírgula (\emph{Comma-Separated Value}, comumente abreviado para 
+Separados por Vírgula (\textit{Comma-Separated Value}, comumente abreviado para 
 CSV).
 
 Finalmente, os dados escritos em CSV são lidos, filtrados, agregados e 
 combinados em uma ferramenta implementada na linguagem R, utilizando-se 
 bibliotecas oriundas do pacote \texttt{tidyverse} para a manipulação de dados. 
-As saídas são escritas no formato \emph{Feather} \cite{ref:feather}.
+As saídas são escritas no formato \textit{Feather} \cite{ref:feather}.
 
 A segunda fase do fluxo de processamento inicia pela leitura das saídas da 
 anterior. Cada arquivo torna-se uma tabela, e os dados são unificados em uma 
@@ -84,7 +85,8 @@ Nos experimentos realizados em \citet{ref:starvz}, em uma máquina equipada com
 um Intel(R) Xeon(R) CPU E3-1225 v3 @3.20GHz e 32GB de memória principal e com 
 uma entrada de aproximadamente 18GB, a primeira fase do fluxo de processamento 
 levou cerca de 32 minutos para executar. A segunda fase, para executar a leitura 
-dos arquivos \emph{Feather} e gerar a visualização levou em torno de 2 minutos.
+dos arquivos \textit{Feather} e gerar a visualização levou em torno de 2 
+minutos.
 
 \section{Trabalhos Relacionados}\label{sect:related-work}
 
@@ -96,10 +98,10 @@ aceitável. Nele utilizou-se \texttt{Drake} \cite{ref:drake}, uma biblioteca
 para a linguagem de programação R, cujo foco é executar apenas as 
 partes necessárias de um fluxo de processamento de análise de dados, evitando 
 os passos desnecessários que não mudarão suas saídas. Isso é realizado 
-modelando as computações como um Grafo Acíclico Direcionado (\emph{directed 
+modelando as computações como um Grafo Acíclico Direcionado (\textit{directed 
 acyclic graph} ou DAG) de tarefas e armazenando em cache os resultados daquelas 
 já executadas. Além disso, \texttt{Drake} também possui suporte a paralelismo 
-(\emph{Implicit parallelism}) para a execução de tarefas independentes.
+(\textit{Implicit parallelism}) para a execução de tarefas independentes.
 
 Para modelar o StarVZ dessa forma, foram necessárias mudanças cujo objetivo era 
 explicitar dependências e postergar junções de tabelas. Depois da identificação 
@@ -124,7 +126,7 @@ acordo com \citet{ref:drakestarvz}, a cache de resultados intermediários da
 biblioteca acaba tendo que armazenar muitos dados em disco devido ao tamanho 
 das tabelas geradas pelas entradas, prejudicando o tempo total de processamento.
 Em relação ao suporte a paralelismo, ele é limitado pela falta de suporte 
-nativo a \emph{multithread} da linguagem R. Por isso, \texttt{Drake} oferece 
+nativo a \textit{multithread} da linguagem R. Por isso, \texttt{Drake} oferece 
 essa funcionalidade instanciando múltiplas sessões R, que são processos 
 separados. A comunicação entre esses processos é realizada pelo mesmo sistema 
 de cache citado anteriormente, consequentemente, resultando nos mesmos 
@@ -138,25 +140,27 @@ enfrentados, exigindo máquinas com muita memória para obter-se os resultados
 desejados. 
 
 A primeira opção seria distribuir os fluxos independentes utilizando o pacote 
-\texttt{Snow}, que significa \emph{Simple Network of Workstations} 
+\texttt{Snow}, que significa \textit{Simple Network of Workstations} 
 \cite{ref:snow}. Este é desenvolvido para linguagem R e permite a utilização
-de \emph{Explicit parallelism}, oferecendo integração com três interfaces de 
-baixo nível: PVM (\emph{Parallel Virtual Machine}), através do pacote rpvm; 
-MPI, através do pacote Rmpi \cite{ref:rmpi}; e uma integração com sockets, no 
-caso de não ter nenhuma das outras opções disponíveis no ambiente. A utilização 
-de \texttt{Snow} pode ser feita através da biblioteca \texttt{Snowfall} 
-\cite{ref:snowfall}, que é uma camada cujo objetivo é melhorar a usabilidade, 
+de \textit{Explicit parallelism}, oferecendo integração com três interfaces de 
+baixo nível: PVM (\textit{Parallel Virtual Machine}), através do pacote 
+\mytexttt{rpvm}; MPI, através do pacote \mytexttt{rmpi} \cite{ref:rmpi}; e uma 
+integração com sockets, no caso de não ter nenhuma das outras opções disponíveis 
+no ambiente. A utilização de \mytexttt{Snow} pode ser feita através da 
+biblioteca \texttt{Snowfall} \cite{ref:snowfall}, que é uma camada cujo objetivo 
+é melhorar a usabilidade, 
 facilitando ainda mais a utilização.
 
 A segunda alternativa seria a utilização da biblioteca \texttt{future} 
 \cite{ref:future}. Esta provê uma forma simples e uniforme de avaliar expressões 
 de forma assíncrona, utilizando recursos diversos. Ela funciona utilizando o 
-conceito de abstração \emph{future}, que basicamente define um valor que poderá 
+conceito de abstração \textit{future}, que basicamente define um valor que 
+poderá 
 estar disponível no futuro. Tal valor pode ter seu estado como resolvido ou não 
 resolvido, estado em que se ele for utilizado bloqueará o processo até sua 
-resolução. Os \emph{futures} podem ser resolvidos de diversas formas: 
+resolução. Os \textit{futures} podem ser resolvidos de diversas formas: 
 sequential, onde são resolvidos sequencialmente no processo R corrente; 
-multiprocess, que resolve utilizando \emph{multicore}; cluster, que é o mais 
+multiprocess, que resolve utilizando \textit{multicore}; cluster, que é o mais 
 interessante para adoção pois resolve com sessões R na máquina local e/ou em 
 máquinas remotas; e etc.
 
@@ -179,8 +183,7 @@ Decompondo esse tempo entre todas as ferramentas utilizadas, a Tabela
 \ref{tab:exectimes} exibe o tempo de cada ferramenta no fluxo de processamento 
 para a execução mencionada no trabalho de \citet{ref:starvz}. Como o volume de 
 dados utilizado foram apenas 18 gigabytes, essas aplicações não possuem um tempo 
-de execução aceitável para tratamento
-de grandes volumes de dados.
+de execução razoável para tratamento de grandes volumes de dados.
 
 \begin{table}[H]
 \centering
