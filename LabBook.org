@@ -284,20 +284,32 @@ mais a Figura 4.3 e adicionei detalhamentos sobre a validação.
   computacionais, com X elementos executores, obteve-se uma redução do
   tempo de execução de XX% quando comparada a uma execução sequencial
   utilizando um volume de dados de XX GBYtes."
+-> Ok
+
 - Poderias colocar um pequeno nível de detalhe (uma frase) informando
   como foi feita a adaptação do starvz para esse novo ambiente,
   salientando que poucas modificações foram necessárias pois o
   framework estava em R, portável sobre spark.
+-> Ok
+
 *** Abstract
 - "for trace visualization"
+-> Ok
 - It is divided in two phases. The first one...
+-> Ok
 - "large workloads" -> large application traces and many gigabytes.
+-> Ok
 - Adaptar a versão EN com os comentários para PT-BR
+-> Ok
+
+
 *** Geral e Tabelas
 - Cuidar o respeito às margens, tais como na Pg14:
   - "(ESCHWEILER"
+-> Ok
 - Ou na Pg31
   - "usuários"
+-> Ok
 - Por vezes a única solução é editar o texto.
 
 - [ ] Fiquei com a impressão que as tabelas estão com uma fonte
@@ -731,15 +743,15 @@ read_csv(FILE, col_types=cols()) %>% select(-X1, -Write) %>%
 [90m# Groups:   P [4][39m
        P Variable     N    Mean  Error
    [3m[90m<int>[39m[23m [3m[90m<chr>[39m[23m    [3m[90m<int>[39m[23m   [3m[90m<dbl>[39m[23m  [3m[90m<dbl>[39m[23m
-[90m 1[39m     1 DAG         30   69.1  0.850 
-[90m 2[39m     1 Entities    30    3.08 0.163 
-[90m 3[39m     1 Events      30   89.9  0.912 
-[90m 4[39m     1 GAPS        30   71.5  1.84  
-[90m 5[39m     1 Link        30    8.93 0.170 
-[90m 6[39m     1 Parsing     30 [4m1[24m327.   5.65  
-[90m 7[39m     1 State       30  873.   4.90  
-[90m 8[39m     1 Variable    30  211.   1.40  
-[90m 9[39m     2 DAG         29    7.59 0.138 
+[90m 1[39m     1 DAG         30   69.1  0.850
+[90m 2[39m     1 Entities    30    3.08 0.163
+[90m 3[39m     1 Events      30   89.9  0.912
+[90m 4[39m     1 GAPS        30   71.5  1.84
+[90m 5[39m     1 Link        30    8.93 0.170
+[90m 6[39m     1 Parsing     30 [4m1[24m327.   5.65
+[90m 7[39m     1 State       30  873.   4.90
+[90m 8[39m     1 Variable    30  211.   1.40
+[90m 9[39m     2 DAG         29    7.59 0.138
 [90m10[39m     2 Entities    29    2.32 0.047[4m9[24m
 [90m# … with 22 more rows[39m
 Warning message:
