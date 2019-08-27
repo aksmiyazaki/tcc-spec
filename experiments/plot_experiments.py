@@ -16,7 +16,6 @@ df = df.replace("d2node", "2 Nós")
 df = df.replace("d3node", "3 Nós")
 df.head()
 
-
 sns.set(style="whitegrid")
 sns.set(rc={'figure.figsize':(15,10)})
 
@@ -33,7 +32,13 @@ def common_barplot(df, font_sz, title, save_path = ''):
     dataset1 = piv_df['Total'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy()
     dataset1_err = piv_df['Total'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].std().to_numpy()
 
-    p1 = plt.bar(ind, dataset1, width, yerr=dataset1_err, color=current_palette[0])
+    dataset1_err[0] = 3 * (dataset1_err[0]/len(piv_df['Total']['Sequencial'].dropna()))
+    dataset1_err[1] =3 * (dataset1_err[1]/len(piv_df['Total']['1 Nó'].dropna()))
+    dataset1_err[2] =3 * (dataset1_err[2]/len(piv_df['Total']['2 Nós'].dropna()))
+    dataset1_err[3] =3 * (dataset1_err[3]/len(piv_df['Total']['3 Nós'].dropna()))
+
+    p1 = plt.bar(ind, dataset1, width, yerr=dataset1_err, color=current_palette[0], error_kw={'capsize':20, 'ecolor':'black'})
+
     p1[1].set_color(current_palette[1])
     p1[2].set_color(current_palette[2])
     p1[3].set_color(current_palette[3])
@@ -88,25 +93,8 @@ def stacked_barplot(df, font_sz, title, save_path = '', colarr=['Sequencial','1 
         f.savefig(save_path, bbox_inches='tight')
     plt.show()
 
-
-
-
-piv_df = df.pivot(index="Id", columns="Exec", values=["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"])
-
-dataset1 = piv_df['State'][colarr].mean().to_numpy()
-dataset2 = piv_df['Variable'][colarr].mean().to_numpy()
-dataset3 = piv_df['Link'][colarr].mean().to_numpy()
-dataset4 = piv_df['DAG'][colarr].mean().to_numpy()
-dataset5 = piv_df['Entities'][colarr].mean().to_numpy()
-dataset6 = piv_df['Events'][colarr].mean().to_numpy()
-dataset7 = piv_df['GAPS'][colarr].mean().to_numpy()
-dataset8 = piv_df['Write'][colarr].mean().to_numpy()
-
-
 common_barplot(df, 22, 'Tempo total', '/home/aksmiyazaki/git/tcc-spec/experiments/total.pdf')
 stacked_barplot(df, 22, 'Tempo total por etapa', '/home/aksmiyazaki/git/tcc-spec/experiments/total_step.pdf')
-
-
 #stacked_barplot_normalized(df, 22, 'Tempo relativo entre execuções', '/home/aksmiyazaki/git/tcc-spec/experiments/total_relative.pdf')
 #def stacked_barplot_normalized(df, font_sz, title, save_path = ''):
 #    N = len(df['Exec'].unique())

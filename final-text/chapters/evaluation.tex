@@ -9,13 +9,15 @@ resultados.
 \section{Metodologia de Avaliação} \label{sect:methodology}
 
 Os experimentos foram realizados no Parque Computacional de Alto Desempenho 
-(PCAD) da UFRGS. Eles ocorreram nos nós de computação draco, sua 
-configuração é mostrada na Tabela \ref{tab:draco_config}.
-
+(PCAD) da UFRGS. Eles ocorreram nos nós de computação \mytexttt{draco}, cuja 
+configuração de um nó é mostrada na Tabela \ref{tab:draco_config}. Todos os nós 
+do cluster possuem a mesma configuração, com exceção de um nó que não foi 
+utilizado nos experimentos.
 
 \begin{table}[H]
-%\small
 \centering
+\small
+%\footnotesize
 \begin{tabular}{l l} \toprule
 \textbf{Parâmetro}  &  \textbf{Configuração} \\ 
 \midrule
@@ -23,8 +25,9 @@ Processador     & 2 x Intel Xeon E5-2630 (Q1'12) Sandy Bridge, 2,5 GHz
 \\
 Número de Núcleos    & 16 núcleos (8 por CPU)  \\
 Memória       & 64 GB DDR3 RAM   \\
+Rede	      & Ethernet 10 Gigabit \\
 \end{tabular}
-\caption{Configurações dos nós draco.}
+\caption{Configurações de um nó \mytexttt{draco}.}
 \label{tab:draco_config}
 \end{table}
 
@@ -45,10 +48,10 @@ executavam apenas instâncias de \emph{datanodes}.
 
 
 O gerenciador de cluster utilizado foi o do próprio Spark ao invés do YARN. 
-Essa decisão foi tomada durante os testes pois seus logs mostraram 
-informações mais claras sobre o que estava ocorrendo. A instânciação dele foi 
-similar àquela utilizada no Hadoop, um nó executou como \emph{mestre} e 
-\emph{trabalhador} enquanto os demais executaram apenas como 
+Essa decisão foi tomada durante os testes pois seus arquivos de registro 
+mostraram informações mais claras sobre o que estava ocorrendo. A instânciação 
+dele foi similar àquela utilizada no Hadoop, um nó executou como \emph{mestre} 
+e \emph{trabalhador} enquanto os demais executaram apenas como 
 \emph{trabalhadores}. 
 
 Cada \emph{trabalhador} do Spark instancia N \emph{executores}, responsáveis 
@@ -59,9 +62,10 @@ quantidade de memória dedicada. Durante os experimentos, parametrizamos a
 tarefas.
 
 Realizamos testes com um nó, utilizando a aplicação original, um, dois e três 
-nós, utilizando a aplicação modificada. Cada teste foi executado 
-aproximadamente 30 vezes (a salvo algum problema de execução em alguma 
-repetição) para garantir a confiabilidade de seus resultados. 
+nós, utilizando a aplicação modificada. Cad ateste foi configurado para 
+executar 30 vezes para garantir a confiabilidade de seus resultados, todavia, 
+houveram casos isolados de problemas de execução que não afetaram as tendências 
+gerais observadas.
 
 
 \section{Experimentos e Resultados} \label{sect:results}
@@ -74,6 +78,7 @@ visualizado na Tabela \ref{tab:input_sz}.
 
 \begin{table}[H]
 \centering
+\small
 \begin{tabular}{l c} \toprule
 \textbf{Arquivo}  &  \textbf{Tamanho} \\ 
 \midrule
@@ -138,6 +143,7 @@ gravação no HDFS.
 
 \begin{table}[ht]
 \centering
+\small
 \begin{tabular}{l c c c c} \toprule
 \textbf{Etapa}  & \textbf{1} & \textbf{15} & \textbf{15+15} & 
 \textbf{15+15+15}\\ 

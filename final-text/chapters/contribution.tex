@@ -7,8 +7,9 @@ propostas e realizadas no StarVZ, com o objetivo de otimizar o tempo de
 execução da fase de pré-processamento. Resumidamente, no lugar de tabelas R, 
 utilizaremos tabelas Spark (\emph{Spark Dataframes}) para o carregamento e 
 manipulação de dados. Na Seção \ref{sect:arch} são apresentadas as mudanças 
-arquiteturais propostas e na Seção \ref{sect:implement}, detalha-se a 
-implementação dessas mudanças.
+arquiteturais propostas, na Seção \ref{sect:implement}, detalha-se a 
+implementação dessas mudanças e na Seção \ref{sect:summary} é realizado um 
+resumo do que foi apresentado.
 
 \section{Arquitetura Proposta} \label{sect:arch}
 
@@ -141,6 +142,7 @@ para chegar no mesmo resultado.
 
 \begin{table}[H]
 \centering
+\small
 \begin{tabular}{l l} \toprule
 \textbf{Operação \texttt{dplyr}}  &  \textbf{Operação \texttt{sparklyr}}\\ 
 \midrule
@@ -155,8 +157,8 @@ separate	& ft\_regex\_tokenizer + sdf\_separate\_column       \\
 \label{tab:equivalence}
 \end{table}
 
-A última transformação de dados a ser realizada antes da escrita dos arquivos 
-\textit{Parquet}, cálculo de GAPS, é um conjunto de junções realizadas 
+O cálculo de GAPS é a última transformação de dados a ser realizada antes da 
+escrita dos arquivos \textit{Parquet}, sendo um conjunto de junções realizadas 
 de forma recursiva. Durante o desenvolvimento, foi observada que a versão 
 distribuída levava um tempo maior que a execução sequencial. Isso foi atribuído 
 ao custo de comunicação de Executores e aos processamentos que o Spark 
@@ -175,6 +177,7 @@ Type.
 
 \begin{table}[H]
 \centering
+\small
 \begin{tabular}{l c} \toprule
 \textbf{Agrupamento}  &  \textbf{Número de Linhas} \\ 
 \midrule
@@ -200,9 +203,12 @@ gera um arquivo por partição.
  part-00001-1c143c87-5361-427c-825e-792497a8fa61-c000.snappy.parquet
  ...
 \end{lstlisting}
+\normalsize
 
+\section{Sumário} \label{sect:summary}
 
-
-
-
+Neste Capítulo foram apresentadas as modificações realizadas no arcabouço 
+StarVZ, desde a parte arquitetural até detalhes de implementação. No próximo 
+Capítulo, é realizada a avaliação de tais modificações em testes comparativos 
+da aplicação sequencial com a distribuída.
 
