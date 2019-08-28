@@ -95,47 +95,50 @@ def stacked_barplot(df, font_sz, title, save_path = '', colarr=['Sequencial','1 
 
 common_barplot(df, 22, 'Tempo total', '/home/aksmiyazaki/git/tcc-spec/experiments/total.pdf')
 stacked_barplot(df, 22, 'Tempo total por etapa', '/home/aksmiyazaki/git/tcc-spec/experiments/total_step.pdf')
-#stacked_barplot_normalized(df, 22, 'Tempo relativo entre execuções', '/home/aksmiyazaki/git/tcc-spec/experiments/total_relative.pdf')
-#def stacked_barplot_normalized(df, font_sz, title, save_path = ''):
-#    N = len(df['Exec'].unique())
-#    ind = np.arange(N)
-#    width = 0.5
-#    current_palette = palettable.colorbrewer.qualitative.Set1_9.mpl_colors
-#    f = plt.figure()
-#
-#    piv_df = df.pivot(index="Id", columns="Exec", values=["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"])
-#    total_sequential = df[df['Exec'] == 'Sequencial'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
-#    total_2n = df[df['Exec'] == '2 Nós'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
-#    total_3n = df[df['Exec'] == '3 Nós'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
-#
-#    arr_total = np.array([total_sequential, total_2n, total_3n])
-#
-#    dataset1 = (piv_df['State'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
-#    dataset2 = (piv_df['Variable'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
-#    dataset3 = (piv_df['Link'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
-#    dataset4 = (piv_df['DAG'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
-#    dataset5 = (piv_df['Entities'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
-#    dataset6 = (piv_df['Events'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
-#    dataset7 = (piv_df['GAPS'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
-#    dataset8 = (piv_df['Write'][['Sequencial', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
-#
-#    p1 = plt.bar(ind, dataset1, width, color=current_palette[0])
-#    p2 = plt.bar(ind, dataset2, width, bottom=dataset1, color=current_palette[1])
-#    p3 = plt.bar(ind, dataset3, width, bottom =[sum(x) for x in zip(dataset1,dataset2)], color=current_palette[2])
-#    p4 = plt.bar(ind, dataset4, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3)], color=current_palette[3])
-#    p5 = plt.bar(ind, dataset5, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4)], color=current_palette[4])
-#    p6 = plt.bar(ind, dataset6, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5)], color=current_palette[5])
-#    p7 = plt.bar(ind, dataset7, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6)], color=current_palette[6])
-#    p8 = plt.bar(ind, dataset8, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6,dataset7)], color=current_palette[7])
-#
-#    plt.ylim([0,120])
-#    plt.yticks(fontsize=font_sz)
-#    plt.ylabel("Tempo em %", fontsize=font_sz)
-#    plt.xticks(ind, ['1', '16+16', '15+15+15'], fontsize=font_sz)
-#    plt.xlabel('Nível de Paralelismo', fontsize=font_sz)
-#    plt.legend((p1[0], p2[0], p3[0], p4[0], p5[0], p6[0], p7[0], p8[0]), ('State', 'Variable', 'Link', 'DAG', 'Entities', 'Events', 'GAPS', 'Write'), fontsize=font_sz, ncol=4, framealpha=0, fancybox=True)
-#    plt.gca().xaxis.grid(False)
-#    plt.title(title, fontsize=22)
-#    if len(save_path) > 0:
-#        f.savefig(save_path, bbox_inches='tight')
-#    plt.show()
+
+def stacked_barplot_normalized(df, font_sz, title, save_path = ''):
+    N = len(df['Exec'].unique())
+    ind = np.arange(N)
+    width = 0.5
+    current_palette = palettable.colorbrewer.qualitative.Set1_9.mpl_colors
+    f = plt.figure()
+
+    piv_df = df.pivot(index="Id", columns="Exec", values=["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"])
+    total_sequential = df[df['Exec'] == 'Sequencial'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
+    total_1n = df[df['Exec'] == '1 Nó'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
+    total_2n = df[df['Exec'] == '2 Nós'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
+    total_3n = df[df['Exec'] == '3 Nós'][["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"]].mean().sum()
+
+    arr_total = np.array([total_sequential, total_1n, total_2n, total_3n])
+
+    dataset1 = (piv_df['State'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset2 = (piv_df['Variable'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset3 = (piv_df['Link'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset4 = (piv_df['DAG'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset5 = (piv_df['Entities'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset6 = (piv_df['Events'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset7 = (piv_df['GAPS'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+    dataset8 = (piv_df['Write'][['Sequencial', '1 Nó', '2 Nós', '3 Nós']].mean().to_numpy() / arr_total) * 100
+
+    p1 = plt.bar(ind, dataset1, width, color=current_palette[0])
+    p2 = plt.bar(ind, dataset2, width, bottom=dataset1, color=current_palette[1])
+    p3 = plt.bar(ind, dataset3, width, bottom =[sum(x) for x in zip(dataset1,dataset2)], color=current_palette[2])
+    p4 = plt.bar(ind, dataset4, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3)], color=current_palette[3])
+    p5 = plt.bar(ind, dataset5, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4)], color=current_palette[4])
+    p6 = plt.bar(ind, dataset6, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5)], color=current_palette[5])
+    p7 = plt.bar(ind, dataset7, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6)], color=current_palette[6])
+    p8 = plt.bar(ind, dataset8, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6,dataset7)], color=current_palette[7])
+
+    plt.ylim([0,120])
+    plt.yticks(fontsize=font_sz)
+    plt.ylabel("Tempo em %", fontsize=font_sz)
+    plt.xticks(ind, ['1', '15', '15+15', '15+15+15'], fontsize=font_sz)
+    plt.xlabel('Nível de Paralelismo', fontsize=font_sz)
+    plt.legend((p1[0], p2[0], p3[0], p4[0], p5[0], p6[0], p7[0], p8[0]), ('State', 'Variable', 'Link', 'DAG', 'Entities', 'Events', 'GAPS', 'Write'), fontsize=font_sz, ncol=4, framealpha=0, fancybox=True)
+    plt.gca().xaxis.grid(False)
+    plt.title(title, fontsize=22)
+    if len(save_path) > 0:
+        f.savefig(save_path, bbox_inches='tight')
+    plt.show()
+
+stacked_barplot_normalized(df, 22, 'Tempo relativo entre execuções', '/home/aksmiyazaki/git/tcc-spec/experiments/total_relative.pdf')

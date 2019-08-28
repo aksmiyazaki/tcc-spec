@@ -378,24 +378,32 @@ Sec5.2
   para se inspirar e tentar replicar em python/plot.
 -> Mesmo com as barras horizontais, ficou bem pequeno.
 
-- [ ] No texto que comentar a Fig5.2 se fala em nós, mas na figura
+- [X] No texto que comentar a Fig5.2 se fala em nós, mas na figura
   temos a listagem dos executors. Acho que tem que manter os executors
   na figura (pois dá a noção de paralelismo), mas é importante que o
   texto faça a correlação entre executors e quantidade de nós.
-- [ ] "DAG também" -> A etapa que lida com o DAG também...
-- [ ] "temos speedups singelos" -> substituir "singelo" por algo mais
+-> Ok
+
+- [X] "DAG também" -> A etapa que lida com o DAG também...
+-> OK
+- [X] "temos speedups singelos" -> substituir "singelo" por algo mais
   formal
+-> OK
 
 Temos apenas um workload no capítulo de resultados
 - Talvez pudesse ter um segundo workload maior (aquele último que foi
   passado por exemplo, caso consigas resolver os problemas)
 
+-> Acabei tendo compromissos no último final de semana e não conseguindo trabalhar nisso.
+Assim que finalizar o texto vou tentar rodar os testes, mas acho difícil conseguir realizar os testes e incluir no texto.
+
 *** Cap6
-- [ ] "pela metade metade"
-- [ ] "ele foi reduzido pela metade metade (2,10x de speedup)"
+- [X] "pela metade metade"
+- [X] "ele foi reduzido pela metade metade (2,10x de speedup)"
   - Veja que ao reportar 2.1 de speedup, os ganhos foram mais que a metade
   - Isso em si é surpreendente, pois trata-se de uma aceleração superlinear
     - Descobrir o porquê e como é possível pode enriquecer o texto
+- Ok, irei investigar
 
 Para reflexão
 - Ao relatar ganhos de aceleração, estes ganhos estão sendo
