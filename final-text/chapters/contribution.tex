@@ -61,7 +61,7 @@ responsável por intermediar operações no código R e no Spark, é encapsulado
 tratativas dessa biblioteca. 
 
 O Spark utiliza diretamente o HDFS para leituras e escritas. Todas as tabelas 
-de saída são escritas no HDFS. No caso da tabela Entities, após seu 
+de saída são escritas no HDFS. No caso da tabela entities, após seu 
 processamento ela é convertida em uma tabela Spark. Com isso, padroniza-se o 
 local de saída do arcabouço.
 
@@ -81,8 +81,8 @@ foi criado dentro do próprio pacote StarVZ como um novo conjunto de funções,
 permitindo ao usuário a utilização de qualquer metodologia do arcabouço.
 
 A Figura \ref{fig:spark-starvz-flow} representa os possíveis fluxos da 
-aplicação.  As formas que possuem o contorno Sequencial e o preenchimento 
-Distribuído representam etapas que sempre são executadas. As formas que possuem 
+aplicação.  As formas que possuem o contorno \mytexttt{Sequencial} e o preenchimento 
+\mytexttt{Distribuído} representam etapas que sempre são executadas. As formas que possuem 
 preenchimento meio a meio, representam etapas que contam com uma implementação 
 diferente para cada tipo de fluxo, executado conforme parametrizado. As formas 
 que possuem apenas um preenchimento e nenhum contorno correspondem a etapas que 
@@ -94,10 +94,10 @@ são executadas sempre com a abordagem preenchida.
  \label{fig:spark-starvz-flow}
 \end{figure}
 
-Sobre o fluxo, a única modificação realizada foi a criação da conexão com Spark 
+Sobre o fluxo, a única modificação realizada foi a criação da \mytexttt{Conexão Spark} 
 caso o usuário esteja utilizando o arcabouço de forma distribuída. Este 
 trabalho teve como objetivo otimizar o processamento dentro de cada 
-etapa, apesar de haver margem para a paralelização de operações nesse nível. 
+etapa, apesar de haver margem para melhorias a nível de fluxo. 
 Destaca-se que, conforme mencionado na Seção anterior, o processamento de 
 entities foi mantido sempre no formato sequencial.
 

@@ -11,8 +11,7 @@ resultados.
 Os experimentos foram realizados no Parque Computacional de Alto Desempenho 
 (PCAD) da UFRGS. Eles ocorreram nos nós de computação \mytexttt{draco}, cuja 
 configuração de um nó é mostrada na Tabela \ref{tab:draco_config}. Todos os nós 
-do cluster possuem a mesma configuração, com exceção de um que não foi utilizado 
-nos experimentos.
+do cluster possuem a mesma configuração, com exceção de um que não foi utilizado.
 
 \begin{table}[H]
 \centering
@@ -70,8 +69,8 @@ de execução que não afetaram as tendências gerais observadas.
 
 \section{Experimentos e Resultados} \label{sect:results}
 
-A carga de trabalho dos experimentos já no formato CSV (entrada para a fase de 
-pré-processamento no StarVZ), tinha um somatório de 12 GB. Ela consiste em 
+A carga de trabalho dos experimentos já no formato CSV, entrada para a fase de 
+pré-processamento no StarVZ, tinha um somatório de 12 GB. Ela consiste em 
 rastros de execução de uma aplicação cholesky e foi escolhida pois era a maior
 entrada que tínhamos no momento. O tamanho de cada um dos arquivos pode ser 
 visualizado na Tabela \ref{tab:input_sz}.
@@ -108,7 +107,7 @@ um. Nesses casos, consideramos apenas aquelas que processaram com sucesso (27,
 
 A Figura \ref{fig:total_full} mostra a média do tempo total de execução dos 
 experimentos e o erro padrão no topo da barra (intervalo de confiança 
-de 99,7\%) em função da quantidade de executores em cada nó. A execução original 
+de 99,7\%) em função do paralelismo em cada nó. A execução original 
 de forma sequencial, levou em média 1489,02 segundos para completar o 
 processamento. Já as execuções com a aplicação adaptada para utilizar o Spark, 
 com 15 executores em 1 nó levou em média 708,17 segundos, com 30 em 2 nós, 
@@ -196,7 +195,9 @@ mais testes.
 Por fim, temos a escrita dos dados no sistema de arquivos distribuído. Nessa 
 etapa pode-se observar que o ganho não é tão grande pois é nela que todos os 
 planos de transformações montados nas etapas anteriores serão efetivamente 
-executados sobre os dados. Pode-se observar, tanto na Tabela 
+executados sobre os dados. Isso é decorrente da escrita de uma tabela ser
+considerada uma ação e portanto, exige que transformações sejam realizadas.
+Pode-se observar, tanto na Tabela 
 \ref{tab:total_step} quanto na Figura \ref{fig:total_step} que o tempo de 
 execução com o Spark utilizando 15 executores é pior do que a execução 
 sequencial. Depois dela, temos pequenos \textit{speedups} de 1,29x e 1,57x.
