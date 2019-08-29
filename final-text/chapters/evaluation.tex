@@ -11,8 +11,8 @@ resultados.
 Os experimentos foram realizados no Parque Computacional de Alto Desempenho 
 (PCAD) da UFRGS. Eles ocorreram nos nós de computação \mytexttt{draco}, cuja 
 configuração de um nó é mostrada na Tabela \ref{tab:draco_config}. Todos os nós 
-do cluster possuem a mesma configuração, com exceção de um que não foi 
-utilizado nos experimentos.
+do cluster possuem a mesma configuração, com exceção de um que não foi utilizado 
+nos experimentos.
 
 \begin{table}[H]
 \centering
@@ -35,9 +35,9 @@ Rede	      & Ethernet 10 Gigabit \\
 
 A Figura \ref{fig:experiment_arch} exibe a arquitetura que foi seguida durante 
 os experimentos. Como o Spark acessa dados direto do HDFS, primeiramente 
-executamos o Hadoop. Um dos nós era responsável por executar o \emph{namenode} e 
-também executava uma instância de \emph{datanode}. Os demais executavam apenas 
-instâncias de \emph{datanodes}.
+executamos o Hadoop. Um dos nós era responsável por executar o \textit{namenode} 
+e também executava uma instância de \textit{datanode}. Os demais executavam 
+apenas \textit{datanodes}.
 
 
 \begin{figure}[ht]
@@ -50,23 +50,22 @@ instâncias de \emph{datanodes}.
 
 O gerenciador de cluster utilizado foi o do próprio Spark ao invés do YARN. 
 Essa decisão foi tomada durante os testes pois seus arquivos de registro 
-mostraram informações mais claras sobre o que estava ocorrendo. A instanciação 
-dele foi similar àquela utilizada no Hadoop, um nó executou como \emph{mestre} 
-e \emph{trabalhador} enquanto os demais executaram apenas como 
-\emph{trabalhadores}. 
+mostraram informações mais claras sobre o que estava ocorrendo. A abordagem 
+utilizada para ele foi similar àquela utilizada no Hadoop, um nó executou 
+como mestre e trabalhador enquanto os demais executaram apenas como 
+trabalhadores. 
 
-Cada \emph{trabalhador} do Spark instancia N \emph{executores}, responsáveis 
+Cada trabalhador do Spark instancia N executores, responsáveis 
 por processar tarefas. Cada um destes possui uma quantidade de núcleos e uma 
 quantidade de memória dedicada. Durante os experimentos, parametrizamos a 
-\emph{Engine} para que cada \emph{trabalhador} instanciasse 15 
-\emph{executores}, cada um com 2 núcleos e 4 GB de memória para 
-processamento de tarefas.
+\textit{engine} para que cada trabalhador utilizasse 15 executores, cada um com 
+2 núcleos e 4 GB de memória para processamento de tarefas.
 
-Realizamos testes com um nó, utilizando a aplicação original, um, dois e três 
-nós, utilizando a aplicação modificada. Cada teste foi configurado para 
-executar 30 vezes para garantir a confiabilidade de seus resultados, todavia, 
-houveram casos isolados de problemas de execução que não afetaram as tendências 
-gerais observadas.
+Realizamos testes com 1 nó, utilizando a aplicação original, 15 executores em 1 
+nó, 30 executores em 2 e 45 executores em 3 nós, utilizando a aplicação 
+modificada. Cada teste foi configurado para executar 30 vezes para garantir a 
+confiabilidade de seus resultados, todavia, houveram casos isolados de problemas 
+de execução que não afetaram as tendências gerais observadas.
 
 
 \section{Experimentos e Resultados} \label{sect:results}
@@ -95,7 +94,7 @@ events.csv	& 1.8 GB \\
 \label{tab:input_sz}
 \end{table}
 
-Durante a implementação, optou-se por manter o processamento de Entities
+Durante a implementação, optou-se por manter o processamento de entities
 no formato sequencial pois esse arquivo armazena apenas informações de 
 plataforma e por isso, costuma não passar da ordem de tamanho de KB. Podemos 
 observar que isso se confirma nesta carga de trabalho.
@@ -109,13 +108,12 @@ um. Nesses casos, consideramos apenas aquelas que processaram com sucesso (27,
 
 A Figura \ref{fig:total_full} mostra a média do tempo total de execução dos 
 experimentos e o erro padrão no topo da barra (intervalo de confiança 
-de 99,7\%) em função do nível de paralelismo (quantidade de \emph{Executores}) 
-em cada nó. A execução original de forma sequencial, levou em média 1489,02 
-segundos para completar o processamento. Já as execuções com a aplicação 
-adaptada para utilizar o Spark, com 15 executores em um nó levou em média 
-708,17 segundos, com 30 em dois nós, 460,81 segundos e 45 em três, 385,44 
-segundos. Isso consiste em um \emph{speedup} de respectivamente 2,10x, 3,23x e 
-3,86x em relação ao original.
+de 99,7\%) em função da quantidade de executores em cada nó. A execução original 
+de forma sequencial, levou em média 1489,02 segundos para completar o 
+processamento. Já as execuções com a aplicação adaptada para utilizar o Spark, 
+com 15 executores em 1 nó levou em média 708,17 segundos, com 30 em 2 nós, 
+460,81 segundos e 45 em 3, 385,44 segundos. Isso consiste em um \textit{speedup} 
+de respectivamente 2,10x, 3,23x e 3,86x em relação ao original.
 
 \begin{figure}[ht]
 \centerline{
@@ -133,7 +131,7 @@ separar as etapas em quatro grupos.
 
 O primeiro e mais trivial deles, é o grupo em que não houve praticamente 
 nenhuma alteração de código e tempo de execução. É o caso do tratamento de 
-Entities, que foi apenas convertido para uma tabela Spark para posterior 
+entities, que foi apenas convertido para uma tabela Spark para posterior 
 gravação no HDFS.
 
 \begin{figure}[H]
@@ -165,42 +163,43 @@ Write		& 162.19 & 211.06 & 125.40 & 102.87\\
 \end{table}
 
 O segundo grupo identificado, foram manipulações que executaram apenas 
-Transformações no Spark \cite{ref:sparkbook} durante seu processamento. Estas 
-constroem um plano de operações a serem aplicadas nos dados, todavia, a 
-\emph{Engine} só irá executá-lo quando estritamente necessário (quando uma Ação 
-for realizada). Neste grupo enquadram-se as tabelas que observou-se um 
-\emph{speedup} muito grande, como é o caso de Variable que apresentou 9,95x, 
-20,18x, 28,10x comparando-se as execuções com Spark com a execução Sequencial. A 
-etapa que lida com o DAG também teve ganhos consideráveis, apresentendo 
-\emph{speedups} de 6,84x, 9,12x e 10,22x. Os ganhos de Link foram menos 
-significativos, pois seu tempo original já é pequeno, concluímos que ele 
-pertence a este grupo pela análise do código de seu tratamento.
+transformações (operações \textit{Lazy}) no Spark \cite{ref:sparkbook} durante 
+seu processamento. Estas constroem um plano de operações a serem aplicadas nos 
+dados, todavia, a \textit{engine} só irá executá-lo quando estritamente 
+necessário (quando uma ação for realizada). Neste grupo enquadram-se as tabelas 
+que observou-se um \textit{speedup} muito grande, como é o caso de variable que 
+apresentou 9,95x, 20,18x, 28,10x comparando-se as execuções com Spark com a 
+execução Sequencial. A etapa que lida com o DAG também teve ganhos 
+consideráveis, apresentando \textit{speedups} de 6,84x, 9,12x e 10,22x. Os 
+ganhos de link foram menos significativos, pois seu tempo original já é 
+pequeno, concluímos que ele pertence a este grupo pela análise do código de seu 
+tratamento.
 
 O terceiro grupo identificado foram transformações que de alguma forma ativaram 
-uma Ação no Spark durante seu processamento. Tais operações fazem com que a 
-\emph{Engine} efetivamente manipule os dados \cite{ref:sparkbook} não sendo do 
-tipo \emph{Lazy} como as Transformações. Esse grupo consiste nos tratamentos de 
-State e Events, nos quais tivemos um ganho inferior ao segundo grupo. Os ganhos 
-observados para Events foram de 2,10x, 3,96x e 5,64x, enquanto que para State 
-tivemos 4,04x, 6,14x e 7,32x.
+uma ação no Spark durante seu processamento. Tais operações fazem com que a 
+\textit{engine} efetivamente manipule os dados \cite{ref:sparkbook} não sendo 
+do tipo \textit{Lazy} como as transformações. Esse grupo consiste nos 
+tratamentos de state e events, nos quais tivemos um ganho inferior ao segundo 
+grupo. Os ganhos observados para events foram de 2,10x, 3,96x e 5,64x, enquanto 
+que para state tivemos 4,04x, 6,14x e 7,32x.
 
 O último grupo, corresponde apenas ao Cálculo de GAPS. Essa operação foi 
 levantada durante a implementação como um ponto de atenção, devido ao seu tempo 
 ter aumentado de forma considerável em experimentos locais. Olhando para os 
 tempos de execução temos, em segundos, 71,51 na execução sequencial, 154,03 na 
-execução com 1 nó utilizando Spark, 110,83 na execução com 2 nós e 95,22 
-utilizando 3 nós. Acreditamos que isso seja decorrente de Ações Spark 
-realizadas em tabelas geradas por junções de forma recursiva, que é o que esta 
-etapa faz. Para identificar o ponto exato que causa essa perda de desempenho, 
-são necessários mais testes.
+com 15 executores utilizando Spark, 110,83 com 30 executores e 95,22 utilizando 
+45 executores. Acreditamos que isso seja decorrente das ações Spark realizadas 
+em tabelas geradas por junções de forma recursiva, utilizadas nesta etapa. Para 
+identificar o ponto exato que causa essa perda de desempenho, são necessários 
+mais testes.
 
 Por fim, temos a escrita dos dados no sistema de arquivos distribuído. Nessa 
 etapa pode-se observar que o ganho não é tão grande pois é nela que todos os 
 planos de transformações montados nas etapas anteriores serão efetivamente 
 executados sobre os dados. Pode-se observar, tanto na Tabela 
 \ref{tab:total_step} quanto na Figura \ref{fig:total_step} que o tempo de 
-execução com o Spark 15 executores é pior do que a execução sequencial. Depois 
-dela, temos pequenos \emph{speedups} de 1,29x e 1,57x.
+execução com o Spark utilizando 15 executores é pior do que a execução 
+sequencial. Depois dela, temos pequenos \textit{speedups} de 1,29x e 1,57x.
 
 Portanto, podemos concluir que a portagem do arcabouço StarVZ para executar 
 sobre o Spark gerou ganhos consideráveis. Há outras diversas avaliações para 

@@ -18,13 +18,14 @@ adaptar a aplicação ao Spark, foi utilizada a biblioteca \mytexttt{sparklyr}, 
 que facilitou muito a adaptação pois ela é inspirada no 
 \mytexttt{dplyr}, pacote utilizado no fluxo original.
 
-Os experimentos mostraram redução no tempo de execução. Com um nó, apenas 
-utilizando o Spark para realizar o processamento paralelo, ele foi reduzido 
-pela metade (2,10x de \emph{speedup}). Ao realizar o processamento de 
-forma distribuída com 2 e 3 nós, atingimos \emph{speedups} de 3,23x e 3,86x 
-respectivamente, no melhor caso, levando apenas 385,44 segundos. Embora esta 
-seja apenas uma etapa da fase de pré-processamento, tal redução contribui para 
-a viabilização de sua utilização com volumes de dados maiores.
+Os experimentos mostraram redução no tempo de execução. Com 15 executores 
+em um nó, onde apenas utilizamos o Spark para realizar o 
+processamento paralelo, ele foi reduzido pela metade (2,10x de \emph{speedup}). 
+Ao realizar o processamento de forma distribuída com 30 e 45 executores, 
+atingimos \emph{speedups} de 3,23x e 3,86x respectivamente, no melhor caso, 
+levando apenas 385,44 segundos. Embora esta seja apenas uma etapa da fase de 
+pré-processamento, tal redução contribui para a viabilização de sua utilização 
+com volumes de dados maiores.
 
 Além disso, este fluxo é limitado pela quantidade física de memória presente 
 nas máquinas. Ao utilizar o HDFS e o Spark, permitimos que a aplicação processe 
@@ -36,6 +37,6 @@ realizar mais avaliações (no final do trabalho foi disponibilizado uma entrada
 de centenas de Gigabytes, mas não tivemos tempo de realizar testes com ela). 
 Diversificar as avaliações também é importante pois os rastros de outros tipos 
 de aplicação (diferentes de cholesky) podem ter um comportamento diferente. 
-Além disso, as demais ferramentas utilizadas nesta fase também precisam ser 
-trabalhadas (\mytexttt{starpu\_fxt\_tool}, \mytexttt{dot2csv}, 
-\mytexttt{pjdump}) para otimizar-se o pré-processamento total.
+Além disso, as demais ferramentas utilizadas na fase de pré-processamento 
+(\mytexttt{starpu\_fxt\_tool}, \mytexttt{dot2csv}, \mytexttt{pjdump}) também 
+precisam ser trabalhadas.
