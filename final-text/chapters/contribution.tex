@@ -56,7 +56,7 @@ A biblioteca escolhida para fazer a intermediação entre o código R e o Spark
 foi a \texttt{sparklyr}. De acordo com \citet{ref:sparkbook}, ela é 
 baseada no pacote \texttt{dplyr} e sua abordagem prioriza a experiência com R, 
 abstraindo alguns dos conceitos básicos como a seção Spark (\emph{Spark 
-Session}), diferindo da abordagem padrão das APIs. O processo Driver, 
+Session}), diferindo da abordagem padrão das APIs. O processo driver, 
 responsável por intermediar operações no código R e no Spark, é encapsulado nas 
 tratativas dessa biblioteca. 
 
@@ -85,8 +85,8 @@ aplicação.  As formas que possuem o contorno Sequencial e o preenchimento
 Distribuído representam etapas que sempre são executadas. As formas que possuem 
 preenchimento meio a meio, representam etapas que contam com uma implementação 
 diferente para cada tipo de fluxo, executado conforme parametrizado. As formas 
-que possuem apenas um preenchimento correspondem a etapas que são executadas 
-sempre com a abordagem preenchida.
+que possuem apenas um preenchimento e nenhum contorno correspondem a etapas que 
+são executadas sempre com a abordagem preenchida.
 
 \begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{./img/applicationflow.pdf}}
@@ -99,7 +99,7 @@ caso o usuário esteja utilizando o arcabouço de forma distribuída. Este
 trabalho teve como objetivo otimizar o processamento dentro de cada 
 etapa, apesar de haver margem para a paralelização de operações nesse nível. 
 Destaca-se que, conforme mencionado na Seção anterior, o processamento de 
-Entities foi mantido sempre no formato sequencial.
+entities foi mantido sempre no formato sequencial.
 
 No fluxo original, a escrita de arquivos foi modificada para o formato 
 \textit{Parquet}, com o pacote \texttt{Apache Arrow}. Em termos de código, essa 
@@ -109,17 +109,17 @@ para \texttt{write\_parquet}). É importante salientar que este pacote também
 conta com uma implementação de \texttt{write\_feather}, que é mais eficiente 
 que aquela do pacote \texttt{feather}.
 
-Para utilizar a \textit{Engine} e executar a aplicação de forma distribuída, é 
+Para utilizar a \textit{engine} e executar a aplicação de forma distribuída, é 
 necessário estabelecer uma conexão Spark, utilizando o método 
 \texttt{spark\_connect}. Com ela estabelecida, é possível ler arquivos em 
 diversos formatos diretamente para tabelas no \texttt{sparklyr}. Esse processo 
-é realizado na etapa de Conexão Spark, executada em caso de fluxo distribuído 
-conforme representado na Figura \ref{fig:spark-starvz-flow}. É importante 
-ressaltar que com essa biblioteca, conseguimos ler arquivos armazenados no HDFS, 
-o que permite que volumes de dados maiores que a quantidade de memória 
-disponível na máquina sejam processados. Essa funcionalidade é muito importante 
-pois desvincula o potencial da aplicação da limitação física da infraestrutura 
-utilizada.
+é realizado na etapa de \mytexttt{Conexão Spark}, executada em caso de fluxo 
+distribuído conforme representado na Figura \ref{fig:spark-starvz-flow}. É 
+importante ressaltar que com essa biblioteca, conseguimos ler arquivos 
+armazenados no HDFS, o que permite que volumes de dados maiores que a quantidade 
+de memória disponível na máquina sejam processados. Essa funcionalidade é muito 
+importante pois desvincula o potencial da aplicação da limitação física da 
+infraestrutura utilizada.
 
 Com os arquivos carregados em tabelas Spark o restante do trabalho 
 foi identificar equivalências entre as transformações realizadas com 
@@ -130,7 +130,7 @@ pela \texttt{sparklyr}. Essa metodologia foi adotada pois, caso fosse necessári
 um tratamento que não fosse suportado pela biblioteca, seria preciso 
 implementá-lo via funções definidas pelos usuários (\emph{User defined function 
 ou UDFs}). Essa funcionalidade sofre de problemas de desempenho ao utilizar R ou 
-Python pois há o custo de instanciar um processo R e compartilhar os dados de 
+Python pois há o custo de instanciar um processo e compartilhar os dados de 
 entradas e saídas. 
 
 A Tabela \ref{tab:equivalence} exibe as principais equivalências utilizadas. 
@@ -161,7 +161,7 @@ O cálculo de GAPS é a última transformação de dados a ser realizada antes d
 escrita dos arquivos \textit{Parquet}, sendo um conjunto de junções realizadas 
 de forma recursiva. Durante o desenvolvimento, foi observada que a versão 
 distribuída levava um tempo maior que a execução sequencial. Isso foi atribuído 
-ao custo de comunicação de Executores e aos processamentos que o Spark 
+ao custo de comunicação de executores e aos processamentos que o Spark 
 executa dentro desta etapa (lembrando sua execução \emph{Lazy}) e foi um ponto 
 de atenção levantado para ser observado durante os experimentos.
 
@@ -192,7 +192,7 @@ hread State			& 2105590 \\
 \end{table}
 
 Por fim, as saídas são escritas no HDFS. Elas geram múltiplos arquivos, por 
-exemplo, se a saída se chamar \emph{teste.parquet}, a aplicação criará um 
+exemplo se a saída se chamar \emph{teste.parquet}, a aplicação criará um 
 diretório com esse nome e dentro dela haverá diversos arquivos, conforme abaixo. 
 Isso ocorre pois por padrão as tabelas Spark são particionadas e escrevê-las 
 gera um arquivo por partição.
