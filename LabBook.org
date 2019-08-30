@@ -426,6 +426,33 @@ Para reflexão
 - Acredito que essa discussão possa enriquecer mais o teu trabalho, na
   parte de discussão dos resultados.
 
+** 2019-08-30 Revisão do TCC
+
+Pg40
+- Tem uma página com apenas a seguinte frase "(starpu_fxt_tool, dot2csv,
+  pjdump) também precisam ser trabalhadas.". Em tipografia de
+  documentos, esse tipo de frase pode ser considerada uma frase órfão.
+  Ler mais em
+  https://tex.stackexchange.com/questions/4152/how-do-i-prevent-widow-orphan-lines
+  Veja que o Latex tem formas de controle disso:
+  #+BEGIN_EXPORT latex
+  \widowpenalty10000
+  \clubpenalty10000
+  #+END_EXPORT
+
+- Anexo (aparecendo após as referências)
+  - Colocar em anexo uma documentação sobre como instanciar o
+    hdfs/spark, com exemplo de ingestão de dados, etc.
+  - Tal documentação pode permitir que outros repliquem o que
+    fizeste. Isso seria bastante útil para o trabalho do Lucas
+    (doutorando) que pretende fazer experimento com dezenas de nós,
+    gerando rastros potencialmente muito grandes. Se ele conseguisse
+    usar o teu trabalho, seria ideal. Uma documentação aumenta as
+    chances de reuso.
+
+Referência ao código feito (no final da intro e conclusão)
+- Colocar um link para o github com as tuas modificações no starvz
+
 * Instalação do StarPU
 
 ** Manualmente
