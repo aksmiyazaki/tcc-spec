@@ -23,10 +23,10 @@
 # Options read when launching programs locally with
 # ./bin/run-example or ./bin/spark-submit
 # - HADOOP_CONF_DIR, to point Spark towards Hadoop configuration files
-export HADOOP_CONF_DIR=/home/aksmiyazaki/Spack/opt/spack/linux-debian9-x86_64/gcc-6.3.0/hadoop-2.9.0-e6gqhu36bmugq3hyiqrcfrqcllpekq4j/etc/hadoop
+export HADOOP_CONF_DIR=/scratch/aksmiyazaki/Workdir/hadoop-2.9.0/etc/hadoop
 export SPARK_DIST_CLASSPATH=$(hadoop classpath)
-export SPARK_LOCAL_IP=127.0.0.1
-export SPARK_MASTER_HOST=127.0.0.1
+export SPARK_LOCAL_IP=192.168.30.8
+export SPARK_MASTER_HOST=192.168.30.7
 # - SPARK_LOCAL_IP, to set the IP address Spark binds to on this node
 # - SPARK_PUBLIC_DNS, to set the public dns name of the driver program
 
@@ -42,6 +42,7 @@ export SPARK_MASTER_HOST=127.0.0.1
 # - YARN_CONF_DIR, to point Spark towards YARN configuration files when you use YARN
 # - SPARK_EXECUTOR_CORES, Number of cores for the executors (Default: 1).
 # - SPARK_EXECUTOR_MEMORY, Memory per Executor (e.g. 1000M, 2G) (Default: 1G)
+
 # - SPARK_DRIVER_MEMORY, Memory for Driver (e.g. 1000M, 2G) (Default: 1G)
 
 # Options for the daemons used in the standalone deploy mode

@@ -19,16 +19,16 @@
 <configuration>
     <property>
             <name>dfs.namenode.name.dir</name>
-            <value>hadoop/data/namenode/</value>
+            <value>/scratch/aksmiyazaki/data/namenode</value>
     </property>
 
     <property>
             <name>dfs.datanode.data.dir</name>
-            <value>hadoop/data/dataNode</value>
+            <value>/scratch/aksmiyazaki/data/datanode</value>
     </property>
 
     <property>
             <name>dfs.replication</name>
-            <value>1</value>
+            <value>2</value>
     </property>
 </configuration>

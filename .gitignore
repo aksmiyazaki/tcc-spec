@@ -56,3 +56,7 @@ experiments/total\.pdf
 *.tgz
 
 experiments/results/experiment_distrib_3nodes/\.tarfile::spark-aksmiyazaki-org\.apache\.spark\.deploy\.worker\.Worker-1-draco4\.out\.swp
+
+env-setup\.tar\.gz
+
+env\.tar\.gz

@@ -439,6 +439,7 @@ Pg40
   \widowpenalty10000
   \clubpenalty10000
   #+END_EXPORT
+-> OK.
 
 - Anexo (aparecendo após as referências)
   - Colocar em anexo uma documentação sobre como instanciar o
@@ -450,8 +451,10 @@ Pg40
     usar o teu trabalho, seria ideal. Uma documentação aumenta as
     chances de reuso.
 
+
 Referência ao código feito (no final da intro e conclusão)
 - Colocar um link para o github com as tuas modificações no starvz
+-> OK.
 
 * Instalação do StarPU
 
