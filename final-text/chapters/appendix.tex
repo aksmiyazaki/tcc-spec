@@ -1,10 +1,11 @@
 \chapter{Documentação do StarVZ sobre HDFS/Spark}
 
 Nesta Seção serão mostrados os passos necessários para reproduzir os testes 
-realizados. Também há algumas referências para o 
+realizados. Existem diversas referências para o 
 \href{https://github.com/aksmiyazaki/tcc-spec}{repositório deste trabalho no 
 Github}, onde encontram-se os scripts de automação de grande parte do setup e 
-execução dos testes.
+execução dos testes. É importante salientar que este é um repositório diferente 
+do StarVZ.
 
 O Setup do ambiente para executar os experimentos começa com o script 
 \mytexttt{setup\_environment.py}, dentro da pasta scripts do repositório. É 
@@ -32,8 +33,8 @@ configurar o arquivo \mytexttt{slaves}, da mesma forma que no Hadoop. Também é
 preciso configurar os parâmetros \mytexttt{SPARK\_LOCAL\_IP} e 
 \mytexttt{SPARK\_MASTER\_HOST} no arquivo \mytexttt{spark-env.sh}, com o IP 
 local e o IP do nó mestre respectivamente. Revise também os parâmetros no 
-arquivo \mytexttt{spark-env.sh}, pois há uma série de apontamentos para o nó 
-mestre.
+arquivo \mytexttt{spark-defaults.conf}, pois há uma série de apontamentos para 
+o nó mestre.
 
 Agora, vamos iniciar o Hadoop. Para isso, entre na pasta raiz de sua instalação 
 e execute a sequência de comandos listada abaixo.
@@ -50,8 +51,8 @@ dfsadmin -report}. Devem ser listados todos os \emph{datanodes} do ambiente.
 
 Agora, mude de diretório para onde estão os CSVs que serão utilizados como 
 entrada. Execute a sequência de comandos listada abaixo. Isso criará a pasta 
-logs e a pasta inputs no HDFS e copiará todos os arquivos CSV para a pasta 
-inputs. Este comando pode demorar.
+\mytexttt{logs} e a pasta \mytexttt{inputs} no HDFS e copiará todos os arquivos 
+CSV para a pasta inputs. Este comando pode demorar.
 
 \small
 \begin{lstlisting}
@@ -71,10 +72,12 @@ StarVZ, vá até sua pasta e execute o seguinte comando:
 
 \small
 \begin{lstlisting}
-./R/phase1-workflow.R -D /inputs <PATH\_PARA\_ENTITIES> 
-spark://<IP\_MESTRE>:7077 cholesky
+./R/phase1-workflow.R -D /inputs <PATH_PARA_ENTITIES> 
+spark://<IP_MESTRE>:7077 cholesky
 \end{lstlisting}
 \normalsize
 
 Este deve iniciar a aplicação em modo distribuído e rodar a aplicação 
-utilizando o Spark.
+utilizando o Spark. Para repetições de testes, existe o script 
+\mytexttt{experiment\_execution.py}, que controla os experimentos, caso o 
+usuário queira executar mais de uma repetição do mesmo teste.
