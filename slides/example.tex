@@ -27,6 +27,13 @@
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{palatino}
+\usepackage{hyphenat}
+\usepackage{listings}
+\usepackage{caption}
+\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
 
 % Choose the Inf theme
 \usetheme{Inf}
@@ -56,85 +63,233 @@
 \end{frame}
 
 \section{Introdução}
-
-\frame{
-    \frametitle{História}
-
-    \begin{itemize}
-        \item O Instituto de Informática mudou de logotipo quando completou 20 anos
-        \item Entretanto os templates para slides continuaram os mesmos
-        \item Um manual de identidade visual veio junto com o artigo
-        \item Esse template que você vê é baseado nele
-    \end{itemize}
-}
-
-\frame{
-    \frametitle{Listas}
-
-    \begin{enumerate}
-        \item Listas não numeradas você já viu no slide anterior
-        \item Listas numeradas também são possíveis
-        \begin{itemize}
-            \item Assim como ambos os tipos em vários níveis
-        \end{itemize}
-    \end{enumerate}
-}
-
-\section{Outra seção}
-\subsection{Primeira subseção}
-
-\frame{
-    \frametitle{Seções}
-
-    \begin{itemize}
-        \item O número a esquerda do cabeçalho marca a seção atual
-        \item Logo a direita ele é seguido por:
-        \begin{itemize}
-            \item nome da seção
-            \item subseção
-            \item título do slide
-        \end{itemize}
-    \end{itemize}
-}
-
-\section{Blocos}
-
-\begin{frame}[plain]
- \sectionpage
+\begin{frame}
+\frametitle{StarVZ}
+  \begin{itemize}
+   \item StarVZ é um arcabouço de análise de desempenho cujo objetivo é auxiliar 
+na verificação de hipóteses sobre aplicações baseadas em tarefas.
+   \item Este domínio carece de ferramentas de visualização voltadas para este 
+tipo de aplicação, devido a dominância do modelo predecessor (BSP - 
+\textit{Bulk-Synchronous Parallel}).
+  \item Ele é separado em duas fases sendo uma de pré-processamento e outra de 
+visualização.
+  \end{itemize}
 \end{frame}
 
-\frame{
-    \frametitle{Teoremas}
+\begin{frame}
+\frametitle{Motivação}
+  \begin{itemize}
+   \item Em estudos anteriores, analisou-se logs com 18 GB.
+   \item A primeira fase do StarVZ levou cerca de 32 minutos para processar.
+   \item Tal desempenho pode inviabilizar o uso do StarVZ para cargas de 
+grandes volumes de dados.
+  \end{itemize}
+\end{frame}
 
-    \begin{theorem}
-        foo
-    \end{theorem}
-    \begin{proof}
-        bar
-    \end{proof}
-}
+\begin{frame}
+ \frametitle{Objetivo}
+\begin{itemize}
+ \item Viabilizar o uso do StarVZ para análise de grandes volumes de dados. 
+Para isso, iniciamos pela otimização da parte mais onerosa, o fluxo 
+de processamento R.
+ \item Isto deverá ser atingido utilizando ferramentas de processamento de 
+grandes volumes de dados, como o Hadoop e o Spark.
+\end{itemize}
+\end{frame}
 
-\frame{
-    \frametitle{Exemplos}
 
-    \begin{exampleblock}{exemplo}
-        foo
-    \end{exampleblock}
-}
+\section{Ferramentas}
 
-\frame{
-    \frametitle{Alertas}
+\begin{frame}
+ \frametitle{Hadoop}
+ \begin{columns}[T] % align columns
+  \begin{column}{.40\textwidth}
+  \begin{itemize}
+  \item Arcabouço que permite o processamento de grandes volumes de dados.
+  \item Organizado em camadas.
+  \end{itemize}
+  \end{column}%
+  \hfill%
+  \begin{column}{.56\textwidth}
+  \begin{figure}[H]
+  \centerline{\includegraphics[width=1\textwidth]{./img/hadoop-layers.pdf}}
+  \label{fig:hadoop}
+  \end{figure}
+  \end{column}%
+  \end{columns}
+\end{frame}
 
-    \begin{alertblock}{alerta}
-        foo
-    \end{alertblock}
-}
+\begin{frame}
+ \frametitle{Spark}
+ \begin{columns}[T] % align columns
+  \begin{column}{.40\textwidth}
+  \begin{itemize}
+  \item \textit{Engine} unificada + conjunto de bibliotecas para processamento 
+de dados distribuídos.
+  \item Utilizado via biblioteca \texttt{sparklyr}.
+  \end{itemize}
+  \end{column}%
+  \hfill%
+  \begin{column}{.56\textwidth}
+  \begin{figure}[ht]
+  \centerline{\includegraphics[width=1\textwidth]{./img/spark-arch.pdf}}
+  \label{fig:spark-arch}
+  \end{figure}
+  \end{column}%
+  \end{columns}
+\end{frame}
+
+\section{Implementação}
+\begin{frame}
+ \frametitle{Abordagem}
+ \begin{itemize}
+  \item Otimizar processamento de tabelas.
+  \item Utilizar equivalências entre \texttt{sparklyr} e \texttt{dplyr}, pois o 
+fluxo de processamento do StarVZ é implementado em R.
+  \item Processo foi facilitado pois a \texttt{sparklyr} é baseada na {dplyr}.
+  \item Validação realizada com um conjunto de dados pequeno (835 MB), 
+comparação de desempenho realizada com uma carga de trabalho maior (12 GB).
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Fluxo da Aplicação}
+ \begin{figure}[H]
+ \centerline{\includegraphics[width=1\textwidth]{./img/applicationflow.pdf}}
+ \label{fig:spark-starvz-flow}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Equivalências}
+ \begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{c c} \toprule
+  \textbf{Operação \texttt{dplyr}}  &  \textbf{Operação \texttt{sparklyr}}\\ 
+  \midrule
+  distinct	& unique  \\
+  sort		& sdf\_sort \\
+  gsub		& regexp\_replace\\
+  rbind		& union\_all\\
+  grepl		& rlike\\
+  separate	& ft\_regex\_tokenizer + sdf\_separate\_column       \\
+  \end{tabular}
+  \label{tab:equivalence}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Validação}
+ \begin{itemize}
+  \item Realizada por tabela.
+  \item Diversos agrupamentos realizados em suas colunas.
+  \item Comparação de resultados entre execução sequencial e distribuída.
+ \end{itemize}
+\end{frame}
+
+
+\section{Avaliação e Resultados}
+\begin{frame}
+ \frametitle{Arquitetura dos experimentos}
+  \begin{figure}[ht]
+  \centerline{
+  \includegraphics[width=0.9\textwidth]{./img/experiments_arch.pdf}}
+  \label{fig:experiment_arch}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Resultados}
+ \begin{figure}[ht]
+  \centerline{
+  \includegraphics[width=0.8\textwidth]{./img/total.pdf}}
+  \label{fig:total_full}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Resultados}
+  \begin{columns}[T] % align columns
+  \begin{column}{.40\textwidth}
+  \begin{table}[ht]
+  \tiny
+  \begin{tabular}{l c c c c} \toprule
+  \textbf{Etapa}  & \textbf{1} & \textbf{15} & \textbf{15+15} & 
+  \textbf{15+15+15}\\ 
+  \midrule
+  State		& 873.31 & 215.93 & 142.15 & 119.20\\
+  Variable  	& 210.77 & 21.17  & 10.44  & 7.50 \\
+  Link      	& 8.93   & 4.59   & 3.84   & 3.53 \\
+  DAG        	& 69.14  & 10.10  & 7.58   & 6.76 \\
+  Entities	& 3.07   & 2.42   & 2.31   & 2.30 \\
+  Events		& 89.87  & 42.68  & 22.65  & 15.91\\
+  GAPS		& 71.51  & 110.83 & 110.83 & 95.22\\
+  Write		& 162.19 & 211.06 & 125.40 & 102.87\\
+  \end{tabular}
+  \label{tab:total_step}
+  \end{table}
+  \end{column}%
+  \hfill%
+  \begin{column}{.56\textwidth}
+  \begin{figure}[H]
+  \centerline{
+  \includegraphics[width=0.8\textwidth]{./img/total_step.pdf}}
+  \label{fig:total_step}
+  \end{figure}
+  \end{column}%
+  \end{columns}
+\end{frame}
+
+
+
+\section{Conclusão}
+\begin{frame}
+ \frametitle{Objetivo}
+ \begin{itemize}
+ \item Viabilizar o uso do StarVZ para análise de grandes volumes de dados. 
+Para isso, iniciamos pela otimização da parte mais onerosa, o fluxo 
+de processamento R.
+ \item Isto deverá ser atingido utilizando ferramentas de processamento de 
+grandes volumes de dados, como o Hadoop e o Spark.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Realizações}
+ \begin{itemize}
+  \item Apenas com as equivalências entre \texttt{dplyr} e \texttt{sparklyr}, 
+foi possível atingir \emph{speedups} totais de:	
+    \begin{itemize}
+      \item 2,10x com 1 nó / 15 executores;
+      \item 3,23x com 2 nós / 30 executores;
+      \item 3,86x com 3 nós / 45 executores.
+    \end{itemize}
+  \item Portanto, conseguimos otimizar a etapa mais custosa do arcabouço StaVZ.
+  \item Vale salientar que com o formato de execução distribuído, o StarVZ é 
+capaz de processar mais dados do que o tamanho de memória de uma única máquina.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Trabalhos Futuros}
+ \begin{itemize}
+  \item Testes com grandes volumes de dados.
+  \item Testes com arquivos de registro de outras aplicações.
+  \item Acabamento ao pacote StarVZ.
+  \item Otimização de demais etapas da fase de pré-processamento do StarVZ.
+ \end{itemize}
+\end{frame}
+
 
 \section*{}
-
 \begin{frame}
     \frametitle{Obrigado!}
     \InfContacts
 \end{frame}
 
 \end{document}
+
+
+
