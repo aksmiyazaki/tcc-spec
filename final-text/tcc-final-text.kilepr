@@ -155,7 +155,7 @@ archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=143
+line=15
 mode=LaTeX
 open=true
 order=0
@@ -245,7 +245,7 @@ archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=36
+line=27
 mode=LaTeX
 open=true
 order=1
@@ -282,7 +282,7 @@ ViMarks=.,0,0,[,0,0,],-1,-1
 
 [view-settings,view=0,item:chapters/evaluation.tex]
 CursorColumn=0
-CursorLine=143
+CursorLine=15
 JumpList=
 ViMarks=.,0,0,[,0,0,],-1,-1
 
@@ -318,6 +318,6 @@ ViMarks=.,2,36,[,2,31,],2,36
 
 [view-settings,view=0,item:texto.tex]
 CursorColumn=0
-CursorLine=36
+CursorLine=27
 JumpList=
 ViMarks=.,127,0,[,127,0,],127,0

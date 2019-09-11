@@ -92,7 +92,7 @@ pequena execução envolvendo poucos nós computacionais.
    \item A primeira fase do StarVZ levou cerca de 32 minutos para processar.
    \item Tal desempenho pode inviabilizar o uso do StarVZ para cargas de 
 grandes volumes de dados.
-   \item Houve uma tentativa de paralelizar o fluxo do StarVZ com 
+   \item Houve uma tentativa de otimizar o fluxo do StarVZ com 
 \texttt{Drake}, biblioteca cujo foco é executar apenas as fases necessárias de 
 um fluxo de processamento e análise.
   \item Não foi possível otimizar o fluxo com \texttt{Drake}, devido a cache de 
@@ -113,7 +113,6 @@ utilizando ferramentas voltadas para este fim.}
  \frametitle{Hadoop}
  \begin{figure}[H]
   \centerline{\includegraphics[width=1\textwidth]{./img/hadoop-layers.pdf}}
-  \label{fig:hadoop}
  \end{figure}
   \begin{itemize}
   \item Arcabouço que permite o processamento de grandes volumes de dados.
@@ -125,7 +124,6 @@ utilizando ferramentas voltadas para este fim.}
  \frametitle{Spark}
  \begin{figure}[ht]
   \centerline{\includegraphics[width=0.7\textwidth]{./img/spark-arch.pdf}}
-  \label{fig:spark-arch}
   \end{figure}
   \begin{itemize}
   \item \textit{Engine} unificada + conjunto de bibliotecas para processamento 
@@ -139,9 +137,10 @@ de dados distribuídos.
 \begin{frame}
  \frametitle{Abordagem}
  \begin{itemize}
-  \item Otimizar processamento de tabelas.
-  \item Utilizar equivalências entre \texttt{sparklyr} e \texttt{dplyr}, pois o 
-fluxo de processamento do StarVZ é implementado em R.
+  \item Otimizar processamento de tabelas, não o fluxo da aplicação.
+  \item Focado nas ferramentas R, que consistem em \textasciitilde 40\% do 
+tempo total da primeira fase.
+  \item Utilizar equivalências entre \texttt{sparklyr} e \texttt{dplyr}.
   \item Processo foi facilitado pois a \texttt{sparklyr} é baseada na {dplyr}.
  \end{itemize}
 \end{frame}
@@ -150,7 +149,6 @@ fluxo de processamento do StarVZ é implementado em R.
  \frametitle{Fluxo da Aplicação}
  \begin{figure}[H]
  \centerline{\includegraphics[width=1\textwidth]{./img/applicationflow.pdf}}
- \label{fig:spark-starvz-flow}
  \end{figure}
 \end{frame}
 
@@ -170,7 +168,6 @@ fluxo de processamento do StarVZ é implementado em R.
   separate	& ft\_regex\_tokenizer + sdf\_separate\_column       \\
   \bottomrule
   \end{tabular}
-  \label{tab:equivalence}
   \end{table}
 \end{frame}
 
@@ -195,7 +192,6 @@ equivalente ao da original.
   \centerline{
   \includegraphics[scale=0.65]{./img/experiments_arch.pdf}}
   \legend{Organização de ferramentas nos nós.}
-  \label{fig:experiment_arch}
   \end{figure}
 \end{frame}
 
@@ -236,13 +232,12 @@ distribuída.
 \begin{frame}
  \frametitle{Resultados}
  \begin{itemize}
-  \item Speedups de respectivamente 2,10, 3,23 e 3,86x em relação a aplicação 
+  \item Speedups de respectivamente 2,10x, 3,23x e 3,86x em relação a aplicação 
 original.
  \end{itemize}
  \begin{figure}[ht]
   \centerline{
   \includegraphics[width=0.8\textwidth]{./img/total.pdf}}
-  \label{fig:total_full}
   \legend{Teste de escalabilidade.}
   \end{figure}
 \end{frame}
@@ -260,14 +255,11 @@ original.
   Link      	& 8.93   & 4.59   & 3.84   & 3.53 \\
   DAG        	& 69.14  & 10.10  & 7.58   & 6.76 \\
   Entities	& 3.07   & 2.42   & 2.31   & 2.30 \\
-  Events	& 89.87  & 42.68  & 22.65  & 15.91\\
-  GAPS		& 71.51  & 110.83 & 110.83 & 95.22\\
+  Events		& 89.87  & 42.68  & 22.65  & 15.91\\
+  GAPS		& 71.51  & 154.03 & 110.83 & 95.22\\
   Write		& 162.19 & 211.06 & 125.40 & 102.87\\
-  \bottomrule
   \end{tabular}
-  \label{tab:total_step}
   \end{table}
-  
   \begin{itemize}
    \item Quatro grupos identificados nos resultados por etapas.
   \end{itemize}
@@ -287,7 +279,7 @@ foi possível atingir \emph{speedups} totais de:
       \item 3,23x com 2 nós / 30 executores;
       \item 3,86x com 3 nós / 45 executores.
     \end{itemize}
-  \item Portanto, conseguimos otimizar a etapa mais custosa do arcabouço StaVZ.
+  \item Portanto, conseguimos otimizar a etapa mais custosa do arcabouço StarVZ.
   \item Vale salientar que com o formato de execução distribuído, o StarVZ é 
 capaz de processar mais dados do que o tamanho de memória de uma única máquina.
  \end{itemize}
