@@ -470,69 +470,83 @@ md5sum /tmp/AlexandreMiyazak.pdf
 *** Sugestões pontuais
 
 SL1
-- [ ] Nome do orientador: adicionar o Mello entre Lucas e Schnorr
-- [ ] Data: colocar a data inteira na última linha
+- [X] Nome do orientador: adicionar o Mello entre Lucas e Schnorr
+- [X] Data: colocar a data inteira na última linha
+
 
 SL3
-- [ ] Colocar uma figura representativa com duas fases (do StarVZ)
+- [X] Colocar uma figura representativa com duas fases (do StarVZ)
+
+R: Adicionei a Figura em um novo slide pois o slide 3 já é carregado de texto.
 
 SL4
-- [ ] Informar que os logs de 18GB foram com execuções pequenas,
+- [X] Informar que os logs de 18GB foram com execuções pequenas,
   envolvendo poucos nós computacionais
 
+R: Pequena execução que gerou os logs correto? Presumi que seja isso.
+
 SL5
-- [ ] Dar mais ênfase ao objetivo, por exemplo colocando ele de
+- [X] Dar mais ênfase ao objetivo, por exemplo colocando ele de
   maneira centralizada e mais sintética
 
 SL6
-- [ ] Os textos da figura estão demasiadamente pequenos, aumentar a
+- [X] Os textos da figura estão demasiadamente pequenos, aumentar a
   figura.
 
 SL7
-- [ ] Aumentar textos das figuras
+- [X] Aumentar textos das figuras
 - [ ] Explicar melhor o que é o sparklyr
   - Informar por exemplo que o código do StarVZ é modificado minimamente
+R: O próximo slide fala um pouco sobre o sparklyr.
 
 SL8
-- [ ] Texto sobre validação (último item) mover para SL11
+- [X] Texto sobre validação (último item) mover para SL11
 
 SL10
-- [ ] Colocar uma linha na parte inferior da tabela para fechá-la
+- [X] Colocar uma linha na parte inferior da tabela para fechá-la
 
 SL11
-- [ ] Dizer/Escrever qual o objetivo da validação antes de falar do método adotado
+- [X] Dizer/Escrever qual o objetivo da validação antes de falar do método adotado
 - [ ] Enriquecer talvez com uma figura/tabela
   - Mostrar duas tabelas representativas
     - Lado esquerdo: a tabela gerada pela versão seq.
     - Lado direito: a tabela gerada pela versão par.
+
+R: Tendo em vista o objetivo da validação, seriam duas tabelas iguais lado a lado....
+
+
 SL12
-- [ ] Mudar título do slide removendo o termo "Arquitetura"
+- [X] Mudar título do slide removendo o termo "Arquitetura"
   - Colocar por exemplo "Projeto Experimental"
-- [ ] Aumentar figura (veja quanto espaço em branco tem em volta)
+- [X] Aumentar figura (veja quanto espaço em branco tem em volta)
   - Podes centralizar, e colocar um scale do includegraphics maior que 1
   - Com o scale maior, deves fazer um shift para a esquerda com hspace
     negativo do lado esquerdo do includegraphics
-- [ ] Colocar algum texto neste slide
+- [X] Colocar algum texto neste slide
   - Exemplo: arquitetura mestre escravo
   - Exemplo: tipos de elementos que estão contidos na figura
-- [ ] Dizer as especificações técnicas das máquinas utilizadas
-- [ ] Explicitar qual foi o projeto de fato
+- [X] Dizer as especificações técnicas das máquinas utilizadas
+- [X] Explicitar qual foi o projeto de fato
   - A figura ilustra apenas uma versão abstrata do que foi feito
 
+R:  Novo slide para os dois últimos itens
+
 SL13
-- [ ] Colocar um texto que detalha que isto é um teste de
+- [X] Colocar um texto que detalha que isto é um teste de
   escalabilidade (isso pode ficar acima da figura). Ou seja, dar um
   nome para este resultado.
-- [ ] Explicar textualmente as conclusões tiradas (isso pode ficar
+- [X] Explicar textualmente as conclusões tiradas (isso pode ficar
   abaixo da figura e essencialmente é o que tu vais falar, de maneira
   sintética)
 
 SL14
-- [ ] A Figura está muito pequena, e a informação entre tabela e
+- [X] A Figura está muito pequena, e a informação entre tabela e
   figura está repetida. Para melhorar, podes mostrar apenas a tabela,
   falar rapidamente, e depois dizer que é melhor ver com um gráfico.
-- [ ] Ver comentários para o SL13 no contexto de SL14
+- [X] Ver comentários para o SL13 no contexto de SL14
   - Texto antes e depois da figura, dar um nome para este resultado
+
+R: Removi a figura e mantive a tabela. Sobre os quatro grupos, vou falar sobre eles.
 
 SL15
 - [ ] Tem um "OBJETIVO" no título do slide, acho que não deveria
@@ -540,12 +554,18 @@ SL15
   deveria ser uma recontextualização, eventualmente com figuras
   pequenas para que os que assistem lembrem do que foi falado lá no
   início
-- [ ] 
+R: Isso é uma recapitulação do objetivo do trabalho antes da conclusão. Na minha
+época de graduação era uma boa prática (pelo menos pregado pelo meu orientador),
+mas como a apresentação é entre 10 e 15 mins, talvez seja dispensável. Removido
+o slide.
+
 
 SL17
 - "Acabamento ao pacote StarVZ" -> Incorporação (aka merge)
 - "Testes com grandes volumes de dados." -> com volume ainda maior de
   dados
+
+R: OK
 
 SL18
 - Colocar o Mello (ver comentário de SL1)

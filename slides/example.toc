@@ -1,6 +1,6 @@
 \select@language {brazil}
 \beamer@sectionintoc {1}{Introdu\IeC {\c c}\IeC {\~a}o}{3}{0}{1}
-\beamer@sectionintoc {2}{Ferramentas}{6}{0}{2}
-\beamer@sectionintoc {3}{Implementa\IeC {\c c}\IeC {\~a}o}{8}{0}{3}
-\beamer@sectionintoc {4}{Avalia\IeC {\c c}\IeC {\~a}o e Resultados}{12}{0}{4}
-\beamer@sectionintoc {5}{Conclus\IeC {\~a}o}{15}{0}{5}
+\beamer@sectionintoc {2}{Ferramentas}{7}{0}{2}
+\beamer@sectionintoc {3}{Implementa\IeC {\c c}\IeC {\~a}o}{9}{0}{3}
+\beamer@sectionintoc {4}{Avalia\IeC {\c c}\IeC {\~a}o e Resultados}{13}{0}{4}
+\beamer@sectionintoc {5}{Conclus\IeC {\~a}o}{17}{0}{5}

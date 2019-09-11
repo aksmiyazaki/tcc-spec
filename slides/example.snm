@@ -1,8 +1,8 @@
-\beamer@slide {fig:hadoop}{6}
-\beamer@slide {fig:spark-arch}{7}
-\beamer@slide {fig:spark-starvz-flow}{9}
-\beamer@slide {tab:equivalence}{10}
-\beamer@slide {fig:experiment_arch}{12}
-\beamer@slide {fig:total_full}{13}
-\beamer@slide {tab:total_step}{14}
-\beamer@slide {fig:total_step}{14}
+\beamer@slide {fig:hadoop}{4}
+\beamer@slide {fig:hadoop}{7}
+\beamer@slide {fig:spark-arch}{8}
+\beamer@slide {fig:spark-starvz-flow}{10}
+\beamer@slide {tab:equivalence}{11}
+\beamer@slide {fig:experiment_arch}{13}
+\beamer@slide {fig:total_full}{15}
+\beamer@slide {tab:total_step}{16}
