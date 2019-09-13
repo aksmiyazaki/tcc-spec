@@ -25,10 +25,10 @@ Mode=LaTeX
 
 [item:example.tex]
 archive=true
-column=43
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=179
+line=195
 mode=LaTeX
 open=true
 order=0
@@ -44,7 +44,7 @@ open=false
 order=-1
 
 [view-settings,view=0,item:example.tex]
-CursorColumn=43
-CursorLine=179
+CursorColumn=0
+CursorLine=195
 JumpList=
-ViMarks=.,87,21,[,87,21,],87,21
+ViMarks=.,271,51,[,271,51,],271,51

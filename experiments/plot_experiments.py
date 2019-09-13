@@ -95,6 +95,34 @@ def stacked_barplot(df, font_sz, title, save_path = '', colarr=['Sequencial','1 
 
 common_barplot(df, 22, 'Tempo total', '/home/aksmiyazaki/git/tcc-spec/experiments/total.pdf')
 stacked_barplot(df, 22, 'Tempo total por etapa', '/home/aksmiyazaki/git/tcc-spec/experiments/total_step.pdf')
+colarr = ['Sequencial','1 Nó', '2 Nós', '3 Nós']
+N = len(['Sequencial','1 Nó', '2 Nós', '3 Nós'])
+ind = np.arange(N)
+width = 0.5
+current_palette = palettable.colorbrewer.qualitative.Set1_9.mpl_colors
+f = plt.figure()
+
+piv_df = df.pivot(index="Id", columns="Exec", values=["State", "Variable", "Link","DAG","Entities","Events","GAPS","Write"])
+
+dataset1 = piv_df['State'][colarr].mean().to_numpy()
+dataset2 = piv_df['Variable'][colarr].mean().to_numpy()
+dataset3 = piv_df['Link'][colarr].mean().to_numpy()
+dataset4 = piv_df['DAG'][colarr].mean().to_numpy()
+dataset5 = piv_df['Entities'][colarr].mean().to_numpy()
+dataset6 = piv_df['Events'][colarr].mean().to_numpy()
+dataset7 = piv_df['GAPS'][colarr].mean().to_numpy()
+dataset8 = piv_df['Write'][colarr].mean().to_numpy()
+
+p1 = plt.bar(ind, dataset1, width, color=current_palette[0])
+p2 = plt.bar(ind, dataset2, width, bottom=dataset1, color=current_palette[1])
+p3 = plt.bar(ind, dataset3, width, bottom =[sum(x) for x in zip(dataset1,dataset2)], color=current_palette[2])
+p4 = plt.bar(ind, dataset4, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3)], color=current_palette[3])
+p5 = plt.bar(ind, dataset5, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4)], color=current_palette[4])
+p6 = plt.bar(ind, dataset6, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5)], color=current_palette[5])
+p7 = plt.bar(ind, dataset7, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6)], color=current_palette[6])
+p8 = plt.bar(ind, dataset8, width, bottom =[sum(x) for x in zip(dataset1,dataset2,dataset3,dataset4,dataset5,dataset6,dataset7)], color=current_palette[7])
+
+
 
 def stacked_barplot_normalized(df, font_sz, title, save_path = ''):
     N = len(df['Exec'].unique())
