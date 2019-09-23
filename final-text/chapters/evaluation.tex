@@ -2,8 +2,9 @@
 
 Este Capítulo apresenta resultados comparativos da solução desenvolvida com a 
 aplicação original. A Seção \ref{sect:methodology} apresenta detalhes da 
-metodologia de avaliação e a Seção \ref{sect:results} disserta sobre os 
-resultados.
+metodologia de avaliação, a Seção \ref{sect:results} disserta sobre os 
+resultados e a Seção \ref{sect:failures} fala sobre casos de falha encontrados 
+durante os testes.
 
 
 \section{Metodologia de Avaliação} \label{sect:methodology}
@@ -98,12 +99,12 @@ no formato sequencial pois esse arquivo armazena apenas informações de
 plataforma e por isso, costuma não passar da ordem de tamanho de KB. Podemos 
 observar que isso se confirma nesta carga de trabalho.
 
-
 Foram executadas 30 repetições em cada teste, todavia, os experimentos com o 
-Spark apresentaram problemas em algumas execuções. Tivemos 3 testes com 
-problemas ao executar com 15 executores enquanto com 30 e 45, tivemos apenas 
-um. Nesses casos, consideramos apenas aquelas que processaram com sucesso (27, 
-29 e 29 repetições, respectivamente). 
+Spark apresentaram problemas em algumas execuções, discutidos na Seção 
+\ref{sect:failures}. Tivemos 3 testes com problemas ao executar com 15 
+executores enquanto com 30 e 45, tivemos apenas um. Nesses casos, consideramos 
+apenas aquelas que processaram com sucesso (27, 29 e 29 repetições, 
+respectivamente). 
 
 A Figura \ref{fig:total_full} mostra a média do tempo total de execução dos 
 experimentos e o erro padrão no topo da barra (intervalo de confiança 
@@ -207,4 +208,24 @@ sobre o Spark gerou ganhos consideráveis. Há outras diversas avaliações para
 serem realizadas, algumas serão enumeradas no próximo Capítulo.
 
 
+\section{Casos de Falha} \label{sect:failures}
 
+Durante os testes comparativos entre a versão sequencial e a distribuída, 
+ocorreram falhas na execução dos testes. Nos logs da aplicação 
+(\mytexttt{Processo Driver} do Spark), é reportado que não foi possível criar 
+uma conexão Spark. Nos logs do nó mestre não há registros de que houve a 
+recepção de uma requisição para criar a aplicação, o que indica que a conexão 
+efetivamente não foi criada. Devido ao comportamento observado, acreditamos que 
+seja algum recurso que não foi liberado entre execuções, pois o tempo entre 
+finalizar uma execução e iniciar outra é de apenas milissegundos. Para 
+determinar a causa exata do problema, é necessário uma investigação mais 
+aprofundada.
+
+Na parte final do trabalho, foi disponibilizado uma carga de trabalho de 116 
+GB. Ao tentar executar a versão sequencial houve um erro de alocação de memória, 
+o que era esperado tendo em vista que as máquinas possuem apenas 64 GB de 
+memória. Todavia, executando a versão com Spark, ele também não completou a 
+aplicação. Durante o processamento de State, o processo aparentemente trava e é 
+morto por timeout. Não houve tempo durante o trabalho para corrigir os 
+problemas observados e rodar a aplicação com essa carga de trabalho, deixando 
+isso como um item para trabalhos futuros.
