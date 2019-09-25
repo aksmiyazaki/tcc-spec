@@ -456,6 +456,24 @@ Referência ao código feito (no final da intro e conclusão)
 - Colocar um link para o github com as tuas modificações no starvz
 -> OK.
 
+** 2019-09-23 Revisão do TCC após correções solicitadas pela banca
+
+- "Tivemos 3 testes" -> tivemos três testes
+  - Digítos até nove devem ser escritos por extenso
+Sec5.3
+- Inverter frase inicial
+  - "ocorreram falhas na execução dos teste durante os testes ..."
+  - Ocorreram _algumas_ falhas (algo funcionou pelo menos)
+- A palavra "Driver" não respeita a margem direita
+- "investigação mais aprofundada" - complementar: "que deixamos como
+  trabalhos futuros
+- "Na parte final do trabalho" remover
+- "processo aparentemente trava e é morto por timeout' -> ser mais
+  formal; travar pode ser bloquear, morto pode ser encerrado; a
+  palavra timeout pode ser colocar em itálico e ao mesmo tempo
+  traduzida.
+- cuidar separação silábica em pt-br pois há uma separação "dev-ido"
+
 * Apresentação
 ** 2019-09-10 Revisão da Apresentação
 *** PDF
