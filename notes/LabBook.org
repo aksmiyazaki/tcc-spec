@@ -460,13 +460,18 @@ Referência ao código feito (no final da intro e conclusão)
 
 - "Tivemos 3 testes" -> tivemos três testes
   - Digítos até nove devem ser escritos por extenso
+  -> OK
 Sec5.3
 - Inverter frase inicial
   - "ocorreram falhas na execução dos teste durante os testes ..."
+  -> OK
   - Ocorreram _algumas_ falhas (algo funcionou pelo menos)
+  -> OK
 - A palavra "Driver" não respeita a margem direita
+  ->
 - "investigação mais aprofundada" - complementar: "que deixamos como
-  trabalhos futuros
+  trabalhos futuros"
+  -> OK
 - "Na parte final do trabalho" remover
 - "processo aparentemente trava e é morto por timeout' -> ser mais
   formal; travar pode ser bloquear, morto pode ser encerrado; a

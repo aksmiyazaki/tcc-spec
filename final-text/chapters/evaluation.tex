@@ -101,7 +101,7 @@ observar que isso se confirma nesta carga de trabalho.
 
 Foram executadas 30 repetições em cada teste, todavia, os experimentos com o 
 Spark apresentaram problemas em algumas execuções, discutidos na Seção 
-\ref{sect:failures}. Tivemos 3 testes com problemas ao executar com 15 
+\ref{sect:failures}. Tivemos três testes com problemas ao executar com 15 
 executores enquanto com 30 e 45, tivemos apenas um. Nesses casos, consideramos 
 apenas aquelas que processaram com sucesso (27, 29 e 29 repetições, 
 respectivamente). 
@@ -210,22 +210,22 @@ serem realizadas, algumas serão enumeradas no próximo Capítulo.
 
 \section{Casos de Falha} \label{sect:failures}
 
-Durante os testes comparativos entre a versão sequencial e a distribuída, 
-ocorreram falhas na execução dos testes. Nos logs da aplicação 
-(\mytexttt{Processo Driver} do Spark), é reportado que não foi possível criar 
-uma conexão Spark. Nos logs do nó mestre não há registros de que houve a 
-recepção de uma requisição para criar a aplicação, o que indica que a conexão 
-efetivamente não foi criada. Devido ao comportamento observado, acreditamos que 
-seja algum recurso que não foi liberado entre execuções, pois o tempo entre 
-finalizar uma execução e iniciar outra é de apenas milissegundos. Para 
-determinar a causa exata do problema, é necessário uma investigação mais 
-aprofundada.
+Ocorreram algumas falhas de execução durante os testes comparativos entre a 
+versão sequencial e distribuída. Nos logs da aplicação (no \mytexttt{Processo 
+Driver} do Spark), é reportado que não foi possível criar uma conexão Spark. Nos 
+logs do nó mestre não há registros de que houve a recepção de uma requisição 
+para criar a aplicação, o que indica que a conexão efetivamente não foi criada. 
+Devido ao comportamento observado, acreditamos que seja algum recurso que não 
+foi liberado entre execuções, pois o tempo entre finalizar uma execução e 
+iniciar outra é de apenas milissegundos. Para determinar a causa exata do 
+problema, é necessário uma investigação mais aprofundada que deixamos 
+como trabalhos futuros.
 
-Na parte final do trabalho, foi disponibilizado uma carga de trabalho de 116 
-GB. Ao tentar executar a versão sequencial houve um erro de alocação de memória, 
-o que era esperado tendo em vista que as máquinas possuem apenas 64 GB de 
-memória. Todavia, executando a versão com Spark, ele também não completou a 
-aplicação. Durante o processamento de State, o processo aparentemente trava e é 
-morto por timeout. Não houve tempo durante o trabalho para corrigir os 
-problemas observados e rodar a aplicação com essa carga de trabalho, deixando 
-isso como um item para trabalhos futuros.
+Foi disponibilizado uma carga de trabalho de 116 GB. Ao tentar executar a versão 
+sequencial houve um erro de alocação de memória, o que era esperado tendo em 
+vista que as máquinas possuem apenas 64 GB de memória. Todavia, executando a 
+versão com Spark, ele também não completou a aplicação. Durante o processamento 
+de State, o processo é bloqueado e encerrado por \textit{timeout} 
+(expiração de tempo de limite). Não houve tempo durante o trabalho para 
+corrigir os problemas observados e rodar a aplicação com essa carga de 
+trabalho, deixando isso também como um item para trabalhos futuros.
